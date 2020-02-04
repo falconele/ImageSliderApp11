@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_160sdp"
+    android:layout_height="@dimen/_180sdp"
+    android:layout_marginRight="@dimen/_5sdp"
+
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/imgICon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:textColor="@color/txt_border_color"
+                android:id="@+id/tvOffer"
+                style="@style/customlabeloffers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:text="9 % Off"
+                android:textSize="@dimen/_14sdp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5sdp">
+
+            <TextView
+                android:id="@+id/tvDiscountedPrice"
+                style="@style/textview_styles_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs 7000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvOrignalPrice"
+                style="@style/textview_styles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Rs 7000"
+
+                />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/textview_styles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name" />
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
+                <TextView
+                    android:textColor="@color/light_grey"
+                    android:id="@+id/tvUnit"
+                    style="@style/textview_styles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name" />
+                <RelativeLayout
+                    android:id="@+id/relAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="@dimen/margin_5sdp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAdd"
+                        style="@style/customButton"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/add" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/relAddMinusQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="@dimen/margin_5sdp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgMinus"
+                            android:layout_width="@dimen/icons_30sdp"
+                            android:layout_height="@dimen/icons_30sdp"
+                            android:src="@mipmap/ic_launcher_round" />
+
+                        <TextView
+                            android:id="@+id/tvQuantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <ImageView
+                            android:id="@+id/imgAdd"
+                            android:layout_width="@dimen/icons_30sdp"
+                            android:layout_height="@dimen/icons_30sdp"
+                            android:src="@mipmap/ic_launcher_round" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

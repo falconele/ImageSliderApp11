@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboardFrag"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/dashboard_title" />
+
+    <item
+        android:id="@+id/offersFrag"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/offers_title" />
+
+    <item
+        android:id="@+id/myOrdersFrag"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/myorders_title" />
+    <item
+        android:id="@+id/profileFrag"
+        android:icon="@drawable/ic_user"
+        android:title="@string/profile_title" />
+
+</menu>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_10sdp">@dimen/_10sdp</dimen>
+    <dimen name="icons_30sdp">@dimen/_30sdp</dimen>
+    <dimen name="margin_5sdp">@dimen/_5sdp</dimen>
+
+    <dimen name="textsize_12sdp">@dimen/_12sdp</dimen>
+    <dimen name="textsize_13sdp">@dimen/_13sdp</dimen>
+    <dimen name="textsize_14sdp">@dimen/_14sdp</dimen>
+    <dimen name="textsize_15sdp">@dimen/_15sdp</dimen>
+    <dimen name="textsize_16sdp">@dimen/_16sdp</dimen>
+    <dimen name="textsize_17sdp">@dimen/_17sdp</dimen>
+</resources>
