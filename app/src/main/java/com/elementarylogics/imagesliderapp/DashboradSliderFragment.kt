@@ -5,12 +5,16 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import android.widget.Toast
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import com.elementarylogics.expandablerecyclerviewkotlin.ParentRecyclerAdapter
 import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.DummyOffersDataUtil
 import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.OffersRecyclerAdaptor
 import com.elementarylogics.imagesliderapp.dataclases.Product
@@ -28,7 +32,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-class DashboradSliderFragment : Fragment() {
+class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
 
 
     private var imageModelArrayList: ArrayList<ImageModel>? = null
@@ -138,12 +142,24 @@ class DashboradSliderFragment : Fragment() {
         products = DummyOffersDataUtil.getEmployeeListSortedByRole()
         recOffers = view.findViewById(R.id.recOffers)
         offersRecyclerAdaptor = OffersRecyclerAdaptor(products!!, activity!!.applicationContext)
-        recOffers.setLayoutManager(LinearLayoutManager(activity!!.applicationContext,LinearLayoutManager.HORIZONTAL,false))
+        recOffers.setLayoutManager(
+            LinearLayoutManager(
+                activity!!.applicationContext,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+        )
 //        recOffers.setItemAnimator(SlideInUpAnimator())
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(recOffers)
         recOffers.setAdapter(offersRecyclerAdaptor)
 
+
+        recyclerView = view.findViewById(R.id.recyclerview)
+        recyclerView!!.setLayoutManager(LinearLayoutManager(context))
+        recyclerView!!.isNestedScrollingEnabled=true
+        ViewCompat.setNestedScrollingEnabled(recyclerView,false)
+        runAnimation(recyclerView!!, 0)
 
         return view
     }
@@ -165,4 +181,32 @@ class DashboradSliderFragment : Fragment() {
         private var currentPage = 0
         private var NUM_PAGES = 0
     }
+
+
+    //parent child recyclerviews
+    lateinit var adapter: ParentRecyclerAdapter
+    lateinit var recyclerView: RecyclerView
+    override fun onClick(position: Int) {
+        adapter.notifyDataSetChanged()
+        var layoutManager = LinearLayoutManager(activity)
+        layoutManager.scrollToPositionWithOffset(position, 12)
+        recyclerView!!.layoutManager = layoutManager
+//        recyclerView!!.scrollToPosition(position)
+    }
+
+    private fun runAnimation(recyclerView: RecyclerView, type: Int) {
+        val context = recyclerView.context
+        var controller: LayoutAnimationController? = null
+
+        if (type == 0)
+            controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_fall_down)
+
+
+        adapter = ParentRecyclerAdapter(context, this)
+        recyclerView.adapter = adapter
+        recyclerView.layoutAnimation = controller
+        recyclerView.adapter!!.notifyDataSetChanged()
+        recyclerView.scheduleLayoutAnimation()
+    }
+
 }

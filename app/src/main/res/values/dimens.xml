@@ -10,4 +10,7 @@
     <dimen name="textsize_15sdp">@dimen/_15sdp</dimen>
     <dimen name="textsize_16sdp">@dimen/_16sdp</dimen>
     <dimen name="textsize_17sdp">@dimen/_17sdp</dimen>
+
+    <integer name="animation_dur_medium">300</integer>
+
 </resources>

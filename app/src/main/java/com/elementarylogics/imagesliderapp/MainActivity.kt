@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.elementarylogics.expandablerecyclerviewkotlin.ParentRecyclerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 //import androidx.navigation.Navigation
 //import androidx.navigation.ui.NavigationUI
@@ -22,4 +24,6 @@ class MainActivity : FragmentActivity() {
 //        setupActionBarWithNavController(this, navController)
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
     }
+
+
 }

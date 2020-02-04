@@ -14,8 +14,7 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/padding_10sdp"
         android:paddingRight="@dimen/padding_10sdp"
-        android:paddingBottom="@dimen/_5sdp"
-        >
+        android:paddingBottom="@dimen/_5sdp">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -145,10 +144,14 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal" />
                     </RelativeLayout>
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_5sdp" />
 
         </LinearLayout>
     </ScrollView>
