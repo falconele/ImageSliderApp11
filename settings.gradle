@@ -1,0 +1,2 @@
+include ':app', ':meowbottomnavigation'
+rootProject.name='ImageSliderApp'
