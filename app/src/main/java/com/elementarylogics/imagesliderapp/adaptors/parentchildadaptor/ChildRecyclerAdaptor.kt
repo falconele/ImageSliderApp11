@@ -17,7 +17,7 @@ class ChildRecyclerAdaptor : RecyclerView.Adapter<ChildRecyclerAdaptor.SimpleVie
     init {
         dataSource = ArrayList()
 
-        for (i in 0..50) {
+        for (i in 0..10) {
             dataSource.add(i)
         }
     }

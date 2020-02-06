@@ -21,9 +21,14 @@ import com.elementarylogics.imagesliderapp.dataclases.Product
 import com.example.parsaniahardik.kotlin_image_slider.ImageModel
 import com.example.parsaniahardik.kotlin_image_slider.SlidingImage_Adapter
 import com.viewpagerindicator.CirclePageIndicator
+import kotlinx.android.synthetic.main.fragment_dashborad_slider.*
 import kotlinx.android.synthetic.main.fragment_dashborad_slider.view.*
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.concurrent.schedule
+import android.util.DisplayMetrics
+
+
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -157,8 +162,8 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
 
         recyclerView = view.findViewById(R.id.recyclerview)
         recyclerView!!.setLayoutManager(LinearLayoutManager(context))
-        recyclerView!!.isNestedScrollingEnabled=true
-        ViewCompat.setNestedScrollingEnabled(recyclerView,false)
+        recyclerView!!.isNestedScrollingEnabled = false
+//        ViewCompat.setNestedScrollingEnabled(recyclerView, true)
         runAnimation(recyclerView!!, 0)
 
         return view
@@ -187,11 +192,35 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
     lateinit var adapter: ParentRecyclerAdapter
     lateinit var recyclerView: RecyclerView
     override fun onClick(position: Int) {
+
+//        var layoutManager = LinearLayoutManager(context)
+////
+//        layoutManager.scrollToPositionWithOffset(position, 12)
+//        recyclerView!!.layoutManager = layoutManager
+
+
+//        Toast.makeText(context,recyclerView.getChildAt(position).x.toString()+"   "+ recyclerView.getChildAt(position).y.toString(), Toast.LENGTH_SHORT).show()
         adapter.notifyDataSetChanged()
-        var layoutManager = LinearLayoutManager(activity)
-        layoutManager.scrollToPositionWithOffset(position, 12)
-        recyclerView!!.layoutManager = layoutManager
+        moveToPosition(position)
+
+
+//        recyclerView.smoothScrollToPosition(position)
+//        scrollView.scrollTo(0, y.toInt())
 //        recyclerView!!.scrollToPosition(position)
+
+
+    }
+
+    fun moveToPosition(position: Int) {
+        Timer("SettingUp", false).schedule(500) {
+
+            val displayMetrics = DisplayMetrics()
+            activity!!.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics)
+            val height = (displayMetrics.heightPixels/2)-linHeader.height
+            val y = height + recyclerView.getChildAt(position).bottom
+            scrollView.smoothScrollTo(0, y.toInt())
+//            Toast.makeText(context, "moved", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun runAnimation(recyclerView: RecyclerView, type: Int) {
@@ -204,9 +233,9 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
 
         adapter = ParentRecyclerAdapter(context, this)
         recyclerView.adapter = adapter
-        recyclerView.layoutAnimation = controller
+        //recyclerView.layoutAnimation = controller
         recyclerView.adapter!!.notifyDataSetChanged()
-        recyclerView.scheduleLayoutAnimation()
+       // recyclerView.scheduleLayoutAnimation()
     }
 
 }

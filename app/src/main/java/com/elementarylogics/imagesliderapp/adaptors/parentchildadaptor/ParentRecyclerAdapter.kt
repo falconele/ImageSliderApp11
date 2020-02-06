@@ -30,7 +30,7 @@ class ParentRecyclerAdapter(context: Context, fragment: DashboradSliderFragment)
         dataSource = ArrayList()
         dataSource2 = ArrayList()
         for (i in 0..50) {
-            for (j in 0..20)
+            for (j in 0..50)
                 dataSource2.add(j)
             dataSource.add(i)
         }
