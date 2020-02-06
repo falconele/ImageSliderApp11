@@ -236,6 +236,8 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
         //recyclerView.layoutAnimation = controller
         recyclerView.adapter!!.notifyDataSetChanged()
        // recyclerView.scheduleLayoutAnimation()
+
+        //some new line added
     }
 
 }
