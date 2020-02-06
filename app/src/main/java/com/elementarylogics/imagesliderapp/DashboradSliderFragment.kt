@@ -238,6 +238,7 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
        // recyclerView.scheduleLayoutAnimation()
 
         //some new line added
+        //some new line added
     }
 
 }
