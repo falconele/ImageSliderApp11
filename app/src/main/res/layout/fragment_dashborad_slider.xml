@@ -54,6 +54,7 @@
                 android:id="@+id/etSearchProduct"
                 style="@style/customTextInputs"
                 android:layout_width="match_parent"
+                android:background="@drawable/edittext_rec_corner_bg"
                 android:layout_height="@dimen/_30sdp"
                 android:cursorVisible="false"
                 android:focusable="false"
@@ -76,6 +77,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"

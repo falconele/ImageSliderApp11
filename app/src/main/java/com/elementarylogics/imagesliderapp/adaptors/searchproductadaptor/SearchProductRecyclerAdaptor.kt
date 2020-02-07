@@ -1,5 +1,4 @@
-package com.elementarylogics.imagesliderapp.adaptors.offersAdaptor
-
+package com.elementarylogics.imagesliderapp.adaptors.searchproductadaptor
 
 import android.content.Context
 import android.graphics.Paint
@@ -7,16 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.elementarylogics.imagesliderapp.R
+import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.DiffUtilOffers
 import com.elementarylogics.imagesliderapp.dataclases.Product
 import com.squareup.picasso.Picasso
-import java.util.*
-import kotlin.concurrent.schedule
+import java.util.ArrayList
 
-
-class OffersRecyclerAdaptor : RecyclerView.Adapter<OffersRecyclerAdaptor.ViewHolder> {
+class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerAdaptor.ViewHolder> {
 
     public lateinit var mEmployees: ArrayList<Product>
     lateinit var context: Context
@@ -30,7 +29,7 @@ class OffersRecyclerAdaptor : RecyclerView.Adapter<OffersRecyclerAdaptor.ViewHol
     override
     fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_offers_rec, parent, false)
+        val view = inflater.inflate(R.layout.products_list_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -39,15 +38,17 @@ class OffersRecyclerAdaptor : RecyclerView.Adapter<OffersRecyclerAdaptor.ViewHol
         val employee = mEmployees[position]
 
 
-        holder.tvOffer.setText(employee.off)
+        holder.tvProductName.setText(employee.off)
         Picasso.get().load(employee.imgProductPath).centerCrop()
             .error(R.drawable.ic_home_black_24dp)
-        holder.tvDiscountedPrice.setText(employee.discountedPrice)
-        holder.tvOrignalPrice.setText(employee.priceOrigonal)
-        holder.tvOrignalPrice.setPaintFlags(holder.tvOrignalPrice.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG)
-        holder.tvName.setText(employee.name)
-        holder.tvUnit.setText(employee.unit)
+        holder.tvPrice.setText(employee.priceOrigonal)
+//        holder.imgDeliveryStatus.setText(employee.priceOrigonal)
+
+        holder.ProductWeight.setText(employee.unit)
         holder.tvQuantity.setText(employee.itemQuantity.toString())
+        holder.tvDeliveryStatus.setText(employee.deliveryTime)
+
+
         holder.btnAdd.setOnClickListener(View.OnClickListener {
             Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
             holder.relAdd.visibility = View.GONE
@@ -62,6 +63,9 @@ class OffersRecyclerAdaptor : RecyclerView.Adapter<OffersRecyclerAdaptor.ViewHol
         holder.imgMinus.setOnClickListener(View.OnClickListener {
             Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
             holder.tvQuantity.setText(employee.itemQuantity++.toString())
+        })
+        holder.imgDetail.setOnClickListener(View.OnClickListener {
+
         })
     }
 
@@ -102,37 +106,44 @@ class OffersRecyclerAdaptor : RecyclerView.Adapter<OffersRecyclerAdaptor.ViewHol
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvOffer: TextView
-        val tvUnit: TextView
-        val tvName: TextView
+
+        val cardProductListItem:CardView
+        val tvProductName: TextView
+        val imgDetail: ImageView
+        val ProductWeight: TextView
         val imgIcon: ImageView
         val imgAdd: ImageView
         val imgMinus: ImageView
         val btnAdd: Button
-        val tvDiscountedPrice: TextView
-        val tvOrignalPrice: TextView
+        val tvPrice: TextView
+        val imgDeliveryStatus: ImageView
         val relAdd: RelativeLayout
         val relAddMinus: RelativeLayout
         val tvQuantity: TextView
+        val tvDeliveryStatus:TextView
 
 
         init {
-            tvUnit = itemView.findViewById(R.id.tvUnit)
-            tvName = itemView.findViewById(R.id.tvName)
-            imgIcon = itemView.findViewById(R.id.imgICon) as ImageView
+            cardProductListItem=itemView.findViewById(R.id.cardProductListItem)
+
+            imgDetail = itemView.findViewById(R.id.tvUnit)
+            ProductWeight = itemView.findViewById(R.id.tvName)
+            imgIcon = itemView.findViewById(R.id.imgIcon) as ImageView
 
             imgAdd = itemView.findViewById(R.id.imgAdd)
             imgMinus = itemView.findViewById(R.id.imgMinus)
 
-            tvOffer = itemView.findViewById(R.id.tvOffer)
-            tvDiscountedPrice = itemView.findViewById(R.id.tvDiscountedPrice)
-            tvOrignalPrice = itemView.findViewById(R.id.tvOrignalPrice)
+            tvProductName = itemView.findViewById(R.id.tvOffer)
+            tvPrice = itemView.findViewById(R.id.tvDiscountedPrice)
+            imgDeliveryStatus = itemView.findViewById(R.id.tvOrignalPrice)
             btnAdd = itemView.findViewById(R.id.btnAdd)
 
             relAdd = itemView.findViewById(R.id.relAdd)
             relAddMinus = itemView.findViewById(R.id.relAddMinusQuantity)
 
             tvQuantity = itemView.findViewById(R.id.tvQuantity)
+
+            tvDeliveryStatus=itemView.findViewById(R.id.tvDeliveryStatus)
 
         }
     }

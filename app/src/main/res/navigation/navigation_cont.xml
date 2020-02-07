@@ -8,7 +8,17 @@
     <fragment
         android:id="@+id/dashboardFrag"
         android:name="com.elementarylogics.imagesliderapp.DashboradSliderFragment"
-        tools:layout="@layout/fragment_dashborad_slider"></fragment>
+        tools:layout="@layout/fragment_dashborad_slider">
+        <action
+            android:id="@+id/moveToSaleFragment"
+            app:destination="@+id/salesFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim">
+
+        </action>
+
+
+    </fragment>
     <fragment
         android:id="@+id/offersFrag"
         android:name="com.elementarylogics.imagesliderapp.OffersSliderFragment"
@@ -23,4 +33,21 @@
         android:id="@+id/profileFrag"
         android:name="com.elementarylogics.imagesliderapp.ProfileSliderFragment"
         tools:layout="@layout/fragment_profile_slider"></fragment>
+
+    <fragment
+        android:id="@+id/salesFragment"
+        android:name="com.elementarylogics.imagesliderapp.SalesFragment"
+        tools:layout="@layout/fragment_sales">
+        <argument
+            android:name="id"
+            android:defaultValue="@string/app_name"
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="title"
+            android:defaultValue="@string/app_name"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+
 </navigation>

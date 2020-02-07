@@ -17,13 +17,19 @@ import java.util.*
  */
 class SlidingImage_Adapter(
     private val context: Context,
-    private val imageModelArrayList: ArrayList<ImageModel>
+    private val imageModelArrayList: ArrayList<ImageModel>,saleItemClickListener: SaleItemClickListener
 ) : PagerAdapter() {
     private val inflater: LayoutInflater
-
+    lateinit var saleItemClickListener: SaleItemClickListener
 
     init {
         inflater = LayoutInflater.from(context)
+        this.saleItemClickListener=saleItemClickListener
+    }
+
+
+   public interface SaleItemClickListener {
+        fun onSalesItemClickListner(position: Int)
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
@@ -43,7 +49,7 @@ class SlidingImage_Adapter(
 
         imageView.setImageResource(imageModelArrayList[position].getImage_drawables())
         imageView.setOnClickListener(View.OnClickListener {
-            Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+            saleItemClickListener.onSalesItemClickListner(position)
         })
 
         view.addView(imageLayout, 0)

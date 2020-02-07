@@ -2,6 +2,8 @@
 <resources>
     <dimen name="padding_10sdp">@dimen/_10sdp</dimen>
     <dimen name="icons_30sdp">@dimen/_30sdp</dimen>
+    <dimen name="icons_15sdp">@dimen/_15sdp</dimen>
+
     <dimen name="margin_5sdp">@dimen/_5sdp</dimen>
 
     <dimen name="textsize_12sdp">@dimen/_12sdp</dimen>

@@ -5,9 +5,11 @@ data class Product(
     val name: String,
     val priceOrigonal: String,
     val discountedPrice: String,
-    val unit: String,
-    val off: String,
-    val deliveryType: String,
-    val imgProductPath: String,
-    var itemQuantity: Int=0
+    val unit: String = "",
+    val off: String = "",
+    val deliveryType: String = "",
+    val imgProductPath: String = "",
+    var itemQuantity: Int = 0,
+    var imgDeliveryStatus: String = "",
+    var deliveryTime: String
 )

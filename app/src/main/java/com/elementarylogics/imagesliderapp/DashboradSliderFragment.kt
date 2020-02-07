@@ -1,34 +1,36 @@
 package com.elementarylogics.imagesliderapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import android.widget.Toast
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.elementarylogics.expandablerecyclerviewkotlin.ParentRecyclerAdapter
+import com.elementarylogics.imagesliderapp.activities.SearchProductActivity
 import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.DummyOffersDataUtil
 import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.OffersRecyclerAdaptor
 import com.elementarylogics.imagesliderapp.dataclases.Product
 import com.example.parsaniahardik.kotlin_image_slider.ImageModel
 import com.example.parsaniahardik.kotlin_image_slider.SlidingImage_Adapter
+import com.example.parsaniahardik.kotlin_image_slider.SlidingImage_Adapter.SaleItemClickListener
+import com.google.android.material.textfield.TextInputEditText
 import com.viewpagerindicator.CirclePageIndicator
 import kotlinx.android.synthetic.main.fragment_dashborad_slider.*
 import kotlinx.android.synthetic.main.fragment_dashborad_slider.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
-import android.util.DisplayMetrics
-
-
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -64,10 +66,25 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
         return list
     }
 
+    val onsaleItemClcikListener: SaleItemClickListener = object : SaleItemClickListener {
+        override fun onSalesItemClickListner(position: Int) {
+            Toast.makeText(context, position.toString() + " Sale Clicked", Toast.LENGTH_SHORT)
+                .show()
+
+            val action = DashboradSliderFragmentDirections.MoveToSaleFragment()
+            action.setId(position.toString())
+            action.setTitle(position.toString() + " Sale Clicked")
+            NavHostFragment.findNavController(this@DashboradSliderFragment).navigate(action)
+        }
+
+    }
+
+
     private fun init(view: View) {
 
         mPager = view.findViewById(R.id.pager) as ViewPager
-        mPager!!.adapter = SlidingImage_Adapter(activity!!, this.imageModelArrayList!!)
+        mPager!!.adapter =
+            SlidingImage_Adapter(activity!!, this.imageModelArrayList!!, onsaleItemClcikListener)
 
         val indicator = view.findViewById(R.id.indicator) as CirclePageIndicator
 
@@ -130,6 +147,8 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
 
     var products: ArrayList<Product> = ArrayList()
 
+    lateinit var etSearchProduct: TextInputEditText
+   val SEARCH_PROD_REQ_CODE = 110
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -165,6 +184,21 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
         recyclerView!!.isNestedScrollingEnabled = false
 //        ViewCompat.setNestedScrollingEnabled(recyclerView, true)
         runAnimation(recyclerView!!, 0)
+
+//        btna.setOnClickListener(View.OnClickListener {
+//
+//            offersRecyclerAdaptor.itemchanged(3)
+//
+//        })
+//
+
+        etSearchProduct = view.findViewById(R.id.etSearchProduct)
+        etSearchProduct.setOnClickListener(View.OnClickListener {
+
+            val intent = Intent(activity, SearchProductActivity::class.java)
+            startActivityForResult(intent, SEARCH_PROD_REQ_CODE)
+
+        })
 
         return view
     }
@@ -216,7 +250,7 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
 
             val displayMetrics = DisplayMetrics()
             activity!!.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics)
-            val height = (displayMetrics.heightPixels/2)-linHeader.height
+            val height = (displayMetrics.heightPixels / 2) - linHeader.height
             val y = height + recyclerView.getChildAt(position).bottom
             scrollView.smoothScrollTo(0, y.toInt())
 //            Toast.makeText(context, "moved", Toast.LENGTH_SHORT).show()
@@ -235,7 +269,7 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
         recyclerView.adapter = adapter
         //recyclerView.layoutAnimation = controller
         recyclerView.adapter!!.notifyDataSetChanged()
-       // recyclerView.scheduleLayoutAnimation()
+        // recyclerView.scheduleLayoutAnimation()
 
         //some new line added
         //some new line added
