@@ -1,7 +1,6 @@
 package com.elementarylogics.imagesliderapp.adaptors.searchproductadaptor
 
 import android.content.Context
-import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +45,7 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
 
         holder.ProductWeight.setText(employee.unit)
         holder.tvQuantity.setText(employee.itemQuantity.toString())
-        holder.tvDeliveryStatus.setText(employee.deliveryTime)
+        holder.tvDeliveryTime.setText(employee.deliveryTime)
 
 
         holder.btnAdd.setOnClickListener(View.OnClickListener {
@@ -120,7 +119,7 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
         val relAdd: RelativeLayout
         val relAddMinus: RelativeLayout
         val tvQuantity: TextView
-        val tvDeliveryStatus:TextView
+        val tvDeliveryTime:TextView
 
 
         init {
@@ -143,7 +142,7 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
 
             tvQuantity = itemView.findViewById(R.id.tvQuantity)
 
-            tvDeliveryStatus=itemView.findViewById(R.id.tvDeliveryStatus)
+            tvDeliveryTime=itemView.findViewById(R.id.tvDeliveryTime)
 
         }
     }

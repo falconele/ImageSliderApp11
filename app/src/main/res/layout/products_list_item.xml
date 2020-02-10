@@ -170,7 +170,7 @@
                         android:background="@color/black" />
 
                     <TextView
-                        android:id="@+id/tvDeliveryStatus"
+                        android:id="@+id/tvDeliveryTime"
                         style="@style/textview_styles"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
