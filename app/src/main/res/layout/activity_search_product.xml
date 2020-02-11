@@ -76,30 +76,31 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_5sdp">
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_5sdp">
 
         <TextView
-            android:textAllCaps="false"
-            style="@style/textview_styles"
+
             android:id="@+id/tvIteamCount"
+            style="@style/textview_styles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="@string/please_wait" />
+            android:text="@string/please_wait"
+             />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
-            android:layout_below="@+id/tvIteamCount"
-            android:layout_marginTop="@dimen/_6sdp"
+
+            android:layout_alignParentBottom="true"
             android:background="@color/light_grey" />
 
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        tools:listitem="@layout/products_list_item"
         android:id="@+id/recSearchProduct"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/products_list_item" />
 </LinearLayout>

@@ -14,5 +14,7 @@
     <color name="txt_bg_color">#99ccee</color>
 
     <color name="light_grey">#cccccc</color>
+    <color name="dark_grey">#7c7f7a</color>
+    <color name="grey_ligt_black">#787878</color>
 
 </resources>

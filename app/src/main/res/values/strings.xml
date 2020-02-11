@@ -14,4 +14,5 @@
     <!--    search product-->
     <string name="hint_search_product">Search product</string>
     <string name="please_wait">Please wait</string>
+    <string name="results_found">Results found</string>
 </resources>

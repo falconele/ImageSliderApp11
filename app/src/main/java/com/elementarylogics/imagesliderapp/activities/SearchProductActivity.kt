@@ -3,26 +3,36 @@ package com.elementarylogics.imagesliderapp.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.elementarylogics.expandablerecyclerviewkotlin.ParentRecyclerAdapter
 import com.elementarylogics.imagesliderapp.R
+import com.elementarylogics.imagesliderapp.adaptors.searchproductadaptor.SearchProductRecyclerAdaptor
+import com.elementarylogics.imagesliderapp.utils.Utility
 import kotlinx.android.synthetic.main.activity_search_product.*
 
-class SearchProductActivity : AppCompatActivity() {
+class SearchProductActivity : AppCompatActivity(), SearchProductRecyclerAdaptor.ItemClickListner {
+    override fun onItemClicklistner(position: Int) {
+        val intent = Intent(this, ProductDetailActivity::class.java)
+        startActivity(intent)
+    }
 
-    lateinit var recSearchProduct:RecyclerView
+    lateinit var recSearchProduct: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_product)
-        recSearchProduct=findViewById(R.id.recSearchProduct)
+        tvIteamCount.setText(Utility.productList.size.toString() + " " + getString(R.string.results_found))
+        recSearchProduct = findViewById(R.id.recSearchProduct)
         recSearchProduct!!.setLayoutManager(LinearLayoutManager(applicationContext))
+        recSearchProduct.addItemDecoration(
+            DividerItemDecoration(
+                applicationContext,
+                LinearLayoutManager.VERTICAL
+            )
+        )
         runAnimation(recSearchProduct!!)
-
 
         imgBack.setOnClickListener(View.OnClickListener {
             setResultsFun()
@@ -32,19 +42,14 @@ class SearchProductActivity : AppCompatActivity() {
         })
 
 
-
-
     }
 
-
+    lateinit var adapter: SearchProductRecyclerAdaptor
     private fun runAnimation(recyclerView: RecyclerView) {
 
 
-
-
-
-//        adapter = ParentRecyclerAdapter(context, this)
-//        recSearchProduct.adapter = adapter
+        adapter = SearchProductRecyclerAdaptor(Utility.productList, this, this)
+        recSearchProduct.adapter = adapter
 //        //recyclerView.layoutAnimation = controller
 //        recSearchProduct.adapter!!.notifyDataSetChanged()
         // recyclerView.scheduleLayoutAnimation()

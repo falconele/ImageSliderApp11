@@ -41,7 +41,9 @@ class DummyOffersDataUtil {
                     "7 % Off",
                     "Same Day Deliver",
                     "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
-                    0
+                    0,
+                    "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
+                    "On Same Day Delivery"
                 )
             )
             employees.add(
@@ -54,7 +56,9 @@ class DummyOffersDataUtil {
                     "7 % Off",
                     "Same Day Deliver",
                     "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
-                    0
+                    0,
+                    "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
+                    "On Same Day Delivery"
                 )
             )
             employees.add(
@@ -67,7 +71,9 @@ class DummyOffersDataUtil {
                     "7 % Off",
                     "Same Day Deliver",
                     "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
-                    0
+                    0,
+                    "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
+                    "On Same Day Delivery"
                 )
             )
             employees.add(
@@ -81,7 +87,9 @@ class DummyOffersDataUtil {
                     "Same Day Deliver"
                     ,
                     "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
-                    0
+                    0,
+                    "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
+                    "On Same Day Delivery"
                 )
             )
             employees.add(
@@ -94,7 +102,9 @@ class DummyOffersDataUtil {
                     "7 % Off",
                     "Same Day Deliver",
                     "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
-                    0
+                    0,
+                    "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
+                    "On Same Day Delivery"
                 )
             )
             employees.add(
@@ -107,7 +117,9 @@ class DummyOffersDataUtil {
                     "7 % Off",
                     "Same Day Deliver",
                     "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
-                    0
+                    0,
+                    "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
+                    "On Same Day Delivery"
                 )
             )
             employees.add(
@@ -120,7 +132,9 @@ class DummyOffersDataUtil {
                     "7 % Off",
                     "Same Day Deliver",
                     "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
-                    0
+                    0,
+                    "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
+                    "On Same Day Delivery"
                 )
             )
             employees.add(
@@ -133,7 +147,9 @@ class DummyOffersDataUtil {
                     "7 % Off",
                     "Same Day Deliver",
                     "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
-                    0
+                    0,
+                    "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
+                    "On Same Day Delivery"
                 )
             )
             employees.add(
@@ -146,7 +162,9 @@ class DummyOffersDataUtil {
                     "7 % Off",
                     "Same Day Deliver",
                     "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
-                    0
+                    0,
+                    "https://www.google.com/search?q=fashion+images+hd&sxsrf=ACYBGNQo2rbBPEd9HtP5MULeGDLxzW0Nrw:1576824213761&tbm=isch&source=iu&ictx=1&fir=vKDYp_NKJ3axOM%253A%252CnQ3LcCwXurLB2M%252C_&vet=1&usg=AI4_-kS4J_V6bUjlnMa4JgXy55GhbLJk9A&sa=X&ved=2ahUKEwidlon5z8PmAhUPrxoKHUKhDYEQ9QEwB3oECAoQPA#imgrc=Mvz_ACXtcDOZIM:&vet=1",
+                    "On Same Day Delivery"
                 )
             )
             return employees

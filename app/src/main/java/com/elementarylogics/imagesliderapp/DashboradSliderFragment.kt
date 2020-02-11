@@ -21,6 +21,7 @@ import com.elementarylogics.imagesliderapp.activities.SearchProductActivity
 import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.DummyOffersDataUtil
 import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.OffersRecyclerAdaptor
 import com.elementarylogics.imagesliderapp.dataclases.Product
+import com.elementarylogics.imagesliderapp.utils.Utility
 import com.example.parsaniahardik.kotlin_image_slider.ImageModel
 import com.example.parsaniahardik.kotlin_image_slider.SlidingImage_Adapter
 import com.example.parsaniahardik.kotlin_image_slider.SlidingImage_Adapter.SaleItemClickListener
@@ -145,7 +146,7 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
     lateinit var recOffers: RecyclerView
     lateinit var offersRecyclerAdaptor: OffersRecyclerAdaptor
 
-    var products: ArrayList<Product> = ArrayList()
+//    var products: ArrayList<Product> = ArrayList()
 
     lateinit var etSearchProduct: TextInputEditText
    val SEARCH_PROD_REQ_CODE = 110
@@ -163,9 +164,9 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
         })
         init(view)
 
-        products = DummyOffersDataUtil.getEmployeeListSortedByRole()
+        Utility.productList = DummyOffersDataUtil.getEmployeeListSortedByRole()
         recOffers = view.findViewById(R.id.recOffers)
-        offersRecyclerAdaptor = OffersRecyclerAdaptor(products!!, activity!!.applicationContext)
+        offersRecyclerAdaptor = OffersRecyclerAdaptor(Utility.productList, activity!!.applicationContext)
         recOffers.setLayoutManager(
             LinearLayoutManager(
                 activity!!.applicationContext,
@@ -180,8 +181,8 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
 
 
         recyclerView = view.findViewById(R.id.recyclerview)
-        recyclerView!!.setLayoutManager(LinearLayoutManager(context))
-        recyclerView!!.isNestedScrollingEnabled = false
+        recyclerView.setLayoutManager(LinearLayoutManager(context))
+        recyclerView.isNestedScrollingEnabled = false
 //        ViewCompat.setNestedScrollingEnabled(recyclerView, true)
         runAnimation(recyclerView!!, 0)
 

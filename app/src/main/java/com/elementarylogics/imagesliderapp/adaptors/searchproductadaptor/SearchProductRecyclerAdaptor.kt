@@ -12,16 +12,27 @@ import com.elementarylogics.imagesliderapp.R
 import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.DiffUtilOffers
 import com.elementarylogics.imagesliderapp.dataclases.Product
 import com.squareup.picasso.Picasso
-import java.util.ArrayList
+import java.util.*
 
 class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerAdaptor.ViewHolder> {
 
     public lateinit var mEmployees: ArrayList<Product>
     lateinit var context: Context
+    lateinit var itemClickListner: ItemClickListner
 
-    constructor(employeeList: ArrayList<Product>, context: Context) {
+    constructor(
+        employeeList: ArrayList<Product>,
+        context: Context,
+        itemClickListner: ItemClickListner
+    ) {
         this.mEmployees = employeeList
         this.context = context
+        this.itemClickListner = itemClickListner
+
+    }
+
+    interface ItemClickListner {
+        fun onItemClicklistner(position: Int)
     }
 
 
@@ -37,7 +48,7 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
         val employee = mEmployees[position]
 
 
-        holder.tvProductName.setText(employee.off)
+        holder.tvProductName.setText(employee.name)
         Picasso.get().load(employee.imgProductPath).centerCrop()
             .error(R.drawable.ic_home_black_24dp)
         holder.tvPrice.setText(employee.priceOrigonal)
@@ -64,7 +75,10 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
             holder.tvQuantity.setText(employee.itemQuantity++.toString())
         })
         holder.imgDetail.setOnClickListener(View.OnClickListener {
-
+            itemClickListner.onItemClicklistner(position)
+        })
+        holder.cardProductListItem.setOnClickListener(View.OnClickListener {
+            itemClickListner.onItemClicklistner(position)
         })
     }
 
@@ -106,7 +120,7 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val cardProductListItem:CardView
+        val cardProductListItem: CardView
         val tvProductName: TextView
         val imgDetail: ImageView
         val ProductWeight: TextView
@@ -119,22 +133,22 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
         val relAdd: RelativeLayout
         val relAddMinus: RelativeLayout
         val tvQuantity: TextView
-        val tvDeliveryTime:TextView
+        val tvDeliveryTime: TextView
 
 
         init {
-            cardProductListItem=itemView.findViewById(R.id.cardProductListItem)
+            cardProductListItem = itemView.findViewById(R.id.cardProductListItem)
 
-            imgDetail = itemView.findViewById(R.id.tvUnit)
-            ProductWeight = itemView.findViewById(R.id.tvName)
+            imgDetail = itemView.findViewById(R.id.imgDetail)
+            ProductWeight = itemView.findViewById(R.id.tvProductWeight)
             imgIcon = itemView.findViewById(R.id.imgIcon) as ImageView
 
             imgAdd = itemView.findViewById(R.id.imgAdd)
             imgMinus = itemView.findViewById(R.id.imgMinus)
 
-            tvProductName = itemView.findViewById(R.id.tvOffer)
-            tvPrice = itemView.findViewById(R.id.tvDiscountedPrice)
-            imgDeliveryStatus = itemView.findViewById(R.id.tvOrignalPrice)
+            tvProductName = itemView.findViewById(R.id.tvProductName)
+            tvPrice = itemView.findViewById(R.id.tvPrice)
+            imgDeliveryStatus = itemView.findViewById(R.id.imgDeliveryTime)
             btnAdd = itemView.findViewById(R.id.btnAdd)
 
             relAdd = itemView.findViewById(R.id.relAdd)
@@ -142,7 +156,7 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
 
             tvQuantity = itemView.findViewById(R.id.tvQuantity)
 
-            tvDeliveryTime=itemView.findViewById(R.id.tvDeliveryTime)
+            tvDeliveryTime = itemView.findViewById(R.id.tvDeliveryTime)
 
         }
     }
