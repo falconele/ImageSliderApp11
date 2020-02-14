@@ -9,23 +9,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.elementarylogics.expandablerecyclerviewkotlin.ParentRecyclerAdapter
-import com.elementarylogics.imagesliderapp.activities.SearchProductActivity
+import com.elementarylogics.imagesliderapp.activities.MyCartActivity
+import com.elementarylogics.imagesliderapp.activities.ProductListingActivity
+import com.elementarylogics.imagesliderapp.activities.searchproduct.SearchProductActivity
 import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.DummyOffersDataUtil
 import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.OffersRecyclerAdaptor
-import com.elementarylogics.imagesliderapp.dataclases.Product
 import com.elementarylogics.imagesliderapp.utils.Utility
 import com.example.parsaniahardik.kotlin_image_slider.ImageModel
 import com.example.parsaniahardik.kotlin_image_slider.SlidingImage_Adapter
 import com.example.parsaniahardik.kotlin_image_slider.SlidingImage_Adapter.SaleItemClickListener
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.viewpagerindicator.CirclePageIndicator
 import kotlinx.android.synthetic.main.fragment_dashborad_slider.*
 import kotlinx.android.synthetic.main.fragment_dashborad_slider.view.*
@@ -41,6 +44,12 @@ private const val ARG_PARAM2 = "param2"
 
 
 class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
+    override fun onChildItemClick(position: Int) {
+//        Toast.makeText(context,position.toString()+"Child Click",Toast.LENGTH_SHORT).show()
+        val intent = Intent(activity, ProductListingActivity::class.java)
+        intent.putExtra("offers", true)
+        startActivityForResult(intent, SEARCH_PROD_REQ_CODE)
+    }
 
 
     private var imageModelArrayList: ArrayList<ImageModel>? = null
@@ -72,10 +81,14 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
             Toast.makeText(context, position.toString() + " Sale Clicked", Toast.LENGTH_SHORT)
                 .show()
 
-            val action = DashboradSliderFragmentDirections.MoveToSaleFragment()
-            action.setId(position.toString())
-            action.setTitle(position.toString() + " Sale Clicked")
-            NavHostFragment.findNavController(this@DashboradSliderFragment).navigate(action)
+//            val action = DashboradSliderFragmentDirections.MoveToSaleFragment()
+//            action.setId(position.toString())
+//            action.setTitle(position.toString() + " Sale Clicked")
+//            NavHostFragment.findNavController(this@DashboradSliderFragment).navigate(action)
+
+            val intent = Intent(activity, ProductListingActivity::class.java)
+            startActivityForResult(intent, PRODUCT_LISTING_REQ_CODE)
+
         }
 
     }
@@ -144,12 +157,15 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
     }
 
     lateinit var recOffers: RecyclerView
+    lateinit var btnSeeAllOffers: Button
+    lateinit var imgCart: ImageView
     lateinit var offersRecyclerAdaptor: OffersRecyclerAdaptor
 
 //    var products: ArrayList<Product> = ArrayList()
 
     lateinit var etSearchProduct: TextInputEditText
-   val SEARCH_PROD_REQ_CODE = 110
+    val SEARCH_PROD_REQ_CODE = 110
+    val PRODUCT_LISTING_REQ_CODE = 110
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -166,7 +182,11 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
 
         Utility.productList = DummyOffersDataUtil.getEmployeeListSortedByRole()
         recOffers = view.findViewById(R.id.recOffers)
-        offersRecyclerAdaptor = OffersRecyclerAdaptor(Utility.productList, activity!!.applicationContext)
+        btnSeeAllOffers = view.findViewById(R.id.btnSeeAllOffers)
+        imgCart = view.findViewById(R.id.imgCart)
+
+        offersRecyclerAdaptor =
+            OffersRecyclerAdaptor(Utility.productList, activity!!.applicationContext)
         recOffers.setLayoutManager(
             LinearLayoutManager(
                 activity!!.applicationContext,
@@ -200,10 +220,39 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
             startActivityForResult(intent, SEARCH_PROD_REQ_CODE)
 
         })
+        btnSeeAllOffers.setOnClickListener(View.OnClickListener {
+            val intent = Intent(activity, ProductListingActivity::class.java)
+            intent.putExtra("offers", true)
+            startActivityForResult(intent, SEARCH_PROD_REQ_CODE)
+        })
+
+        imgCart.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(activity, MyCartActivity::class.java))
+
+
+        })
+
 
         return view
     }
 
+
+    fun firebaseCrash() {
+        val firebaseAnalytics = FirebaseAnalytics.getInstance(activity!!)
+        firebaseAnalytics.setUserId("1234")
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "123")
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "amir")
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+        try {
+            throw RuntimeException("Test Crash")
+        } catch (ex: NullPointerException) {
+
+//                FirebaseCrash.logcat(Log.ERROR, TAG, "NPE caught")
+//                FirebaseCrash.report(ex)
+        }
+    }
 
     companion object {
 
@@ -226,7 +275,7 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
     //parent child recyclerviews
     lateinit var adapter: ParentRecyclerAdapter
     lateinit var recyclerView: RecyclerView
-    override fun onClick(position: Int) {
+    override fun onItemClick(position: Int) {
 
 //        var layoutManager = LinearLayoutManager(context)
 ////

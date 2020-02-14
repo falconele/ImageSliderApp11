@@ -1,4 +1,4 @@
-package com.elementarylogics.imagesliderapp.adaptors.searchproductadaptor
+package com.elementarylogics.imagesliderapp.adaptors.mycaradaptort
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,15 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.elementarylogics.imagesliderapp.R
-import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.DiffUtilOffers
 import com.elementarylogics.imagesliderapp.dataclases.Product
 import com.squareup.picasso.Picasso
-import java.util.*
 
-class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerAdaptor.ViewHolder> {
+class MyCartAdaptor : RecyclerView.Adapter<MyCartAdaptor.ViewHolder> {
 
     public lateinit var mEmployees: List<Product>
     lateinit var context: Context
@@ -39,7 +36,7 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
     override
     fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.products_list_item, parent, false)
+        val view = inflater.inflate(R.layout.my_cart_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -74,7 +71,7 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
             Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
             holder.tvQuantity.setText(employee.itemQuantity++.toString())
         })
-        holder.imgDetail.setOnClickListener(View.OnClickListener {
+        holder.imgCross.setOnClickListener(View.OnClickListener {
             itemClickListner.onItemClicklistner(position)
         })
         holder.cardProductListItem.setOnClickListener(View.OnClickListener {
@@ -122,7 +119,7 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
 
         val cardProductListItem: CardView
         val tvProductName: TextView
-        val imgDetail: ImageView
+        val imgCross: ImageView
         val ProductWeight: TextView
         val imgIcon: ImageView
         val imgAdd: ImageView
@@ -139,7 +136,7 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
         init {
             cardProductListItem = itemView.findViewById(R.id.cardProductListItem)
 
-            imgDetail = itemView.findViewById(R.id.imgDetail)
+            imgCross = itemView.findViewById(R.id.imgCross)
             ProductWeight = itemView.findViewById(R.id.tvProductWeight)
             imgIcon = itemView.findViewById(R.id.imgIcon) as ImageView
 

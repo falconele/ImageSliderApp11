@@ -15,4 +15,16 @@
     <string name="hint_search_product">Search product</string>
     <string name="please_wait">Please wait</string>
     <string name="results_found">Results found</string>
+
+    <!--    my cart-->
+    <string name="sub_total">Sub total</string>
+    <string name="delivery_charges">Delivery charges</string>
+    <string name="last_min_buys">Last Minute Buys</string>
+    <string name="promo_code_can_be">Promo code can be applied on payment page</string>
+    <string name="proceed_to_checkout">Proceed to check out</string>
+
+<!--    login-->
+    <string name="login_title">Login</string>
+    <string name="we_will_send">We will send a SMS with a Confirmation code to the Number</string>
+    <string name="next">Next</string>
 </resources>

@@ -40,8 +40,15 @@ class ParentRecyclerAdapter(context: Context, fragment: DashboradSliderFragment)
 
     }
 
+    val childItemClickListner:ChildRecyclerAdaptor.ItemClickListner=object :ChildRecyclerAdaptor.ItemClickListner{
+        override fun onItemClickListner(position: Int) {
+            item.onChildItemClick(position)
+        }
+
+    }
     public interface Item {
-        fun onClick(position: Int)
+        fun onItemClick(position: Int)
+        fun onChildItemClick(position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
@@ -62,18 +69,18 @@ class ParentRecyclerAdapter(context: Context, fragment: DashboradSliderFragment)
                 holder.recyclerView.visibility = View.VISIBLE
                 holder.recyclerView.layoutManager =
                     GridLayoutManager(it.context, 3, RecyclerView.HORIZONTAL, false)
-                val childRecyclerAdaptor = ChildRecyclerAdaptor()
+                val childRecyclerAdaptor = ChildRecyclerAdaptor(childItemClickListner)
                 holder.recyclerView.adapter = childRecyclerAdaptor
                 Toast.makeText(it.context, position.toString(), Toast.LENGTH_SHORT).show()
 
                 itemOpened = position
             }
-            this.item.onClick(position)
+            this.item.onItemClick(position)
         })
         if (position == itemOpened) {
             holder.recyclerView.layoutManager =
                 GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
-            val childRecyclerAdaptor = ChildRecyclerAdaptor()
+            val childRecyclerAdaptor = ChildRecyclerAdaptor(childItemClickListner)
             holder.recyclerView.adapter = childRecyclerAdaptor
             holder.recyclerView.visibility = View.VISIBLE
 //            activity.recyclerView!!.scrollToPosition(position)

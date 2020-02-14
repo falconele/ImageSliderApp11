@@ -5,14 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.elementarylogics.imagesliderapp.R
 
-class ChildRecyclerAdaptor : RecyclerView.Adapter<ChildRecyclerAdaptor.SimpleViewHolder>() {
+class ChildRecyclerAdaptor : RecyclerView.Adapter<ChildRecyclerAdaptor.SimpleViewHolder> {
 
     internal var dataSource: MutableList<Int>
+    lateinit var itemClickListner: ItemClickListner
 
+    constructor(itemClickListner: ItemClickListner) {
+        this.itemClickListner = itemClickListner
+    }
 
     init {
         dataSource = ArrayList()
@@ -22,6 +26,10 @@ class ChildRecyclerAdaptor : RecyclerView.Adapter<ChildRecyclerAdaptor.SimpleVie
         }
     }
 
+    public interface ItemClickListner {
+        public fun onItemClickListner(position: Int)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.child_item, parent, false)
         return SimpleViewHolder(view)
@@ -29,10 +37,13 @@ class ChildRecyclerAdaptor : RecyclerView.Adapter<ChildRecyclerAdaptor.SimpleVie
 
     override fun onBindViewHolder(holder: SimpleViewHolder, position: Int) {
         holder.textView.text = dataSource[position].toString()
-        holder.imgArrow.setOnClickListener(View.OnClickListener {
-
-            Toast.makeText(it.context, position.toString() , Toast.LENGTH_SHORT).show()
+        holder.cardProductItem.setOnClickListener(View.OnClickListener {
+            itemClickListner.onItemClickListner(position)
         })
+//        holder.imgArrow.setOnClickListener(View.OnClickListener {
+//
+//            Toast.makeText(it.context, position.toString(), Toast.LENGTH_SHORT).show()
+//        })
 
     }
 
@@ -44,10 +55,12 @@ class ChildRecyclerAdaptor : RecyclerView.Adapter<ChildRecyclerAdaptor.SimpleVie
     class SimpleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var textView: TextView
         var imgArrow: ImageView
+        var cardProductItem: CardView
 
         init {
             textView = itemView.findViewById(R.id.textView)
             imgArrow = itemView.findViewById(R.id.imgChild)
+            cardProductItem = itemView.findViewById(R.id.cardProductItem)
         }
     }
 

@@ -52,6 +52,8 @@
             android:layout_weight="1">
 
             <ImageView
+
+                android:layout_centerVertical="true"
                 android:id="@+id/imgCart"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"

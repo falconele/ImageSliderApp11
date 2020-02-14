@@ -38,6 +38,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/imgCart"
                 android:layout_width="@dimen/icons_30sdp"
                 android:layout_height="@dimen/icons_30sdp"
                 android:layout_alignParentRight="true"
@@ -132,6 +133,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             style="@style/customButton"
+                            android:id="@+id/btnSeeAllOffers"
                             android:layout_width="@dimen/_80sdp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"

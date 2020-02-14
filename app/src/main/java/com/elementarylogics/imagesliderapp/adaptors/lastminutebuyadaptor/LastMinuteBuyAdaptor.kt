@@ -1,4 +1,4 @@
-package com.elementarylogics.imagesliderapp.adaptors.searchproductadaptor
+package com.elementarylogics.imagesliderapp.adaptors.lastminutebuyadaptor
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,15 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.elementarylogics.imagesliderapp.R
-import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.DiffUtilOffers
 import com.elementarylogics.imagesliderapp.dataclases.Product
 import com.squareup.picasso.Picasso
-import java.util.*
 
-class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerAdaptor.ViewHolder> {
+class LastMinuteBuyAdaptor : RecyclerView.Adapter<LastMinuteBuyAdaptor.ViewHolder> {
 
     public lateinit var mEmployees: List<Product>
     lateinit var context: Context
