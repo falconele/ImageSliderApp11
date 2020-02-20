@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomsheetdateandtime"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/_10sdp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp">
+
+        <ImageView
+            android:id="@+id/imgCross"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/black" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/textview_styles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/_5sdp"
+            android:text="@string/select_date_time"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_70sdp">
+
+        <NumberPicker
+            android:id="@+id/dateNumberPicker"
+            style="@style/textview_styles"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvDateandTime"
+            style="@style/textview_styles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_toRightOf="@+id/dateNumberPicker"
+            android:text="10:00 AM - 10:00 PM"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDone"
+            style="@style/customButton"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:backgroundTint="@color/orange"
+            android:text="@string/done"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</LinearLayout>

@@ -20,5 +20,10 @@
     <color name="green_parret">#00b300</color>
     <color name="red">#ff0000</color>
     <color name="orange">#FF4500</color>
+    <color name="light_orange">#FFA500</color>
 
+    <color name="transparent">@android:color/transparent</color>
+<!--    //alerter dialoge-->
+    <color name="alert_dialog_error">#FF5B41</color>
+    <color name="alert_dialog_success">#1FB18A</color>
 </resources>

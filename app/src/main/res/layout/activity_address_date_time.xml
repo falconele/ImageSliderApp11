@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.AddressDateTimeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_5sdp"
+        android:weightSum="6">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:background="@color/white" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="5">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/MyCustomTabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:text="@string/address_date_time_title"
+                android:textAllCaps="false"
+                android:textColor="@color/light_grey"
+                android:textSize="@dimen/_12sdp" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:background="@color/light_grey">
+
+        <TextView
+            style="@style/textview_styles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:text="@string/delivery_address" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvAddressType"
+                    style="@style/textview_styles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="6dp"
+                    android:text="Home"
+                    android:textColor="@color/black" />
+
+                <ImageView
+
+                    android:id="@+id/imgEdit"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/black" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/textview_styles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mr Amir"
+                android:textColor="@color/grey_ligt_black" />
+
+            <TextView
+                android:id="@+id/tvAddress1"
+                style="@style/textview_styles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="address 1"
+                android:textColor="@color/grey_ligt_black" />
+
+            <TextView
+                android:id="@+id/tvAddress2"
+                style="@style/textview_styles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address 2"
+                android:textColor="@color/grey_ligt_black" />
+
+            <TextView
+                android:id="@+id/tvCompleteAddress"
+                style="@style/textview_styles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Here is complete address of receiver"
+                android:textColor="@color/grey_ligt_black" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/_10sdp"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:background="@color/light_grey">
+
+        <TextView
+            style="@style/textview_styles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:text="@string/delivery_date_time" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relDateandTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp">
+
+        <TextView
+            style="@style/textview_styles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Tomorow 10:00 AM - 10:00 PM" />
+
+        <ImageView
+            android:id="@+id/etDeliveryDateTime"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_alignParentRight="true"
+            android:background="@color/black" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/textview_styles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="View 4 item"
+            android:textColor="@color/orange" />
+
+        <ImageView
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:background="@color/red" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext"
+            style="@style/customButton"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/orange"
+            android:text="@string/proceed_to_payment"
+            android:textColor="@color/white" />
+
+
+    </RelativeLayout>
+</LinearLayout>

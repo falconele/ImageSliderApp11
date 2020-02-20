@@ -36,18 +36,18 @@ class ProductDetailActivity : AppCompatActivity(),ProductDetailImagesPagerAdapto
         btnAdd.setOnClickListener(View.OnClickListener {
             //            Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
             relAdd.visibility = View.GONE
-//           tvQuantity.setText(employee.itemQuantity++.toString())
+//           tvAreaColonySector.setText(employee.itemQuantity++.toString())
             relAddMinusQuantity.visibility = View.VISIBLE
 
         })
         imgAdd.setOnClickListener(View.OnClickListener {
             //            Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-//            tvQuantity.setText(employee.itemQuantity++.toString())
+//            tvAreaColonySector.setText(employee.itemQuantity++.toString())
             tvQuantity.setText(a++.toString())
         })
         imgMinus.setOnClickListener(View.OnClickListener {
             //            Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-//           tvQuantity.setText(employee.itemQuantity++.toString())
+//           tvAreaColonySector.setText(employee.itemQuantity++.toString())
 
             tvQuantity.setText(a--.toString())
         })

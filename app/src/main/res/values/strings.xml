@@ -23,8 +23,56 @@
     <string name="promo_code_can_be">Promo code can be applied on payment page</string>
     <string name="proceed_to_checkout">Proceed to check out</string>
 
-<!--    login-->
+    <!--    login-->
     <string name="login_title">Login</string>
     <string name="we_will_send">We will send a SMS with a Confirmation code to the Number</string>
     <string name="next">Next</string>
+    <string name="please_neter_code">Please enter 4 digit code sent on number </string>
+    <string name="verify">Verify</string>
+    <string name="resend_in">Resend in </string>
+    <string name="sec">Sec</string>
+
+    <!--    address date and time-->
+    <string name="address_date_time_title">Address, Date and Time</string>
+    <string name="delivery_address">Delivery Address</string>
+    <string name="delivery_date_time">Delivery Date and Time</string>
+    <string name="proceed_to_payment">Proceed to Payment</string>
+    <string name="select_date_time">Select date and time</string>
+
+    <!--    address-->
+    <string name="choose_address">Choose Address</string>
+    <string name="add_new_address">Add new address</string>
+
+    <!--    add address-->
+    <string name="add_address">Add address</string>
+    <string name="update_address">Update address</string>
+    <string name="mr">Mr.</string>
+    <string name="mrs">Mrs.</string>
+    <string name="miss">Miss.</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+    <string name="flat_house_office">Flat, House, Office No, Building, Company</string>
+    <string name="area_colony_sector">Area, Colony, Sector, Street</string>
+    <string name="city">City</string>
+    <string name="nik_name_of_address">Nickname of your address</string>
+    <string name="home">Home</string>
+    <string name="office">Office</string>
+    <string name="others">Others</string>
+    <string name="continu">Continue</string>
+    <string name="save">Save</string>
+    <string name="update">Update</string>
+
+    <!--    //maps-->
+    <string name="done">Done</string>
+    <string name="places_api_billing_key" translatable="false">AIzaSyCjk-Jj4fqS9nE1r5EbXiu63tPaMpptOMs</string>
+    <string name="google_maps_key">AIzaSyCGo07mZGu4mR1EuHwfwOUqqlcgU_ldjyE</string>
+    <string name="permission_denied">Permissions denied</string>
+    <!--    alerter-->
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="alert_information">Error</string>
+    <string name="msg_enable_gps">Please enable GPS!</string>
+    <string name="success">Success</string>
+    <string name="error">Error</string>
 </resources>

@@ -35,6 +35,10 @@ class MyCartActivity : AppCompatActivity(), MyCartAdaptor.ItemClickListner {
         relLastMinuteBuy.setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, LastMinuteBuyActivity::class.java))
         })
+
+        btnProceddCheckout.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this, MobileRegisterationActivity::class.java))
+        })
     }
 
     lateinit var adapter: MyCartAdaptor

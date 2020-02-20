@@ -186,6 +186,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/btnProceddCheckout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_34sdp"
                 android:background="@color/red">

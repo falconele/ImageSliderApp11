@@ -11,8 +11,12 @@ apply plugin: 'kotlin-kapt'
 // Apply the Crashlytics Gradle plugin
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.gms.google-services'
-
-
+repositories {
+    mavenCentral()
+}
+androidExtensions {
+    experimental = true
+}
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -22,6 +26,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -30,6 +35,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -90,4 +96,14 @@ dependencies {
     // firebase crash library
     implementation 'com.google.firebase:firebase-crash:9.0.0'
 
+    //places
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    implementation 'com.google.android.libraries.places:places:1.0.0'
+    //GoogleService
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    //dialoge
+    implementation 'com.tapadoo.android:alerter:2.0.5'
+    implementation 'androidx.multidex:multidex:2.0.1'
 }

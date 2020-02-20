@@ -81,11 +81,11 @@ class LastMinuteBuyAdaptor : RecyclerView.Adapter<LastMinuteBuyAdaptor.ViewHolde
 
 
 //    fun updateEmployeeListItems(employees: List<Product>) {
-//        val diffCallback = DiffUtilOffers(this.mEmployees, employees)
+//        val diffCallback = DiffUtilOffers(this.mAddressList, employees)
 //        val diffResult = DiffUtil.calculateDiff(diffCallback)
 //
-//        this.mEmployees.clear()
-//        this.mEmployees.addAll(employees)
+//        this.mAddressList.clear()
+//        this.mAddressList.addAll(employees)
 //
 //
 //        diffResult.dispatchUpdatesTo(this)
