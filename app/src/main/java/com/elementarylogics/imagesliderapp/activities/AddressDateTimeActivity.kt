@@ -32,7 +32,10 @@ class AddressDateTimeActivity : AppCompatActivity() {
 
         })
 
+        linItemsInCart.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this,MyCartActivity::class.java))
 
+        })
     }
 
 

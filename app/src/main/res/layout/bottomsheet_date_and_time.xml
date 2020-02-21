@@ -6,8 +6,6 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
-
-
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <RelativeLayout
@@ -33,12 +31,12 @@
         android:layout_marginLeft="@dimen/_10sdp">
 
         <TextView
-
             style="@style/textview_styles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
             android:text="@string/select_date_time"
+            android:textColor="@color/orange"
             android:textSize="@dimen/_13sdp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -50,12 +48,13 @@
         android:layout_marginRight="@dimen/_10sdp">
 
         <NumberPicker
-
             android:id="@+id/dateNumberPicker"
-            android:theme="@style/textview_styles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:theme="@style/NumberPickerStyle" />
 
         <TextView
             android:id="@+id/tvDateandTime"
@@ -73,14 +72,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp">
+        android:layout_marginTop="@dimen/_50sdp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDone"
             style="@style/customButton"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_20sdp"
             android:backgroundTint="@color/orange"
             android:text="@string/done"
             android:textColor="@color/white" />
