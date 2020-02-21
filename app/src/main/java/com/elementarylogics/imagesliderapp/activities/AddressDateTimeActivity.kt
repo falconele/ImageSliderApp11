@@ -60,6 +60,7 @@ class AddressDateTimeActivity : AppCompatActivity() {
         btnDone.setOnClickListener(View.OnClickListener {
             dialog.dismiss()
         })
+
         imgCross.setOnClickListener(View.OnClickListener {
             dialog.dismiss()
         })
