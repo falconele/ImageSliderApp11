@@ -6,12 +6,17 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="@dimen/_10sdp"
+
+
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp">
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp">
 
         <ImageView
             android:id="@+id/imgCross"
@@ -24,13 +29,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp">
 
         <TextView
+
             style="@style/textview_styles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/_5sdp"
             android:text="@string/select_date_time"
             android:textSize="@dimen/_13sdp"
@@ -40,13 +46,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_70sdp">
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp">
 
         <NumberPicker
+
             android:id="@+id/dateNumberPicker"
-            style="@style/textview_styles"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="wrap_content" />
+            android:theme="@style/textview_styles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/tvDateandTime"
@@ -57,7 +66,8 @@
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_toRightOf="@+id/dateNumberPicker"
             android:text="10:00 AM - 10:00 PM"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <RelativeLayout
