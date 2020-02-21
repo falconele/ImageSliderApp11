@@ -55,9 +55,18 @@ class AddressDateTimeActivity : AppCompatActivity() {
             Toast.makeText(applicationContext,dates.get(valuePicker1),Toast.LENGTH_SHORT).show()
 
         }
+
         val dialog = BottomSheetDialog(this)
         dialog.setCancelable(false)
         btnDone.setOnClickListener(View.OnClickListener {
+            dialog.dismiss()
+        })
+
+        imgCross.setOnClickListener(View.OnClickListener {
+            dialog.dismiss()
+        })
+
+        imgCross.setOnClickListener(View.OnClickListener {
             dialog.dismiss()
         })
 
