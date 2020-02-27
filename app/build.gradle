@@ -75,7 +75,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     // image loading lib
-    implementation 'com.squareup.picasso:picasso:2.71828'
+//    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
 
 
@@ -106,4 +106,21 @@ dependencies {
     //dialoge
     implementation 'com.tapadoo.android:alerter:2.0.5'
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    // load image library
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+    // for more permissions
+    /**
+     * For managing request permission
+     */
+//    implementation 'com.karumi:dexter:4.2.0'
+
+    //dexter permissions
+    implementation "com.karumi:dexter:5.0.0"
+
+}
+repositories {
+    mavenCentral()
 }

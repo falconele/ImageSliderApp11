@@ -75,4 +75,21 @@
     <string name="msg_enable_gps">Please enable GPS!</string>
     <string name="success">Success</string>
     <string name="error">Error</string>
+
+    <!--    pic bottom sheet-->
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="profile_photo">Profile photo</string>
+
+
+    <!--    my orders-->
+    <string name="my_orders_title">My Orders</string>
+    <string name="processed">Processed Orders</string>
+    <string name="pending">Pending Orders</string>
+    <string name="benificier">Beneficiary</string>
+    <string name="amount">Amount</string>
+    <string name="status">Status</string>
+    <string name="pending_order">Pending</string>
+    <string name="complete_order">Completed</string>
+    <string name="cancel_order">Cancel</string>
 </resources>

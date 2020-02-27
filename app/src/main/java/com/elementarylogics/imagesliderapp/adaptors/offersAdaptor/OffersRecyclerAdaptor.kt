@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.elementarylogics.imagesliderapp.R
 import com.elementarylogics.imagesliderapp.dataclases.Product
-import com.squareup.picasso.Picasso
+//import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -40,8 +41,9 @@ class OffersRecyclerAdaptor : RecyclerView.Adapter<OffersRecyclerAdaptor.ViewHol
 
 
         holder.tvOffer.setText(employee.off)
-        Picasso.get().load(employee.imgProductPath).centerCrop()
-            .error(R.drawable.ic_home_black_24dp)
+//        Picasso.get().load(employee.imgProductPath).centerCrop()
+//            .error(R.drawable.ic_home_black_24dp)
+        Glide.with(context).load(employee.imgProductPath).into(holder.imgIcon)
         holder.tvDiscountedPrice.setText(employee.discountedPrice)
         holder.tvOrignalPrice.setText(employee.priceOrigonal)
         holder.tvOrignalPrice.setPaintFlags(holder.tvOrignalPrice.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG)

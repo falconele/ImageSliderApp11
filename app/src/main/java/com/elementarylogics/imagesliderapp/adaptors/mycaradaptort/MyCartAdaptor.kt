@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.elementarylogics.imagesliderapp.R
 import com.elementarylogics.imagesliderapp.dataclases.Product
-import com.squareup.picasso.Picasso
+//import com.squareup.picasso.Picasso
 
 class MyCartAdaptor : RecyclerView.Adapter<MyCartAdaptor.ViewHolder> {
 
@@ -46,8 +47,9 @@ class MyCartAdaptor : RecyclerView.Adapter<MyCartAdaptor.ViewHolder> {
 
 
         holder.tvProductName.setText(employee.name)
-        Picasso.get().load(employee.imgProductPath).centerCrop()
-            .error(R.drawable.ic_home_black_24dp)
+//        Picasso.get().load(employee.imgProductPath).centerCrop()
+//            .error(R.drawable.ic_home_black_24dp)
+        Glide.with(context).load(employee.imgProductPath).into(holder.imgIcon)
         holder.tvPrice.setText(employee.priceOrigonal)
 //        holder.imgDeliveryStatus.setText(employee.priceOrigonal)
 

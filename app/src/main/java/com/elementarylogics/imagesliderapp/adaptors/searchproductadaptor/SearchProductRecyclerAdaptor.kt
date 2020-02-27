@@ -1,18 +1,17 @@
 package com.elementarylogics.imagesliderapp.adaptors.searchproductadaptor
 
+//import com.squareup.picasso.Picasso
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.elementarylogics.imagesliderapp.R
-import com.elementarylogics.imagesliderapp.adaptors.offersAdaptor.DiffUtilOffers
 import com.elementarylogics.imagesliderapp.dataclases.Product
-import com.squareup.picasso.Picasso
-import java.util.*
 
 class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerAdaptor.ViewHolder> {
 
@@ -49,8 +48,10 @@ class SearchProductRecyclerAdaptor : RecyclerView.Adapter<SearchProductRecyclerA
 
 
         holder.tvProductName.setText(employee.name)
-        Picasso.get().load(employee.imgProductPath).centerCrop()
-            .error(R.drawable.ic_home_black_24dp)
+//        Picasso.get().load(employee.imgProductPath).centerCrop()
+//            .error(R.drawable.ic_home_black_24dp)
+        Glide.with(context).load(employee.imgProductPath).apply(RequestOptions().centerCrop())
+            .into(holder.imgIcon)
         holder.tvPrice.setText(employee.priceOrigonal)
 //        holder.imgDeliveryStatus.setText(employee.priceOrigonal)
 

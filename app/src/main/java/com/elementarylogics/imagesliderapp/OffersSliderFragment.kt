@@ -1,12 +1,16 @@
 package com.elementarylogics.imagesliderapp
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_product_listing.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,44 +39,65 @@ class OffersSliderFragment : Fragment() {
         }
     }
 
+    lateinit var views: View
+    lateinit var tabItemsCat:TabLayout
+    lateinit var viewpager:ViewPager
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_offers_slider, container, false)
+        views=inflater.inflate(R.layout.fragment_offers_slider, container, false)
+        tabItemsCat=views.findViewById(R.id.tabItemsCat)
+        viewpager=views.findViewById(R.id.viewpager)
+
+        setupViewPager(viewpager)
+        tabItemsCat.setupWithViewPager(viewpager)
+
+
+
+        return views
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
-//    fun onButtonPressed(uri: Uri) {
-//        listener?.onFragmentInteraction(uri)
-//    }
-//
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        if (context is OnFragmentInteractionListener) {
-//            listener = context
-//        } else {
-//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-//        }
-//    }
-//
-//    override fun onDetach() {
-//        super.onDetach()
-//        listener = null
-//    }
+    private fun setupViewPager(viewPager: ViewPager) {
+        val adapter = ViewPagerAdapter(activity!!.supportFragmentManager)
+        adapter.addFragment(MyordersListFragment(), resources.getString(R.string.processed))
+        adapter.addFragment(MyordersListFragment(), resources.getString(R.string.pending))
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
+//
+//        adapter.addFragment(MyOrdersSlidersFragments(), "Tutorial")
+//        adapter.addFragment(OffersSliderFragment(), "AndroidQuiz")
+//        adapter.addFragment(SalesFragment(), "GithubCode")
+        viewPager.setAdapter(adapter)
+    }
+
+    internal inner class ViewPagerAdapter(manager: FragmentManager) :
+        FragmentPagerAdapter(manager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        private val mFragmentList = ArrayList<Fragment>()
+        private val mFragmentTitleList = ArrayList<String>()
+
+
+        override fun getCount(): Int {
+            return mFragmentList.size
+        }
+
+        override fun getItem(position: Int): Fragment {
+            return mFragmentList.get(position)
+        }
+
+        fun addFragment(fragment: Fragment, title: String) {
+            mFragmentList.add(fragment)
+            mFragmentTitleList.add(title)
+        }
+
+        override fun getPageTitle(position: Int): CharSequence {
+            return mFragmentTitleList.get(position)
+        }
+    }
+
+
+
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)

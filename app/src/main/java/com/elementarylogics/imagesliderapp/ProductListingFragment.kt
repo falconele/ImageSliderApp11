@@ -77,8 +77,7 @@ class ProductListingFragment : Fragment(), SearchProductRecyclerAdaptor.ItemClic
 //        recSearchProduct.adapter!!.notifyDataSetChanged()
         // recyclerView.scheduleLayoutAnimation()
 
-        //some new line added
-        //some new line added
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
