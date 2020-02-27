@@ -2,9 +2,14 @@ package com.elementarylogics.imagesliderapp
 
 
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
 
     lateinit var profileSliderFragment: ProfileSliderFragment
-    lateinit var offersSliderFragment: OffersSliderFragment
+    lateinit var offersFragment: OffersFragment
     lateinit var ordersSlidersFragments: MyOrdersSlidersFragments
     lateinit var dashboradSliderFragment: DashboradSliderFragment
     val fragmentManager = supportFragmentManager
@@ -26,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         profileSliderFragment = ProfileSliderFragment.newInstance("", "")
-        offersSliderFragment = OffersSliderFragment.newInstance("", "")
+        offersFragment = OffersFragment.newInstance("", "")
         ordersSlidersFragments = MyOrdersSlidersFragments.newInstance("", "")
         dashboradSliderFragment = DashboradSliderFragment.newInstance("", "")
 
@@ -38,12 +43,15 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.mainNavigationFragment, ordersSlidersFragments, "2")
             .hide(ordersSlidersFragments).commit()
         fragmentManager.beginTransaction()
-            .add(R.id.mainNavigationFragment, offersSliderFragment, "1")
-            .hide(offersSliderFragment).commit()
+            .add(R.id.mainNavigationFragment, offersFragment, "1")
+            .hide(offersFragment).commit()
         fragmentManager.beginTransaction()
             .add(R.id.mainNavigationFragment, dashboradSliderFragment, "0").commit();
 
 //        onDashboardFragmetnSelected()
+
+
+        changeStatusBarColor()
 
         activeFragment = dashboradSliderFragment
 
@@ -62,8 +70,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.offersFrag -> {
                     supportFragmentManager.beginTransaction().hide(activeFragment)
-                        .show(offersSliderFragment).commit();
-                    activeFragment = offersSliderFragment
+                        .show(offersFragment).commit();
+                    activeFragment = offersFragment
+                    offersFragment.Update()
                     return true
                 }
                 R.id.myOrdersFrag -> {
@@ -119,6 +128,15 @@ class MainActivity : AppCompatActivity() {
             activeFragment = dashboradSliderFragment
         } else {
             super.onBackPressed()
+        }
+    }
+
+    fun changeStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.setStatusBarColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+
         }
     }
 }

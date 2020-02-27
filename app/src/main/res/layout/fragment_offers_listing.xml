@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductListingFragment">
+    tools:context=".OffersListingFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <androidx.recyclerview.widget.RecyclerView
-
-        android:id="@+id/recSearchProduct"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/products_list_item" />
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>

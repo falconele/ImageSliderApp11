@@ -34,7 +34,7 @@
         android:layout_height="@dimen/_40sdp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/_5sdp"
-        app:tabMode="fixed" />
+         />
 
     <ImageView
         android:layout_width="match_parent"
@@ -44,9 +44,11 @@
         android:visibility="gone" />
 
     <androidx.viewpager.widget.ViewPager
+
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
