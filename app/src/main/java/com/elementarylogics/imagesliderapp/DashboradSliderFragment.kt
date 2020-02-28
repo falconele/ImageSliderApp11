@@ -11,11 +11,15 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import androidx.viewpager.widget.ViewPager
 import com.elementarylogics.expandablerecyclerviewkotlin.ParentRecyclerAdapter
 import com.elementarylogics.imagesliderapp.activities.MyCartActivity
@@ -43,7 +47,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
+class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item, OnRefreshListener {
     override fun onChildItemClick(position: Int) {
 //        Toast.makeText(context,position.toString()+"Child Click",Toast.LENGTH_SHORT).show()
         val intent = Intent(activity, ProductListingActivity::class.java)
@@ -159,6 +163,8 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
     lateinit var recOffers: RecyclerView
     lateinit var btnSeeAllOffers: Button
     lateinit var imgCart: ImageView
+    lateinit var relCart:RelativeLayout
+
     lateinit var offersRecyclerAdaptor: OffersRecyclerAdaptor
 
 //    var products: ArrayList<Product> = ArrayList()
@@ -184,6 +190,12 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
         recOffers = view.findViewById(R.id.recOffers)
         btnSeeAllOffers = view.findViewById(R.id.btnSeeAllOffers)
         imgCart = view.findViewById(R.id.imgCart)
+        relCart=view.findViewById(R.id.relCart)
+
+        swipeRefresh=view.findViewById(R.id.swipeRefresh)
+        swipeRefresh!!.setOnRefreshListener(this)
+        isRefreshing=false
+
 
         offersRecyclerAdaptor =
             OffersRecyclerAdaptor(Utility.productList, activity!!.applicationContext)
@@ -203,7 +215,7 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
         recyclerView = view.findViewById(R.id.recyclerview)
         recyclerView.setLayoutManager(LinearLayoutManager(context))
         recyclerView.isNestedScrollingEnabled = false
-//        ViewCompat.setNestedScrollingEnabled(recyclerView, true)
+        ViewCompat.setNestedScrollingEnabled(recyclerView, false)
         runAnimation(recyclerView!!, 0)
 
 //        btna.setOnClickListener(View.OnClickListener {
@@ -226,7 +238,7 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
             startActivityForResult(intent, SEARCH_PROD_REQ_CODE)
         })
 
-        imgCart.setOnClickListener(View.OnClickListener {
+        relCart.setOnClickListener(View.OnClickListener {
             startActivity(Intent(activity, MyCartActivity::class.java))
 
 
@@ -298,11 +310,17 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
     fun moveToPosition(position: Int) {
         Timer("SettingUp", false).schedule(500) {
 
-            val displayMetrics = DisplayMetrics()
-            activity!!.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics)
-            val height = (displayMetrics.heightPixels / 2) - linHeader.height
-            val y = height + recyclerView.getChildAt(position).bottom
-            scrollView.smoothScrollTo(0, y.toInt())
+//            val displayMetrics = DisplayMetrics()
+//            activity!!.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics)
+//            val height = (displayMetrics.heightPixels / 2) - linHeader.height
+//            val y = height + recyclerView.getChildAt(position).bottom
+
+//            val y =
+//                recyclerView.y + recyclerView.getChildAt(position).y
+//            scrollView.smoothScrollTo(0, y.toInt())
+
+            recyclerView.smoothScrollToPosition(position)
+
 //            Toast.makeText(context, "moved", Toast.LENGTH_SHORT).show()
         }
     }
@@ -323,6 +341,18 @@ class DashboradSliderFragment : Fragment(), ParentRecyclerAdapter.Item {
 
         //some new line added
         //some new line added
+    }
+    var swipeRefresh: SwipeRefreshLayout? = null
+    var isRefreshing = false
+    override fun onRefresh() {
+//        itemCount = 0
+//        isRefreshing = true
+//        currentPage = PAGE_START
+//        isLastPage = false
+//        adapter.clear()
+////        showProgressBar(true);
+//        //        showProgressBar(true);
+//        getFavAddLists()
     }
 
 }

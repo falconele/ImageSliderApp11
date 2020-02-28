@@ -19,34 +19,59 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/_35sdp">
 
             <ImageView
                 android:id="@+id/imgInfo"
-                android:layout_width="@dimen/icons_30sdp"
+                android:layout_width="@dimen/_27sdp"
                 android:layout_height="@dimen/icons_30sdp"
-                android:src="@drawable/ic_home_black_24dp" />
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/drawer"
+                android:tint="@color/white" />
 
             <TextView
                 style="@style/textview_styles"
-                android:textSize="@dimen/_13sdp"
-
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+
                 android:fontFamily="@font/appfonts"
                 android:text="Image Slider"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imgCart"
-                android:layout_width="@dimen/icons_30sdp"
-                android:layout_height="@dimen/icons_30sdp"
+            <RelativeLayout
+                android:id="@+id/relCart"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_home_black_24dp" />
+                android:layout_alignParentBottom="true">
+
+                <ImageView
+                    android:id="@+id/imgCart"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/cart" />
+
+                <TextView
+                    android:id="@+id/tvCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/circle_drawable"
+                    android:gravity="center"
+                    android:text="20"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="10dp" />
+            </RelativeLayout>
+
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -59,8 +84,8 @@
                 android:id="@+id/etSearchProduct"
                 style="@style/customTextInputs"
                 android:layout_width="match_parent"
-                android:background="@drawable/edittext_rec_corner_bg"
                 android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/edittext_rec_corner_bg"
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:hint="@string/profile_title"
@@ -72,101 +97,123 @@
 
     </LinearLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
 
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="@dimen/_5sdp">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_250sdp"
-                android:layout_marginTop="@dimen/margin_5sdp">
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/pager"
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/_250sdp" />
-
-                <com.viewpagerindicator.CirclePageIndicator
-                    android:id="@+id/indicator"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="bottom"
-                    android:padding="10dip"
-                    app:centered="true"
-                    app:fillColor="#df0623"
-                    app:pageColor="#fff"
-                    app:snap="false" />
-            </RelativeLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardview"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5sdp">
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_10sdp">
+
 
                     <RelativeLayout
+                        android:background="@color/orange"
+                        android:layout_marginBottom="@dimen/_7sdp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="@string/offers"
-                            android:textAllCaps="false"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/textsize_13sdp"
-                            android:textStyle="bold" />
-
-                        <com.google.android.material.button.MaterialButton
-                            style="@style/customButton"
-                            android:id="@+id/btnSeeAllOffers"
-                            android:layout_width="@dimen/_80sdp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="@string/see_all"
-                            android:textAllCaps="false" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_170sdp"
                         android:layout_marginTop="@dimen/margin_5sdp">
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recOffers"
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/pager"
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/_170sdp" />
+
+                        <com.viewpagerindicator.CirclePageIndicator
+                            android:id="@+id/indicator"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="bottom"
+                            android:padding="10dip"
+                            app:centered="true"
+                            app:fillColor="#df0623"
+                            app:pageColor="#fff"
+                            app:snap="false" />
+                    </RelativeLayout>
+
+
+
+                <androidx.cardview.widget.CardView
+
+                    app:cardElevation="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal" />
-                    </RelativeLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                            android:padding="@dimen/_5sdp"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingRight="@dimen/_10sdp"
+                            android:paddingBottom="@dimen/_3sdp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:text="@string/offers"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/textsize_13sdp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnSeeAllOffers"
+                                style="@style/customButton"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:text="@string/see_all"
+                                android:textAllCaps="false"
+                                android:textColor="@color/orange"
+                                android:textSize="@dimen/_10sdp" />
+                        </RelativeLayout>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_5sdp"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingRight="@dimen/_10sdp">
+
+                            <androidx.recyclerview.widget.RecyclerView
+
+                                android:id="@+id/recOffers"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

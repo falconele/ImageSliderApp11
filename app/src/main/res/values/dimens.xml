@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_10sdp">@dimen/_10sdp</dimen>
+    <dimen name="icons_25sdp">@dimen/_25sdp</dimen>
     <dimen name="icons_30sdp">@dimen/_30sdp</dimen>
     <dimen name="icons_15sdp">@dimen/_15sdp</dimen>
 

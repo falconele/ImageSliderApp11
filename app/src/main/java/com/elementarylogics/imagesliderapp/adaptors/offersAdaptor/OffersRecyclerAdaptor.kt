@@ -1,26 +1,40 @@
 package com.elementarylogics.imagesliderapp.adaptors.offersAdaptor
 
 
+//import com.squareup.picasso.Picasso
 import android.content.Context
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.elementarylogics.imagesliderapp.R
 import com.elementarylogics.imagesliderapp.dataclases.Product
-//import com.squareup.picasso.Picasso
 import java.util.*
-import kotlin.concurrent.schedule
 
 
 class OffersRecyclerAdaptor : RecyclerView.Adapter<OffersRecyclerAdaptor.ViewHolder> {
 
     public lateinit var mEmployees: ArrayList<Product>
     lateinit var context: Context
+
+    val colors = listOf(
+        R.color.color1,
+        R.color.color2,
+        R.color.color3,
+        R.color.color0,
+        R.color.color4,
+        R.color.color5,
+        R.color.color6,
+        R.color.color7,
+        R.color.color8,
+        R.color.color9
+    )
+
 
     constructor(employeeList: ArrayList<Product>, context: Context) {
         this.mEmployees = employeeList
@@ -39,7 +53,7 @@ class OffersRecyclerAdaptor : RecyclerView.Adapter<OffersRecyclerAdaptor.ViewHol
     fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val employee = mEmployees[position]
 
-
+//        holder.linMainItem.setBackgroundResource(colors[position])
         holder.tvOffer.setText(employee.off)
 //        Picasso.get().load(employee.imgProductPath).centerCrop()
 //            .error(R.drawable.ic_home_black_24dp)
@@ -116,6 +130,8 @@ class OffersRecyclerAdaptor : RecyclerView.Adapter<OffersRecyclerAdaptor.ViewHol
         val relAdd: RelativeLayout
         val relAddMinus: RelativeLayout
         val tvQuantity: TextView
+        val linMainItem: LinearLayout
+        val cardItemOffer:CardView
 
 
         init {
@@ -135,6 +151,10 @@ class OffersRecyclerAdaptor : RecyclerView.Adapter<OffersRecyclerAdaptor.ViewHol
             relAddMinus = itemView.findViewById(R.id.relAddMinusQuantity)
 
             tvQuantity = itemView.findViewById(R.id.tvQuantity)
+
+            linMainItem = itemView.findViewById(R.id.linMainItem)
+
+            cardItemOffer=itemView.findViewById(R.id.cardItemOffer)
 
         }
     }

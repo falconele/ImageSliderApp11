@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/cardItemOffer"
     android:layout_width="@dimen/_160sdp"
     android:layout_height="@dimen/_180sdp"
-    android:layout_marginRight="@dimen/_5sdp"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:orientation="vertical"
+    cardBackgroundColor="@color/red"
 
-    android:orientation="vertical">
+    android:layout_marginBottom="@dimen/_5sdp"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="5dp">
 
     <LinearLayout
+
+        android:id="@+id/linMainItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -25,13 +35,13 @@
                 android:background="@mipmap/ic_launcher_round" />
 
             <TextView
-                android:textColor="@color/txt_border_color"
                 android:id="@+id/tvOffer"
                 style="@style/customlabeloffers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_5sdp"
                 android:text="9 % Off"
+                android:textColor="@color/txt_border_color"
                 android:textSize="@dimen/_14sdp" />
         </RelativeLayout>
 
@@ -68,7 +78,6 @@
             android:text="@string/app_name" />
 
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -78,13 +87,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:orientation="vertical">
+
                 <TextView
-                    android:textColor="@color/light_grey"
                     android:id="@+id/tvUnit"
                     style="@style/textview_styles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_name" />
+                    android:text="@string/app_name"
+                    android:textColor="@color/light_grey" />
+
                 <RelativeLayout
                     android:id="@+id/relAdd"
                     android:layout_width="match_parent"
@@ -95,10 +106,11 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAdd"
                         style="@style/customButton"
-                        android:layout_width="@dimen/_90sdp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_30sdp"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/add" />
+                        android:text="@string/add"
+                        android:textSize="@dimen/_10sdp" />
                 </RelativeLayout>
 
                 <RelativeLayout

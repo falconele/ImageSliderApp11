@@ -23,7 +23,20 @@
     <color name="light_orange">#FFA500</color>
 
     <color name="transparent">@android:color/transparent</color>
-<!--    //alerter dialoge-->
+    <!--    //alerter dialoge-->
     <color name="alert_dialog_error">#FF5B41</color>
     <color name="alert_dialog_success">#1FB18A</color>
+
+    <!--    all offers colors -->
+    <color name="color0">#ff008d</color>
+    <color name="color1">#ff00ff</color>
+    <color name="color2">#ff0006</color>
+    <color name="color3">#8657c5</color>
+    <color name="color4">#808080</color>
+    <color name="color5">#6b7f2a</color>
+    <color name="color6">#0009ff</color>
+    <color name="color7">#7fa208</color>
+    <color name="color8">#a6767c</color>
+    <color name="color9">#007272</color>
+
 </resources>
