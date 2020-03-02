@@ -7,7 +7,7 @@
     <string name="offers_title">Offers</string>
     <string name="myorders_title">Orders</string>
     <string name="profile_title">Profile</string>
-<!--    <string name="offers">Offers</string>-->
+    <!--    <string name="offers">Offers</string>-->
     <string name="see_all">See all Offers</string>
     <string name="add">Add</string>
 
@@ -68,13 +68,7 @@
     <string name="places_api_billing_key" translatable="false">AIzaSyCjk-Jj4fqS9nE1r5EbXiu63tPaMpptOMs</string>
     <string name="google_maps_key">AIzaSyCGo07mZGu4mR1EuHwfwOUqqlcgU_ldjyE</string>
     <string name="permission_denied">Permissions denied</string>
-    <!--    alerter-->
-    <string name="ok">Ok</string>
-    <string name="cancel">Cancel</string>
-    <string name="alert_information">Error</string>
-    <string name="msg_enable_gps">Please enable GPS!</string>
-    <string name="success">Success</string>
-    <string name="error">Error</string>
+
 
     <!--    pic bottom sheet-->
     <string name="camera">Camera</string>
@@ -96,4 +90,15 @@
     <!--    offers-->
     <string name="offers">Offers</string>
 
+    <!--    error alert dialog message-->
+    <!--    alerter-->
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="alert_information">Error</string>
+    <string name="msg_enable_gps">Please enable GPS!</string>
+    <string name="success">Success</string>
+    <string name="error">Error</string>
+
+    <string name="cell_number_error">Phone Number length must not be less than 10</string>
+    <string name="empty_cellno">Phone number is required</string>
 </resources>

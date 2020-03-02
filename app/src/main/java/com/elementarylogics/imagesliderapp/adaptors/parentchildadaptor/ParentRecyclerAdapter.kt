@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.elementarylogics.imagesliderapp.DashboradSliderFragment
@@ -59,7 +60,7 @@ class ParentRecyclerAdapter(context: Context, fragment: DashboradSliderFragment)
     override fun onBindViewHolder(holder: SimpleViewHolder, position: Int) {
         holder.textView.text = dataSource[position].toString()
 
-        holder.imgArrow.setOnClickListener(View.OnClickListener {
+        holder.cardParentCategory.setOnClickListener(View.OnClickListener {
 
             if (itemOpened == position) {
                 itemOpened = -1
@@ -100,11 +101,13 @@ class ParentRecyclerAdapter(context: Context, fragment: DashboradSliderFragment)
         var textView: TextView
         var imgArrow: ImageView
         var recyclerView: RecyclerView
+        var cardParentCategory:CardView
 
         init {
             textView = itemView.findViewById(R.id.textView)
             imgArrow = itemView.findViewById(R.id.imgArrow)
             recyclerView = itemView.findViewById(R.id.recChild)
+            cardParentCategory=itemView.findViewById(R.id.cardParentCategory)
         }
     }
 

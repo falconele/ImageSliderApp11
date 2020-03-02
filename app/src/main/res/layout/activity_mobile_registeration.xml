@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -97,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:text="+92"
                         android:textAlignment="center"
-                        android:textSize="@dimen/_13sdp" />
+                        android:textSize="@dimen/_14sdp" />
 
                     <ImageView
                         android:layout_width="fill_parent"
@@ -116,13 +117,14 @@
                         style="@style/customTextInputs"
                         android:layout_width="@dimen/_90sdp"
                         android:layout_height="wrap_content"
-                        android:hint="x3xxxxxxxxx"
+                        android:hint="3xxxxxxxxx"
                         android:inputType="phone"
-                        android:maxLength="11"
+                        android:maxLength="10"
                         android:paddingLeft="@dimen/_2sdp"
-                        android:textSize="@dimen/_13sdp" />
+                        android:textSize="@dimen/_14sdp" />
 
                     <ImageView
+                        android:id="@+id/imgBorderPhoneNum"
                         android:layout_width="fill_parent"
                         android:layout_height="1sp"
                         android:background="@color/grey_ligt_black" />
@@ -202,13 +204,15 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDigitsVerification"
                     style="@style/customTextInputs"
-                    android:layout_width="@dimen/_37sdp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="0000"
                     android:inputType="number"
+                    android:letterSpacing="0.5"
+
                     android:maxLength="4"
                     android:textAlignment="center"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="@dimen/_14sdp" />
 
                 <ImageView
                     android:layout_width="fill_parent"
@@ -246,6 +250,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/_10sdp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tvResend"
                     style="@style/textview_styles"
@@ -255,14 +260,15 @@
                     android:textColor="@color/red" />
 
                 <TextView
-                    android:textAlignment="center"
-
                     android:id="@+id/tvTime"
+
                     style="@style/textview_styles"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="wrap_content"
                     android:text="30"
+                    android:textAlignment="center"
                     android:textColor="@color/red" />
+
                 <TextView
                     android:id="@+id/tvSec"
                     style="@style/textview_styles"
