@@ -7,13 +7,11 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.FileProvider
-import com.elementarylogics.imagesliderapp.ProfileSliderFragment
+import com.elementarylogics.imagesliderapp.profile.ProfileSliderFragment
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -132,7 +130,7 @@ class PermissionsUtil {
          * Capture image from camera
          */
         val REQUEST_TAKE_PHOTO = 106
-        lateinit var mPhotoFile: File
+         var mPhotoFile: File?=null
 
 
         fun dispatchTakePictureIntent(

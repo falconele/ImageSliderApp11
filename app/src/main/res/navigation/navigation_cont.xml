@@ -31,7 +31,7 @@
         tools:layout="@layout/fragment_my_orders_sliders_fragments"></fragment>
     <fragment
         android:id="@+id/profileFrag"
-        android:name="com.elementarylogics.imagesliderapp.ProfileSliderFragment"
+        android:name="com.elementarylogics.imagesliderapp.profile.ProfileSliderFragment"
         tools:layout="@layout/fragment_profile_slider"></fragment>
 
     <fragment

@@ -1,4 +1,4 @@
-package com.elementarylogics.imagesliderapp
+package com.elementarylogics.imagesliderapp.profile
 
 
 import android.Manifest
@@ -24,15 +24,19 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.elementarylogics.imagesliderapp.R
 import com.elementarylogics.imagesliderapp.activities.maps.MapsActivity
+import com.elementarylogics.imagesliderapp.utils.ErrorCheckingUtils
 import com.elementarylogics.imagesliderapp.utils.FileCompressor
 import com.elementarylogics.imagesliderapp.utils.PermissionsUtil
 import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.getRealPathFromUri
 import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.mPhotoFile
 import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.requestStoragePermission
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.fragment_profile_slider.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -44,19 +48,12 @@ import java.util.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [ProfileSliderFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [ProfileSliderFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class ProfileSliderFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-//    private var listener: OnFragmentInteractionListener? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,10 +66,23 @@ class ProfileSliderFragment : Fragment() {
 
     lateinit var views: View
     val REQ_CODE_MAP = 102
-    lateinit var tiAddress: TextInputLayout
+    lateinit var tietAddress: TextInputLayout
     lateinit var etAddress: TextInputEditText
     lateinit var cardProfilePic: CardView
     lateinit var imgProfile: ImageView
+
+    lateinit var name: TextInputEditText
+    lateinit var lastName: TextInputEditText
+    lateinit var email: TextInputEditText
+    lateinit var flatHouse: TextInputEditText
+    lateinit var areaColony: TextInputEditText
+    lateinit var city: TextInputEditText
+    lateinit var btnSaveOrUpdate: MaterialButton
+
+
+    var lattitude: Double = 0.0
+    var longitude: Double = 0.0
+    var profileFile: File? = null
 
 
     override fun onCreateView(
@@ -82,15 +92,27 @@ class ProfileSliderFragment : Fragment() {
         // Inflate the layout for this fragment
 
         views = inflater.inflate(R.layout.fragment_profile_slider, container, false)
-        tiAddress = views.findViewById(R.id.tietAddress)
+        tietAddress = views.findViewById(R.id.tietAddress)
         etAddress = views.findViewById(R.id.etAddress)
         cardProfilePic = views.findViewById(R.id.cardProfilePic)
         imgProfile = views.findViewById(R.id.imgProfile)
 
+        name = views.findViewById(R.id.etName)
+        lastName = views.findViewById(R.id.etLastName)
+        email = views.findViewById(R.id.etEmail)
+        flatHouse = views.findViewById(R.id.etFlatHouse)
+        areaColony = views.findViewById(R.id.etAreaColonySector)
+        city = views.findViewById(R.id.etCity)
+        btnSaveOrUpdate = views.findViewById(R.id.btnSaveOrUpdate)
+
+
+
+
+
         Toast.makeText(context, "Profile Fragment Object Created", Toast.LENGTH_LONG).show()
         mCompressor = FileCompressor(activity!!)
         mPhotoFile = PermissionsUtil.createImageFile(activity as AppCompatActivity)
-
+        var relAddress = views.findViewById<RelativeLayout>(R.id.relAddress)
         etAddress.setOnClickListener(View.OnClickListener {
             val intent = Intent(activity, MapsActivity::class.java)
             intent.putExtra("address", etAddress.text!!.toString())
@@ -99,8 +121,14 @@ class ProfileSliderFragment : Fragment() {
             startActivityForResult(intent, REQ_CODE_MAP)
         })
 
+
+
         cardProfilePic.setOnClickListener(View.OnClickListener {
             showBottomSheetDialog()
+        })
+
+        btnSaveOrUpdate.setOnClickListener(View.OnClickListener {
+            validateData()
         })
 
         return views
@@ -123,15 +151,7 @@ class ProfileSliderFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileSliderFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ProfileSliderFragment().apply {
@@ -171,10 +191,11 @@ class ProfileSliderFragment : Fragment() {
                 ) !== PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
-                    activity!!, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA),
+                    activity!!,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
                     CAM_REQUEST_PERMISSION
                 )
-            }else{
+            } else {
                 openCameraIntent()
             }
 
@@ -209,8 +230,9 @@ class ProfileSliderFragment : Fragment() {
                     e.printStackTrace()
                 }
 //                    imgProfile.setImageURI(Uri.parse(imageFilePath))
+                profileFile = mPhotoFile
                 Glide.with(activity!!)
-                    .load(mPhotoFile)
+                    .load(profileFile)
                     .apply(
                         RequestOptions().centerCrop()
                             .placeholder(R.drawable.ic_home_black_24dp)
@@ -230,9 +252,9 @@ class ProfileSliderFragment : Fragment() {
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
-
+                profileFile = mPhotoFile
                 Glide.with(activity!!)
-                    .load(mPhotoFile)
+                    .load(profileFile)
                     .apply(
                         RequestOptions().centerCrop()
 
@@ -240,6 +262,7 @@ class ProfileSliderFragment : Fragment() {
                     )
                     .into(imgProfile)
             }
+
         }
 
     }
@@ -281,6 +304,53 @@ class ProfileSliderFragment : Fragment() {
         imageFilePath = image.absolutePath
 
         return image
+    }
+
+
+    fun validateData() {
+
+
+        ErrorCheckingUtils.setContextVal(activity as AppCompatActivity)
+
+        if (!ErrorCheckingUtils.profileVerification(profileFile)) return
+        if (!ErrorCheckingUtils.checkEmpty(
+                etName.text.toString(),
+                resources.getString(R.string.empty_name)
+            )
+        ) return
+        if (!ErrorCheckingUtils.checkEmpty(
+                etLastName.text.toString(),
+                resources.getString(R.string.empty_last_name)
+            )
+        ) return
+
+        if (!ErrorCheckingUtils.emailVerification(etEmail.text.toString()))
+            return
+
+        if (!ErrorCheckingUtils.checkEmpty(
+                etAddress.text.toString(),
+                resources.getString(R.string.empty_address)
+            )
+        ) return
+
+        if (!ErrorCheckingUtils.checkEmpty(
+                etFlatHouse.text.toString(),
+                resources.getString(R.string.empty_flat_house)
+            )
+        ) return
+
+        if (!ErrorCheckingUtils.checkEmpty(
+                etAreaColonySector.text.toString(),
+                resources.getString(R.string.empty_area_colony_sector)
+            )
+        ) return
+        if (!ErrorCheckingUtils.checkEmpty(
+                etCity.text.toString(),
+                resources.getString(R.string.empty_city)
+            )
+        ) return
+
+
     }
 
 }

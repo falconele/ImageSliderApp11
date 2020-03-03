@@ -1,9 +1,11 @@
 package com.elementarylogics.imagesliderapp.utils
 
 import android.content.res.Resources
+import android.util.Patterns
 import androidx.appcompat.app.AppCompatActivity
 import com.elementarylogics.imagesliderapp.R
 import com.elementarylogics.imagesliderapp.utils.ApplicationUtils.showToast
+import java.io.File
 
 class ErrorCheckingUtils {
     //    lateinit var context: Context
@@ -40,7 +42,7 @@ class ErrorCheckingUtils {
 
 
         fun checkEmpty(str: String, errorMsg: String): Boolean {
-            if (str != null && str.length > 0) {
+            if (str != null && str.replace(" ", "").replace("\n", "").length > 0) {
                 return true
             }
             showToast(
@@ -49,5 +51,33 @@ class ErrorCheckingUtils {
             )
             return false
         }
+
+        fun emailVerification(str: String): Boolean {
+            if (checkEmpty(str, context.resources.getString(R.string.empty_email))) {
+                if (Patterns.EMAIL_ADDRESS.matcher(str).matches()) {
+                    return true
+                } else {
+                    showToast(
+                        context!!,
+                        resources.getString(R.string.emai_error), false
+                    )
+                }
+
+            }
+
+            return false
+        }
+
+        fun profileVerification(file: File?): Boolean {
+            if (file != null) {
+                return true
+            }
+            showToast(
+                context!!,
+                resources.getString(R.string.empty_profile), false
+            )
+            return false
+        }
+
     }
 }

@@ -50,6 +50,7 @@
     <string name="mrs">Mrs.</string>
     <string name="miss">Miss.</string>
     <string name="name">Name</string>
+    <string name="fname">Last Name</string>
     <string name="email">Email</string>
     <string name="address">Address</string>
     <string name="flat_house_office">Flat, House, Office No, Building, Company</string>
@@ -99,6 +100,18 @@
     <string name="success">Success</string>
     <string name="error">Error</string>
 
-    <string name="cell_number_error">Phone Number length must not be less than 10</string>
+    <string name="cell_number_error">Phone number length must not be less than 10</string>
     <string name="empty_cellno">Phone number is required</string>
+    <string name="empty_email">Email is required</string>
+    <string name="empty_name">Name is required</string>
+
+
+    <string name="empty_last_name">Last name is required</string>
+    <string name="empty_address">Address is required</string>
+    <string name="empty_flat_house">Flat, House, Office is required</string>
+    <string name="empty_area_colony_sector">Area, colony, sector is required</string>
+    <string name="empty_city">City is required</string>
+    <string name="empty_profile">Profile image is required</string>
+
+    <string name="emai_error">Please enter valid email</string>
 </resources>
