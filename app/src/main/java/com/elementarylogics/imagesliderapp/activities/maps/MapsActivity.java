@@ -21,13 +21,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-
 import com.elementarylogics.imagesliderapp.R;
 import com.elementarylogics.imagesliderapp.utils.ApplicationUtils;
-//import com.examples.dalileurope.utils.ApplicationUtils;
-//import com.examples.dalileurope.utils.URLogs;
 import com.elementarylogics.imagesliderapp.utils.URLogs;
-import com.elementarylogics.imagesliderapp.utils.Utility;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
@@ -52,7 +48,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-
+//import com.examples.dalileurope.utils.ApplicationUtils;
+//import com.examples.dalileurope.utils.URLogs;
 
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
@@ -61,14 +58,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LocationListener, View.OnClickListener {
 
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99 ;
-    View locationButton;
-    private GoogleMap mMap;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private static final String TAG = "MapsActivity";
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
     public static LatLng shippingLatlng;
     public static String shippingAddress = "";
+    View locationButton;
+    ImageView ivMyLoc;
+    private GoogleMap mMap;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
     private View mapView;
     private AutocompleteSupportFragment autocompleteSupportFragment;
     private Button btnDoneMap;
@@ -76,7 +74,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MarkerOptions markerOptions;
     private GoogleMap.OnCameraIdleListener onCameraIdleListener;
     private AppCompatActivity mContext;
-    ImageView ivMyLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +82,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Bundle bundle = getIntent().getExtras();
 //        mContext = (AppCompatActivity) this;
-        mContext = (AppCompatActivity) this;
+        mContext = this;
         //transparentStatusBar();
 
         try {
@@ -101,10 +98,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkLocationPermission();
+            if (checkLocationPermission()) {
+                initialize();
+            }
         }
 
-        initialize();
+
     }
 
     private void initialize() {
@@ -114,7 +113,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         back.setOnClickListener(this);
         btnDoneMap = findViewById(R.id.btnDoneMap);
         btnDoneMap.setOnClickListener(this);
-        ivMyLoc = (ImageView) findViewById(R.id.ivMyLoc);
+        ivMyLoc = findViewById(R.id.ivMyLoc);
         ivMyLoc.setOnClickListener(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to ble used.
@@ -194,10 +193,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (mapView != null)
             ApplicationUtils.enableGPS(mContext);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkLocationPermission();
-        }
         googleMap.setMyLocationEnabled(true);
 
 
@@ -296,7 +291,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 if (grantResults.length > 0
@@ -304,7 +299,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
-                        mMap.setMyLocationEnabled(true);
+                        initialize();
+//                        mMap.setMyLocationEnabled(true);
 
                         if (!shippingAddress.equals("") && !shippingAddress.equals("pickupAddress")) {
                             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(shippingLatlng, 15);
@@ -324,7 +320,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     }
                 } else {
-                    ApplicationUtils.showToast(MapsActivity.this, getResources().getString(R.string.permission_denied), false);
+                    checkLocationPermission();
+//                    ApplicationUtils.showToast(MapsActivity.this, getResources().getString(R.string.permission_denied), false);
                 }
                 return;
             }
@@ -334,7 +331,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onConnectionSuspended(int i) {
-        Log.d(TAG, "onConnectionSuspended: " + String.valueOf(i));
+        Log.d(TAG, "onConnectionSuspended: " + i);
     }
 
     @Override
@@ -371,44 +368,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         markerOptions.draggable(true);
         mMap.clear();
         mMap.addMarker(markerOptions);*/
-    }
-
-
-    class GetAddressAsync extends AsyncTask<Void, Integer, String> {
-        String TAG = getClass().getSimpleName();
-        double LATITUDE;
-        double LONGITUDE;
-
-        public GetAddressAsync(double LATITUDE, double LONGITUDE) {
-
-            this.LATITUDE = LATITUDE;
-            this.LONGITUDE = LONGITUDE;
-        }
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.d(TAG + " PreExceute", "On pre Exceute......");
-        }
-
-        protected String doInBackground(Void... arg0) {
-            Log.d(TAG + " DoINBackGround", "On doInBackground...");
-            shippingAddress = "";
-            shippingAddress = getAddress(LATITUDE, LONGITUDE);
-            return shippingAddress;
-        }
-
-        protected void onProgressUpdate(Integer... a) {
-            super.onProgressUpdate(a);
-            Log.d(TAG + " onProgressUpdate", "You are in progress update ... " + a[0]);
-        }
-
-        protected void onPostExecute(String latLngAddress) {
-            super.onPostExecute(latLngAddress);
-            Log.e(TAG + " onPostExecute2222", "" + latLngAddress);
-            if (ApplicationUtils.isSet(latLngAddress)) {
-                autocompleteSupportFragment.setText(latLngAddress); // Here is you AutoCompleteTextView where you want to set your string address (You can remove it if you not need it)
-            }
-        }
     }
 
     private String getAddress(double latitude, double longitude) {
@@ -512,6 +471,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
 
+        }
+    }
+
+    class GetAddressAsync extends AsyncTask<Void, Integer, String> {
+        String TAG = getClass().getSimpleName();
+        double LATITUDE;
+        double LONGITUDE;
+
+        public GetAddressAsync(double LATITUDE, double LONGITUDE) {
+
+            this.LATITUDE = LATITUDE;
+            this.LONGITUDE = LONGITUDE;
+        }
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d(TAG + " PreExceute", "On pre Exceute......");
+        }
+
+        protected String doInBackground(Void... arg0) {
+            Log.d(TAG + " DoINBackGround", "On doInBackground...");
+            shippingAddress = "";
+            shippingAddress = getAddress(LATITUDE, LONGITUDE);
+            return shippingAddress;
+        }
+
+        protected void onProgressUpdate(Integer... a) {
+            super.onProgressUpdate(a);
+            Log.d(TAG + " onProgressUpdate", "You are in progress update ... " + a[0]);
+        }
+
+        protected void onPostExecute(String latLngAddress) {
+            super.onPostExecute(latLngAddress);
+            Log.e(TAG + " onPostExecute2222", "" + latLngAddress);
+            if (ApplicationUtils.isSet(latLngAddress)) {
+                autocompleteSupportFragment.setText(latLngAddress); // Here is you AutoCompleteTextView where you want to set your string address (You can remove it if you not need it)
+            }
         }
     }
 

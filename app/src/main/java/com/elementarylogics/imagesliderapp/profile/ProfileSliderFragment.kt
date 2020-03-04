@@ -9,15 +9,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.Constraints
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -26,17 +25,28 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.elementarylogics.imagesliderapp.R
 import com.elementarylogics.imagesliderapp.activities.maps.MapsActivity
-import com.elementarylogics.imagesliderapp.utils.ErrorCheckingUtils
-import com.elementarylogics.imagesliderapp.utils.FileCompressor
-import com.elementarylogics.imagesliderapp.utils.PermissionsUtil
+import com.elementarylogics.imagesliderapp.dataclases.User
+import com.elementarylogics.imagesliderapp.network.Apis
+import com.elementarylogics.imagesliderapp.network.ResponseResult
+import com.elementarylogics.imagesliderapp.network.RetrofitClient
+import com.elementarylogics.imagesliderapp.utils.*
+import com.elementarylogics.imagesliderapp.utils.ApplicationUtils.showToast
 import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.getRealPathFromUri
 import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.mPhotoFile
 import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.requestStoragePermission
+
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_profile_slider.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -79,6 +89,8 @@ class ProfileSliderFragment : Fragment() {
     lateinit var city: TextInputEditText
     lateinit var btnSaveOrUpdate: MaterialButton
 
+    lateinit var progressBar: ProgressBar
+
 
     var lattitude: Double = 0.0
     var longitude: Double = 0.0
@@ -105,20 +117,24 @@ class ProfileSliderFragment : Fragment() {
         city = views.findViewById(R.id.etCity)
         btnSaveOrUpdate = views.findViewById(R.id.btnSaveOrUpdate)
 
+        progressBar = views.findViewById(R.id.progressBar)
 
 
-
-
-        Toast.makeText(context, "Profile Fragment Object Created", Toast.LENGTH_LONG).show()
+//        Toast.makeText(context, "Profile Fragment Object Created", Toast.LENGTH_LONG).show()
         mCompressor = FileCompressor(activity!!)
         mPhotoFile = PermissionsUtil.createImageFile(activity as AppCompatActivity)
         var relAddress = views.findViewById<RelativeLayout>(R.id.relAddress)
         etAddress.setOnClickListener(View.OnClickListener {
-            val intent = Intent(activity, MapsActivity::class.java)
-            intent.putExtra("address", etAddress.text!!.toString())
-            intent.putExtra("lat", 1234.5)
-            intent.putExtra("lon", 1234.5)
-            startActivityForResult(intent, REQ_CODE_MAP)
+            if (!ApplicationUtils.isEnableGPS(activity)) ApplicationUtils.enableGPS(
+                activity
+            ) else {
+
+                val intent = Intent(activity, MapsActivity::class.java)
+                intent.putExtra("address", etAddress.text!!.toString())
+                intent.putExtra("lat", 1234.5)
+                intent.putExtra("lon", 1234.5)
+                startActivityForResult(intent, REQ_CODE_MAP)
+            }
         })
 
 
@@ -142,6 +158,7 @@ class ProfileSliderFragment : Fragment() {
 
 
     public fun updateMethod() {
+        getData()
         Toast.makeText(context, "Profile Fragment Updated", Toast.LENGTH_LONG).show()
     }
 
@@ -350,7 +367,223 @@ class ProfileSliderFragment : Fragment() {
             )
         ) return
 
+        saveUser()
+    }
+
+    lateinit var user: User
+    fun getData() {
+
+
+        Utility.showProgressBar(activity as AppCompatActivity, progressBar, true)
+        val api: Apis = RetrofitClient.getClient()!!.create(Apis::class.java)
+        val token: String =
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
+
+        val call: Call<ResponseResult<User>> =
+            api.getUser(token, "1")
+
+        call.enqueue(object : Callback<ResponseResult<User>> {
+            override fun onResponse(
+                call: Call<ResponseResult<User>>,
+                response: Response<ResponseResult<User>>
+            ) {
+                Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
+                try {
+                    if (response.isSuccessful()) {
+                        if (response.body().getStatus()!!) {
+                            if (response.body().getData() != null) {
+                                user = response.body().getData() as User
+                                setUserDetails()
+                            }
+                        } else {
+                            ApplicationUtils.showToast(
+                                activity,
+                                response.body().getMessage().toString() + "",
+                                false
+                            )
+                        }
+                    } else {
+                        val jsonObject = JSONObject(response.errorBody().string())
+                        ApplicationUtils.showToast(
+                            activity,
+                            jsonObject.getString("message") + "",
+                            false
+                        )
+                    }
+                } catch (e: Exception) {
+//                    showProgressBar(false)
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(
+                call: Call<ResponseResult<User>>,
+                t: Throwable
+            ) {
+//                showProgressBar(false)
+                Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
+                Log.d(
+                    Constraints.TAG,
+                    "onFailure: " + t.message
+                )
+            }
+        })
+
 
     }
 
+
+    fun setUserDetails() {
+        if (user != null) {
+
+            var requestOptions = RequestOptions()
+            requestOptions.error(R.drawable.ic_user)
+            requestOptions.placeholder(R.drawable.ic_user)
+            Glide.with(activity!!).setDefaultRequestOptions(requestOptions).load(user.fullImagePath)
+                .into(imgProfile)
+
+            etName.setText(user.first_name)
+            etLastName.setText(user.last_name)
+            etEmail.setText(user.email)
+            etAddress.setText(user.address)
+            lattitude = user.latitude
+            longitude = user.longitude
+            etFlatHouse.setText(user.flatHouse)
+            etAreaColonySector.setText(user.colonyArea)
+            etCity.setText(user.city)
+
+        }
+    }
+
+    fun saveUser() {
+//        var token =
+//            SharedPreference.getSharedPrefValue(activity as AppCompatActivity, Constants.USER_TOKEN)
+//        token = "Bearer $token"
+
+
+        val first_name: RequestBody = RequestBody.create(
+            MediaType.parse("text/plain"),
+            etName.getText().toString()
+        )
+        val last_name = RequestBody.create(
+            MediaType.parse("text/plain"),
+            etLastName.text.toString()
+        )
+
+        val email = RequestBody.create(
+            MediaType.parse("text/plain"),
+            etEmail.text.toString()
+        )
+
+        val phone_number: RequestBody = RequestBody.create(
+            MediaType.parse("text/plain"),
+            user.phone_number
+        )
+        val address = RequestBody.create(
+            MediaType.parse("text/plain"),
+            etAddress.text.toString()
+        )
+        val latitude: RequestBody =
+            RequestBody.create(MediaType.parse("text/plain"), lattitude.toString() + "")
+        val longitude: RequestBody =
+            RequestBody.create(MediaType.parse("text/plain"), longitude.toString() + "")
+        val flatHouse = RequestBody.create(
+            MediaType.parse("text/plain"),
+            etFlatHouse.text.toString()
+        )
+        val areaColony = RequestBody.create(
+            MediaType.parse("text/plain"),
+            etAreaColonySector.text.toString()
+        )
+
+        val city = RequestBody.create(
+            MediaType.parse("text/plain"),
+            etCity.text.toString()
+        )
+
+        var imageBodyPart: MultipartBody.Part? = null
+        if (profileFile != null) {
+            val image: RequestBody = RequestBody.create(
+                MediaType.parse("image/jpeg"),
+                profileFile
+            )
+            imageBodyPart =
+                MultipartBody.Part.createFormData("photo", profileFile!!.getName(), image)
+        }
+
+
+
+
+
+        Utility.showProgressBar(activity as AppCompatActivity, progressBar, true)
+        val api: Apis = RetrofitClient.getClient()!!.create(Apis::class.java)
+        val token: String =
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
+
+        val call: Call<ResponseResult<User>> =
+            api.saveOrUpdate(
+                token,
+                first_name,
+                last_name,
+                email,
+                latitude,
+                longitude,
+                address,
+                phone_number,
+                imageBodyPart!!,
+                city
+
+
+            )
+
+        call.enqueue(object : Callback<ResponseResult<User>> {
+            override fun onResponse(
+                call: Call<ResponseResult<User>>,
+                response: Response<ResponseResult<User>>
+            ) {
+                Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
+                try {
+                    if (response.isSuccessful()) {
+                        if (response.body().getStatus()!!) {
+                            if (response.body().getData() != null) {
+//                                user = response.body().getData() as User
+//                                setUserDetails()
+                                showToast(activity, response.body().getMessage(), true)
+                            }
+                        } else {
+                            ApplicationUtils.showToast(
+                                activity,
+                                response.body().getMessage().toString() + "",
+                                false
+                            )
+                        }
+                    } else {
+                        val jsonObject = JSONObject(response.errorBody().string())
+                        ApplicationUtils.showToast(
+                            activity,
+                            jsonObject.getString("message") + "",
+                            false
+                        )
+                    }
+                } catch (e: Exception) {
+//                    showProgressBar(false)
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(
+                call: Call<ResponseResult<User>>,
+                t: Throwable
+            ) {
+//                showProgressBar(false)
+                Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
+                Log.d(
+                    Constraints.TAG,
+                    "onFailure: " + t.message
+                )
+            }
+        })
+
+
+    }
 }

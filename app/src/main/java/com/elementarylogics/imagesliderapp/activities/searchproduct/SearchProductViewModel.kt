@@ -2,6 +2,7 @@ package com.elementarylogics.imagesliderapp.activities.searchproduct
 
 import androidx.lifecycle.ViewModel
 import com.elementarylogics.imagesliderapp.dataclases.Product
+import com.elementarylogics.imagesliderapp.network.Apis
 import com.elementarylogics.imagesliderapp.utils.Utility
 import io.reactivex.Completable
 
@@ -24,6 +25,7 @@ class SearchProductViewModel : ViewModel() {
         filteredPosts.addAll(wanted)
         it.onComplete()
     }
+
 
 
 }

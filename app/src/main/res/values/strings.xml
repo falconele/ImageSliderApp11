@@ -114,4 +114,5 @@
     <string name="empty_profile">Profile image is required</string>
 
     <string name="emai_error">Please enter valid email</string>
+    <string name="address_type_error">Please select one of address nickname</string>
 </resources>
