@@ -43,7 +43,7 @@ public class SharedPreference {
         edit.commit();
     }
 
-    public static void saveProfileDefaults(Context mContext, User jsonData) {
+    public static void saveUserProfile(Context mContext, User jsonData) {
 
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCES_KEY, Activity.MODE_PRIVATE);
         Editor editor = sharedPreferences.edit();

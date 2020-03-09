@@ -39,6 +39,9 @@ class MyCartActivity : AppCompatActivity(), MyCartAdaptor.ItemClickListner {
         btnProceddCheckout.setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, MobileRegisterationActivity::class.java))
         })
+        imgBack.setOnClickListener(View.OnClickListener {
+            finish()
+        })
     }
 
     lateinit var adapter: MyCartAdaptor

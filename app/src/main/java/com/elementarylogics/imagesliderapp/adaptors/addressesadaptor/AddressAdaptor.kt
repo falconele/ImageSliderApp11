@@ -45,11 +45,11 @@ class AddressAdaptor : RecyclerView.Adapter<AddressAdaptor.ViewHolder> {
         val employee = mAddressList[position]
 
 
-        holder.tvName.setText(employee.gender + " " + employee.name)
-        holder.tvFlatHouse.setText(employee.flatHouse)
-        holder.tvAreaColonySector.setText(employee.areaColony)
+        holder.tvName.setText( employee.name)
+        holder.tvFlatHouse.setText(employee.house_flate_number)
+        holder.tvAreaColonySector.setText(employee.area_colony)
         holder.tvAddress.setText(employee.address)
-        holder.tvAddressType.setText(employee.addressType)
+        holder.tvAddressType.setText(employee.address_type)
 
 
         holder.imgEdit.setOnClickListener(View.OnClickListener {
@@ -61,8 +61,8 @@ class AddressAdaptor : RecyclerView.Adapter<AddressAdaptor.ViewHolder> {
     }
 
     fun addItems(addresses: List<AddressModel>) {
-//        this.mAddressList.clear()
-//        this.mAddressList.addAll(addresses)
+        this.mAddressList.clear()
+        this.mAddressList.addAll(addresses)
         notifyDataSetChanged()
     }
 

@@ -85,6 +85,55 @@ class PermissionsUtil {
                 .check()
         }
 
+        fun requestStoragePermissionProfile(
+            isCamera: Boolean,
+            activity: AppCompatActivity
+        ) {
+            Dexter.withActivity(activity)
+                .withPermissions(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA
+                )
+                .withListener(object : MultiplePermissionsListener {
+                    override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                        // check if all permissions are granted
+                        if (report.areAllPermissionsGranted()) {
+                            if (isCamera) {
+//                                dispatchTakePictureIntent(activity, profileSliderFragment)
+                                takePicture(activity)
+                            } else {
+                                dispatchGalleryIntent(activity)
+                            }
+                        }
+                        // check for permanent denial of any permission
+                        if (report.isAnyPermissionPermanentlyDenied) {
+                            // show alert dialog navigating to Settings
+                            showSettingsDialog(activity)
+                        }
+                    }
+
+//                     fun onPermissionRationaleShouldBeShown(
+//                        permissions: List<PermissionRequest>,
+//                        token: PermissionToken
+//                    ) {
+//                        token.continuePermissionRequest()
+//                    }
+
+                    override fun onPermissionRationaleShouldBeShown(
+                        permissions: MutableList<com.karumi.dexter.listener.PermissionRequest>?,
+                        token: PermissionToken?
+                    ) {
+                        token!!.continuePermissionRequest()
+                    }
+                })
+                .withErrorListener { error ->
+                    Toast.makeText(activity, "Error occurred! ", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                .onSameThread()
+                .check()
+        }
+
 
         /**
          * Showing Alert Dialog with Settings option

@@ -31,6 +31,7 @@
     <string name="verify">Verify</string>
     <string name="resend_in">Resend in </string>
     <string name="sec">Sec</string>
+    <string name="resend_code">Resend Code</string>
 
     <!--    address date and time-->
     <string name="address_date_time_title">Address, Date and Time</string>
@@ -63,6 +64,7 @@
     <string name="continu">Continue</string>
     <string name="save">Save</string>
     <string name="update">Update</string>
+    <string name="mobileno">Cell no</string>
 
     <!--    //maps-->
     <string name="done">Done</string>
@@ -101,9 +103,11 @@
     <string name="error">Error</string>
 
     <string name="cell_number_error">Phone number length must not be less than 10</string>
+    <string name="cell_number_start_error">Phone number must start with 3</string>
     <string name="empty_cellno">Phone number is required</string>
     <string name="empty_email">Email is required</string>
     <string name="empty_name">Name is required</string>
+    <string name="empty_verificationCode">Verification code is required</string>
 
 
     <string name="empty_last_name">Last name is required</string>
@@ -114,5 +118,11 @@
     <string name="empty_profile">Profile image is required</string>
 
     <string name="emai_error">Please enter valid email</string>
+    <string name="verification_code_error">Please enter 4 digits</string>
     <string name="address_type_error">Please select one of address nickname</string>
+
+
+    <!--    place order-->
+    <string name="place_order_title">Place order</string>
+    <string name="amount_payable">Amount payable</string>
 </resources>

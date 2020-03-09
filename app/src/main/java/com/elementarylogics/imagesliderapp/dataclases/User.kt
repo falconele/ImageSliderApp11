@@ -4,7 +4,7 @@ data class User(
     var id: Int,
     var first_name: String,
     var last_name: String,
-    var fullImagePath:String,
+    var fullImagePath: String,
     var email: String,
     var latitude: Double,
     val longitude: Double,
@@ -13,6 +13,7 @@ data class User(
     var city: String,
     var photo: String,
     var status: Int,
-    var flatHouse: String,
-    var colonyArea: String
+    var house_flate_number: String,
+    var area_colony: String,
+    var token: String
 )

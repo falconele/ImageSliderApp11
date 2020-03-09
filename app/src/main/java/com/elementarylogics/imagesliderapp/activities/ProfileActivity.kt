@@ -1,8 +1,7 @@
-package com.elementarylogics.imagesliderapp.profile
-
+package com.elementarylogics.imagesliderapp.activities
 
 import android.Manifest
-import android.app.Activity.RESULT_OK
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,17 +9,17 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.Constraints
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.elementarylogics.imagesliderapp.R
@@ -30,11 +29,6 @@ import com.elementarylogics.imagesliderapp.network.Apis
 import com.elementarylogics.imagesliderapp.network.ResponseResult
 import com.elementarylogics.imagesliderapp.network.RetrofitClient
 import com.elementarylogics.imagesliderapp.utils.*
-import com.elementarylogics.imagesliderapp.utils.ApplicationUtils.showToast
-import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.getRealPathFromUri
-import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.mPhotoFile
-import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.requestStoragePermission
-
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -52,29 +46,9 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class ProfileActivity : AppCompatActivity() {
 
 
-class ProfileSliderFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
-
-    lateinit var views: View
     val REQ_CODE_MAP = 102
     lateinit var tietAddress: TextInputLayout
     lateinit var etAddress: TextInputEditText
@@ -85,7 +59,6 @@ class ProfileSliderFragment : Fragment() {
     lateinit var lastName: TextInputEditText
     lateinit var email: TextInputEditText
     lateinit var flatHouse: TextInputEditText
-    lateinit var cellno: TextInputEditText
     lateinit var areaColony: TextInputEditText
     lateinit var city: TextInputEditText
     lateinit var btnSaveOrUpdate: MaterialButton
@@ -98,40 +71,37 @@ class ProfileSliderFragment : Fragment() {
     var profileFile: File? = null
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_profile_slider)
 
-        views = inflater.inflate(R.layout.fragment_profile_slider, container, false)
-        tietAddress = views.findViewById(R.id.tietAddress)
-        etAddress = views.findViewById(R.id.etAddress)
-        cardProfilePic = views.findViewById(R.id.cardProfilePic)
-        imgProfile = views.findViewById(R.id.imgProfile)
 
-        name = views.findViewById(R.id.etName)
-        lastName = views.findViewById(R.id.etLastName)
-        email = views.findViewById(R.id.etEmail)
-        flatHouse = views.findViewById(R.id.etFlatHouse)
-        areaColony = views.findViewById(R.id.etAreaColonySector)
-        city = views.findViewById(R.id.etCity)
-        cellno = views.findViewById(R.id.etCellNo)
-        btnSaveOrUpdate = views.findViewById(R.id.btnSaveOrUpdate)
+        tietAddress = findViewById(R.id.tietAddress)
+        etAddress = findViewById(R.id.etAddress)
+        cardProfilePic = findViewById(R.id.cardProfilePic)
+        imgProfile = findViewById(R.id.imgProfile)
 
-        progressBar = views.findViewById(R.id.progressBar)
+        name = findViewById(R.id.etName)
+        lastName = findViewById(R.id.etLastName)
+        email = findViewById(R.id.etEmail)
+        flatHouse = findViewById(R.id.etFlatHouse)
+        areaColony = findViewById(R.id.etAreaColonySector)
+        city = findViewById(R.id.etCity)
+        btnSaveOrUpdate = findViewById(R.id.btnSaveOrUpdate)
+
+        progressBar = findViewById(R.id.progressBar)
 
 
 //        Toast.makeText(context, "Profile Fragment Object Created", Toast.LENGTH_LONG).show()
-        mCompressor = FileCompressor(activity!!)
-        mPhotoFile = PermissionsUtil.createImageFile(activity as AppCompatActivity)
-        var relAddress = views.findViewById<RelativeLayout>(R.id.relAddress)
+        mCompressor = FileCompressor(this)
+        PermissionsUtil.mPhotoFile = PermissionsUtil.createImageFile(this)
+        var relAddress = findViewById<RelativeLayout>(R.id.relAddress)
         etAddress.setOnClickListener(View.OnClickListener {
-            if (!ApplicationUtils.isEnableGPS(activity)) ApplicationUtils.enableGPS(
-                activity
+            if (!ApplicationUtils.isEnableGPS(this)) ApplicationUtils.enableGPS(
+                this
             ) else {
 
-                val intent = Intent(activity, MapsActivity::class.java)
+                val intent = Intent(this, MapsActivity::class.java)
                 intent.putExtra("address", etAddress.text!!.toString())
                 intent.putExtra("lat", lattitude)
                 intent.putExtra("lon", longitude)
@@ -150,37 +120,12 @@ class ProfileSliderFragment : Fragment() {
             validateData()
         })
 
-        return views
+        user = SharedPreference.getUserData(applicationContext)
+        if (user != null) {
+            etCellNo.setText(user.phone_number)
+        }
     }
 
-
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-
-    public fun updateMethod() {
-        getData()
-//        Toast.makeText(context, "Profile Fragment Updated", Toast.LENGTH_LONG).show()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        Toast.makeText(context, "View created", Toast.LENGTH_LONG).show()
-    }
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileSliderFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 
     lateinit var tvCancel: TextView
     lateinit var relCamera: RelativeLayout
@@ -193,7 +138,7 @@ class ProfileSliderFragment : Fragment() {
         relCamera = view.findViewById(R.id.relCamera)
         relGallery = view.findViewById(R.id.relGallery)
 
-        val dialog = BottomSheetDialog(activity!!)
+        val dialog = BottomSheetDialog(this)
         dialog.setCancelable(false)
 
 
@@ -203,15 +148,15 @@ class ProfileSliderFragment : Fragment() {
             dialog.dismiss()
 
             if (ContextCompat.checkSelfPermission(
-                    activity!!,
+                    this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) !== PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-                    activity!!,
+                    this,
                     Manifest.permission.CAMERA
                 ) !== PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
-                    activity!!,
+                    this,
                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
                     CAM_REQUEST_PERMISSION
                 )
@@ -226,7 +171,7 @@ class ProfileSliderFragment : Fragment() {
         relGallery.setOnClickListener(View.OnClickListener {
             clicked = 2
             dialog.dismiss()
-            requestStoragePermission(false, activity as AppCompatActivity, this)
+            PermissionsUtil.requestStoragePermissionProfile(false, this)
         })
         tvCancel.setOnClickListener(View.OnClickListener {
             dialog.dismiss()
@@ -242,17 +187,17 @@ class ProfileSliderFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 //        if (data != null)
-        if (resultCode === RESULT_OK) {
-            Toast.makeText(context, "Image Picked", Toast.LENGTH_SHORT).show()
+        if (resultCode === Activity.RESULT_OK) {
+//            Toast.makeText(context, "Image Picked", Toast.LENGTH_SHORT).show()
             if (clicked == 1) {
                 try {
-                    mPhotoFile = File(imageFilePath)
+                    PermissionsUtil.mPhotoFile = File(imageFilePath)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
 //                    imgProfile.setImageURI(Uri.parse(imageFilePath))
-                profileFile = mPhotoFile
-                Glide.with(activity!!)
+                profileFile = PermissionsUtil.mPhotoFile
+                Glide.with(ProfileActivity@ this)
                     .load(profileFile)
                     .apply(
                         RequestOptions().centerCrop()
@@ -262,19 +207,19 @@ class ProfileSliderFragment : Fragment() {
             } else if (clicked == 2) {
                 val selectedImage = data!!.getData()
                 try {
-                    mPhotoFile = mCompressor.compressToFile(
+                    PermissionsUtil.mPhotoFile = mCompressor.compressToFile(
                         File(
-                            getRealPathFromUri(
+                            PermissionsUtil.getRealPathFromUri(
                                 selectedImage!!,
-                                activity as AppCompatActivity
+                                ProfileActivity@ this
                             )
                         )
                     )
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
-                profileFile = mPhotoFile
-                Glide.with(activity!!)
+                profileFile = PermissionsUtil.mPhotoFile
+                Glide.with(ProfileActivity@ this)
                     .load(profileFile)
                     .apply(
                         RequestOptions().centerCrop()
@@ -301,7 +246,7 @@ class ProfileSliderFragment : Fragment() {
     var photoUri: Uri? = null
     private fun openCameraIntent() {
         val pictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (pictureIntent.resolveActivity(activity!!.getPackageManager()) != null) {
+        if (pictureIntent.resolveActivity(getPackageManager()) != null) {
 
 
             try {
@@ -313,12 +258,12 @@ class ProfileSliderFragment : Fragment() {
 
             photoUri =
                 FileProvider.getUriForFile(
-                    context!!,
-                    activity!!.getPackageName() + ".provider",
+                    applicationContext,
+                    getPackageName() + ".provider",
                     photoFile!!
                 )
             pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-            activity!!.startActivityForResult(pictureIntent, REQUEST_IMAGE)
+            startActivityForResult(pictureIntent, REQUEST_IMAGE)
         }
     }
 
@@ -329,7 +274,7 @@ class ProfileSliderFragment : Fragment() {
 
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val imageFileName = "IMG_" + timeStamp + "_"
-        val storageDir = activity!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val image = File.createTempFile(imageFileName, ".jpg", storageDir)
         imageFilePath = image.absolutePath
 
@@ -340,7 +285,7 @@ class ProfileSliderFragment : Fragment() {
     fun validateData() {
 
 
-        ErrorCheckingUtils.setContextVal(activity as AppCompatActivity)
+        ErrorCheckingUtils.setContextVal(this)
 
         if (!ErrorCheckingUtils.profileVerification(profileFile)) return
         if (!ErrorCheckingUtils.checkEmpty(
@@ -384,66 +329,66 @@ class ProfileSliderFragment : Fragment() {
     }
 
     lateinit var user: User
-    fun getData() {
-
-
-        Utility.showProgressBar(activity as AppCompatActivity, progressBar, true)
-        val api: Apis = RetrofitClient.getClient()!!.create(Apis::class.java)
-        val token: String =
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
-
-        val call: Call<ResponseResult<User>> =
-            api.getUser(token, "1")
-
-        call.enqueue(object : Callback<ResponseResult<User>> {
-            override fun onResponse(
-                call: Call<ResponseResult<User>>,
-                response: Response<ResponseResult<User>>
-            ) {
-                Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
-                try {
-                    if (response.isSuccessful()) {
-                        if (response.body().getStatus()!!) {
-                            if (response.body().getData() != null) {
-                                user = response.body().getData() as User
-                                setUserDetails()
-                            }
-                        } else {
-                            ApplicationUtils.showToast(
-                                activity,
-                                response.body().getMessage().toString() + "",
-                                false
-                            )
-                        }
-                    } else {
-                        val jsonObject = JSONObject(response.errorBody().string())
-                        ApplicationUtils.showToast(
-                            activity,
-                            jsonObject.getString("message") + "",
-                            false
-                        )
-                    }
-                } catch (e: Exception) {
-//                    showProgressBar(false)
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onFailure(
-                call: Call<ResponseResult<User>>,
-                t: Throwable
-            ) {
-//                showProgressBar(false)
-                Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
-                Log.d(
-                    Constraints.TAG,
-                    "onFailure: " + t.message
-                )
-            }
-        })
-
-
-    }
+//    fun getData() {
+//
+//
+//        Utility.showProgressBar(activity as AppCompatActivity, progressBar, true)
+//        val api: Apis = RetrofitClient.getClient()!!.create(Apis::class.java)
+//        val token: String =
+//            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
+//
+//        val call: Call<ResponseResult<User>> =
+//            api.getUser(token, "1")
+//
+//        call.enqueue(object : Callback<ResponseResult<User>> {
+//            override fun onResponse(
+//                call: Call<ResponseResult<User>>,
+//                response: Response<ResponseResult<User>>
+//            ) {
+//                Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
+//                try {
+//                    if (response.isSuccessful()) {
+//                        if (response.body().getStatus()!!) {
+//                            if (response.body().getData() != null) {
+//                                user = response.body().getData() as User
+//                                setUserDetails()
+//                            }
+//                        } else {
+//                            ApplicationUtils.showToast(
+//                                activity,
+//                                response.body().getMessage().toString() + "",
+//                                false
+//                            )
+//                        }
+//                    } else {
+//                        val jsonObject = JSONObject(response.errorBody().string())
+//                        ApplicationUtils.showToast(
+//                            activity,
+//                            jsonObject.getString("message") + "",
+//                            false
+//                        )
+//                    }
+//                } catch (e: Exception) {
+////                    showProgressBar(false)
+//                    e.printStackTrace()
+//                }
+//            }
+//
+//            override fun onFailure(
+//                call: Call<ResponseResult<User>>,
+//                t: Throwable
+//            ) {
+////                showProgressBar(false)
+//                Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
+//                Log.d(
+//                    Constraints.TAG,
+//                    "onFailure: " + t.message
+//                )
+//            }
+//        })
+//
+//
+//    }
 
 
     fun setUserDetails() {
@@ -452,12 +397,12 @@ class ProfileSliderFragment : Fragment() {
             var requestOptions = RequestOptions()
             requestOptions.error(R.drawable.ic_user)
             requestOptions.placeholder(R.drawable.ic_user)
-            Glide.with(activity!!).setDefaultRequestOptions(requestOptions).load(user.fullImagePath)
+            Glide.with(ProfileActivity@ this).setDefaultRequestOptions(requestOptions)
+                .load(user.fullImagePath)
                 .into(imgProfile)
 
             etName.setText(user.first_name)
             etLastName.setText(user.last_name)
-            cellno.setText(user.phone_number)
             etEmail.setText(user.email)
             etAddress.setText(user.address)
             lattitude = user.latitude
@@ -497,6 +442,11 @@ class ProfileSliderFragment : Fragment() {
             MediaType.parse("text/plain"),
             etAddress.text.toString()
         )
+
+        val customer_id = RequestBody.create(
+            MediaType.parse("text/plain"),
+            user.id.toString()
+        )
         val latitude: RequestBody =
             RequestBody.create(MediaType.parse("text/plain"), lattitude.toString() + "")
         val longitude: RequestBody =
@@ -515,11 +465,6 @@ class ProfileSliderFragment : Fragment() {
             etCity.text.toString()
         )
 
-        val customer_id = RequestBody.create(
-            MediaType.parse("text/plain"),
-            user.id.toString()
-        )
-
         var imageBodyPart: MultipartBody.Part? = null
         if (profileFile != null) {
             val image: RequestBody = RequestBody.create(
@@ -534,7 +479,7 @@ class ProfileSliderFragment : Fragment() {
 
 
 
-        Utility.showProgressBar(activity as AppCompatActivity, progressBar, true)
+        Utility.showProgressBar(this, progressBar, true)
         val api: Apis = RetrofitClient.getClient()!!.create(Apis::class.java)
         val token: String =
             "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
@@ -561,18 +506,35 @@ class ProfileSliderFragment : Fragment() {
                 call: Call<ResponseResult<User>>,
                 response: Response<ResponseResult<User>>
             ) {
-                Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
+                Utility.showProgressBar(this@ProfileActivity, progressBar, false)
                 try {
                     if (response.isSuccessful()) {
                         if (response.body().getStatus()!!) {
                             if (response.body().getData() != null) {
-//                                user = response.body().getData() as User
+                                user = response.body().getData() as User
 //                                setUserDetails()
-                                showToast(activity, response.body().getMessage(), true)
+                                ApplicationUtils.showToast(
+                                    this@ProfileActivity,
+                                    response.body().getMessage(),
+                                    true
+                                )
+
+                                SharedPreference.saveUserProfile(
+                                    this@ProfileActivity,
+                                    user
+                                )
+                                startActivity(
+                                    Intent(
+                                        this@ProfileActivity,
+                                        AddressDateTimeActivity::class.java
+                                    )
+                                )
+                                finish()
+
                             }
                         } else {
                             ApplicationUtils.showToast(
-                                activity,
+                                this@ProfileActivity,
                                 response.body().getMessage().toString() + "",
                                 false
                             )
@@ -580,7 +542,7 @@ class ProfileSliderFragment : Fragment() {
                     } else {
                         val jsonObject = JSONObject(response.errorBody().string())
                         ApplicationUtils.showToast(
-                            activity,
+                            this@ProfileActivity,
                             jsonObject.getString("message") + "",
                             false
                         )
@@ -596,7 +558,7 @@ class ProfileSliderFragment : Fragment() {
                 t: Throwable
             ) {
 //                showProgressBar(false)
-                Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
+                Utility.showProgressBar(this@ProfileActivity, progressBar, false)
                 Log.d(
                     Constraints.TAG,
                     "onFailure: " + t.message

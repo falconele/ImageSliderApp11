@@ -27,7 +27,15 @@ class ErrorCheckingUtils {
         fun phoneNumberVerification(str: String): Boolean {
             if (checkEmpty(str, context.resources.getString(R.string.empty_cellno))) {
                 if (str.length == 10) {
-                    return true
+                    if (str[0].equals('3', true)) {
+                        return true
+                    } else {
+                        showToast(
+                            context!!,
+                            resources.getString(R.string.cell_number_start_error), false
+                        )
+                        return false
+                    }
                 } else {
                     showToast(
                         context!!,
@@ -40,6 +48,22 @@ class ErrorCheckingUtils {
             return false
         }
 
+
+        fun codeVerification(str:String):Boolean {
+            if (checkEmpty(str, context.resources.getString(R.string.empty_verificationCode))) {
+                if (str.length==4) {
+                    return true
+                } else {
+                    showToast(
+                        context!!,
+                        resources.getString(R.string.verification_code_error), false
+                    )
+                }
+
+            }
+
+            return false
+        }
 
         fun checkEmpty(str: String, errorMsg: String): Boolean {
             if (str != null && str.replace(" ", "").replace("\n", "").length > 0) {

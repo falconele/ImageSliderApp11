@@ -57,196 +57,219 @@
         android:layout_height="match_parent"
         android:scrollbars="none">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <LinearLayout
-
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:orientation="vertical">
 
-                android:orientation="horizontal">
+                <LinearLayout
 
-                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:orientation="horizontal"
+
+                    android:visibility="gone">
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/radMr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/_6sdp"
+                            android:text="@string/mr"
+                            android:textSize="@dimen/_13sdp" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/radMrs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:paddingLeft="@dimen/_5sdp"
+                            android:text="@string/mrs"
+                            android:textSize="@dimen/_13sdp" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/radMis"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:paddingLeft="@dimen/_5sdp"
+                            android:text="@string/miss"
+                            android:textSize="@dimen/_13sdp" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:hint="@string/name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:hint="@string/fname">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLastName"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:text="saeweq" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/flat_house_office">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFlatHouse"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/area_colony_sector">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAreaColonySector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/city">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:text="@string/nik_name_of_address"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/radMr"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/_6sdp"
-                        android:text="@string/mr"
-                        android:textSize="@dimen/_13sdp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnHome"
+                        style="@style/customButton"
+                        android:layout_width="@dimen/_65sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/home"
+                        app:backgroundTint="@color/light_grey"
+                        app:cornerRadius="@dimen/_3sdp"
+                        app:strokeColor="@color/colorPrimary" />
 
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/radMrs"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOffice"
+                        style="@style/customButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:paddingLeft="@dimen/_5sdp"
-                        android:text="@string/mrs"
-                        android:textSize="@dimen/_13sdp" />
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:text="@string/office"
+                        app:backgroundTint="@color/light_grey"
+                        app:cornerRadius="@dimen/_3sdp"
+                        app:strokeColor="@color/colorPrimary" />
 
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:id="@+id/radMis"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:paddingLeft="@dimen/_5sdp"
-                        android:text="@string/miss"
-                        android:textSize="@dimen/_13sdp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOthers"
+                        style="@style/customButton"
+                        android:layout_width="@dimen/_85sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:text="@string/others"
+                        app:backgroundTint="@color/light_grey"
+                        app:cornerRadius="@dimen/_3sdp"
+                        app:strokeColor="@color/colorPrimary" />
+                </LinearLayout>
 
-                </RadioGroup>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSaveOrUpdate"
+                    style="@style/customButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:backgroundTint="@color/orange"
+                    android:text="@string/save"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/name">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/fname">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etLastName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/email">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/address">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAddress"
-                    android:focusable="false"
-                    android:text="saeweq"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/flat_house_office">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etFlatHouse"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/area_colony_sector">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAreaColonySector"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/city">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etCity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:text="@string/nik_name_of_address"
-                android:textSize="@dimen/_10sdp"
-                android:textStyle="bold" />
+                android:layout_centerInParent="true">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnHome"
-                    style="@style/customButton"
-                    app:backgroundTint="@color/light_grey"
-                    android:layout_width="@dimen/_65sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_alignParentBottom="true"
-                    android:text="@string/home"
-                    app:cornerRadius="@dimen/_3sdp"
-                    app:strokeColor="@color/colorPrimary" />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </RelativeLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnOffice"
-                    style="@style/customButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_40sdp"
-                   app:backgroundTint="@color/light_grey"
-                    android:layout_marginLeft="@dimen/_15sdp"
-                    android:text="@string/office"
-                    app:cornerRadius="@dimen/_3sdp"
-                    app:strokeColor="@color/colorPrimary" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnOthers"
-                    style="@style/customButton"
-                    android:layout_width="@dimen/_85sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    app:backgroundTint="@color/light_grey"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="@dimen/_15sdp"
-                    android:text="@string/others"
-                    app:cornerRadius="@dimen/_3sdp"
-                    app:strokeColor="@color/colorPrimary" />
-            </LinearLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSaveOrUpdate"
-                style="@style/customButton"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:backgroundTint="@color/orange"
-                android:text="@string/save"
-                android:textColor="@color/white" />
-        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

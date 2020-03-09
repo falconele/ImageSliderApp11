@@ -33,6 +33,9 @@ class LastMinuteBuyActivity : AppCompatActivity(), LastMinuteBuyAdaptor.ItemClic
         btnProceddCheckout.setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, MobileRegisterationActivity::class.java))
         })
+        imgBack.setOnClickListener(View.OnClickListener {
+            finish()
+        })
     }
 
     lateinit var adapter: LastMinuteBuyAdaptor
