@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 
 
 import androidx.viewpager.widget.ViewPager
-import com.elementarylogics.imagesliderapp.ProductListingFragment
+import com.elementarylogics.imagesliderapp.fragments.ProductListingFragment
 import com.elementarylogics.imagesliderapp.R
 import com.elementarylogics.imagesliderapp.activities.searchproduct.SearchProductActivity
 import kotlinx.android.synthetic.main.activity_product_listing.*

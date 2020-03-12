@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.elementarylogics.imagesliderapp.R
 import com.elementarylogics.imagesliderapp.adaptors.mycaradaptort.MyCartAdaptor
+import com.elementarylogics.imagesliderapp.utils.SharedPreference
 import com.elementarylogics.imagesliderapp.utils.Utility
 import kotlinx.android.synthetic.main.activity_my_cart.*
 
@@ -37,12 +38,37 @@ class MyCartActivity : AppCompatActivity(), MyCartAdaptor.ItemClickListner {
         })
 
         btnProceddCheckout.setOnClickListener(View.OnClickListener {
-            startActivity(Intent(this, MobileRegisterationActivity::class.java))
+
+            if(checkProfile()){
+                startActivity(Intent(this, AddressDateTimeActivity::class.java))
+            }
+
         })
         imgBack.setOnClickListener(View.OnClickListener {
             finish()
         })
     }
+
+
+    fun checkProfile(): Boolean {
+        val user = SharedPreference.getUserData(this)
+        if (user != null) {
+            if (user.is_complete_profile == 1) {
+                return true
+            } else {
+                if (user.is_register_number == 1) {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                } else {
+                    startActivity(Intent(this, MobileRegisterationActivity::class.java))
+                }
+                return false
+            }
+        } else {
+            startActivity(Intent(this, MobileRegisterationActivity::class.java))
+            return false
+        }
+    }
+
 
     lateinit var adapter: MyCartAdaptor
     private fun runAnimation(recyclerView: RecyclerView) {

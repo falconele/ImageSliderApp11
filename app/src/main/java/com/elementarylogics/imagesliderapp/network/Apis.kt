@@ -41,7 +41,7 @@ interface Apis {
         @Part("longitude") longitude: RequestBody,
         @Part("address") address: RequestBody,
         @Part("phone_number") phone_number: RequestBody,
-        @Part photo: MultipartBody.Part,
+        @Part photo: MultipartBody.Part?,
         @Part("city") city: RequestBody,
         @Part("house_flate_number") house_flate_number: RequestBody,
         @Part("area_colony") area_colony: RequestBody
@@ -51,8 +51,47 @@ interface Apis {
 
     @Headers("Accept:application/json")
     @Multipart
+    @POST("api/v1/customer/addresses/update")
+    public fun updateAddress(
+        @Header("Authorization") authHeader: String,
+
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("latitude") latitude: RequestBody,
+        @Part("longitude") longitude: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part image: MultipartBody.Part?,
+        @Part("city") city: RequestBody,
+        @Part("address_type") address_type: RequestBody,
+        @Part("house_flate_number") house_flate_number: RequestBody,
+        @Part("address_id") address_id: RequestBody?,
+        @Part("area_colony") area_colony: RequestBody
+
+    ): Call<ResponseResult<AddressModel>>
+
+    @Headers("Accept:application/json")
+    @Multipart
+    @POST("api/v1/customer/addresses/create")
+    public fun saveAddress(
+        @Header("Authorization") authHeader: String,
+        @Part("customer_id") customer_id: RequestBody?,
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("latitude") latitude: RequestBody,
+        @Part("longitude") longitude: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part image: MultipartBody.Part?,
+        @Part("city") city: RequestBody,
+        @Part("address_type") address_type: RequestBody,
+        @Part("house_flate_number") house_flate_number: RequestBody,
+        @Part("area_colony") area_colony: RequestBody
+
+    ): Call<ResponseResult<AddressModel>>
+
+    @Headers("Accept:application/json")
+    @Multipart
     @POST("api/v1/customer/deliveryAddress/update")
-    public fun saveOrUpdateAddress(
+    public fun updateDeliveryAddress(
         @Header("Authorization") authHeader: String,
         @Part("name") name: RequestBody,
         @Part("email") email: RequestBody,
@@ -63,13 +102,14 @@ interface Apis {
         @Part("city") city: RequestBody,
         @Part("address_type") address_type: RequestBody,
         @Part("house_flate_number") house_flate_number: RequestBody,
-        @Part("delivery_address_id") delivery_address_id: RequestBody,
+        @Part("delivery_address_id") delivery_address_id: RequestBody?,
         @Part("area_colony") area_colony: RequestBody
 
     ): Call<ResponseResult<AddressModel>>
 
+
     @Headers("Accept:application/json")
-    @GET("api/v1/customer/deliveryAddress/{id}")
+    @GET("api/v1/customer/addresses/{id}")
     fun getAllAddresses(
         @Header("Authorization") authHeader: String?, @Path("id") id: String?
     ): Call<ResponseListResult<AddressModel>>
@@ -94,9 +134,9 @@ interface Apis {
     //address date and time
     @Headers("Accept:application/json")
     @GET("api/v1/customer/deliveryAddress/{id}")
-    fun getAddress(
+    fun getDeliveryAddress(
         @Header("Authorization") authHeader: String?, @Path("id") id: String?
-    ): Call<ResponseListResult<AddressModel>>
+    ): Call<ResponseResult<AddressModel>>
 
 
 }

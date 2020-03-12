@@ -1,7 +1,8 @@
-package com.elementarylogics.imagesliderapp
+package com.elementarylogics.imagesliderapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.elementarylogics.imagesliderapp.R
 
 class PaymentActivity : AppCompatActivity() {
 

@@ -12,11 +12,13 @@ import androidx.core.content.ContextCompat
 import com.elementarylogics.imagesliderapp.R
 import com.elementarylogics.imagesliderapp.activities.maps.MapsActivity
 import com.elementarylogics.imagesliderapp.dataclases.AddressModel
+import com.elementarylogics.imagesliderapp.dataclases.User
 import com.elementarylogics.imagesliderapp.network.Apis
 import com.elementarylogics.imagesliderapp.network.ResponseResult
 import com.elementarylogics.imagesliderapp.network.RetrofitClient
 import com.elementarylogics.imagesliderapp.utils.ApplicationUtils
 import com.elementarylogics.imagesliderapp.utils.ErrorCheckingUtils
+import com.elementarylogics.imagesliderapp.utils.SharedPreference
 import com.elementarylogics.imagesliderapp.utils.Utility
 import com.elementarylogics.imagesliderapp.utils.Utility.Companion.addressExtra
 import com.elementarylogics.imagesliderapp.utils.Utility.Companion.isEditExtra
@@ -51,7 +53,7 @@ class AddNewAddressActivity : AppCompatActivity() {
             addressModel = intent.getSerializableExtra(addressExtra) as? AddressModel
             if (addressModel != null) {
 //                setGender(addressModel!!.gender)
-                setAddressType(addressModel!!.address_type)
+                setAddressType(addressModel?.address_type ?: "Home")
                 etName.setText(addressModel!!.name)
                 etEmail.setText(addressModel!!.email)
                 etAddress.setText(addressModel!!.address)
@@ -222,13 +224,19 @@ class AddNewAddressActivity : AppCompatActivity() {
         saveAddress()
     }
 
+
+    lateinit var user: User
+    var id = ""
+    var token = ""
     var addressModel: AddressModel? = null
 
     fun saveAddress() {
-//        var token =
-//            SharedPreference.getSharedPrefValue(activity as AppCompatActivity, Constants.USER_TOKEN)
-//        token = "Bearer $token"
 
+        user = SharedPreference.getUserData(this)
+        if (user != null) {
+            id = user.id.toString()
+            token = "Bearer " + user.code
+        }
 
         val first_name: RequestBody = RequestBody.create(
             MediaType.parse("text/plain"),
@@ -264,11 +272,19 @@ class AddNewAddressActivity : AppCompatActivity() {
             MediaType.parse("text/plain"),
             etAreaColonySector.text.toString()
         )
-
-        val delivery_address_id = RequestBody.create(
-            MediaType.parse("text/plain"),
-            addressModel!!.id.toString()
-        )
+        var delivery_address_id: RequestBody? = null
+        var customer_id: RequestBody? = null
+        if (isEdit) {
+            delivery_address_id = RequestBody.create(
+                MediaType.parse("text/plain"),
+                addressModel!!.id.toString()
+            )
+        } else {
+            customer_id = RequestBody.create(
+                MediaType.parse("text/plain"),
+                user!!.id.toString()
+            )
+        }
 
         val city = RequestBody.create(
             MediaType.parse("text/plain"),
@@ -291,25 +307,41 @@ class AddNewAddressActivity : AppCompatActivity() {
 
         Utility.showProgressBar(this, progressBar, true)
         val api: Apis = RetrofitClient.getClient()!!.create(Apis::class.java)
-        val token: String =
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
+        var call: Call<ResponseResult<AddressModel>>
+        if (isEdit) {
+            call =
+                api.updateAddress(
+                    token,
+                    first_name,
+                    email,
+                    latitude,
+                    longitude,
+                    address,
+                    imageBodyPart,
+                    city,
+                    address_type,
+                    flatHouse,
+                    delivery_address_id,
+                    areaColony
+                )
+        } else {
+            call =
+                api.saveAddress(
+                    token,
+                    customer_id,
+                    first_name,
+                    email,
+                    latitude,
+                    longitude,
+                    address,
+                    imageBodyPart,
+                    city,
+                    address_type,
+                    flatHouse,
 
-        val call: Call<ResponseResult<AddressModel>> =
-            api.saveOrUpdateAddress(
-                token,
-                first_name,
-
-                email,
-                latitude,
-                longitude,
-                address,
-                imageBodyPart,
-                city,
-                address_type,
-                flatHouse,
-                delivery_address_id,
-                areaColony
-            )
+                    areaColony
+                )
+        }
 
         call.enqueue(object : Callback<ResponseResult<AddressModel>> {
             override fun onResponse(

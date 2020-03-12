@@ -1,12 +1,12 @@
-package com.elementarylogics.imagesliderapp
+package com.elementarylogics.imagesliderapp.fragments
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.elementarylogics.imagesliderapp.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

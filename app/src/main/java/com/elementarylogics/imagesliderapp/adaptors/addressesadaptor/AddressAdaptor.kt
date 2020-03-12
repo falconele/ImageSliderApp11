@@ -16,6 +16,7 @@ class AddressAdaptor : RecyclerView.Adapter<AddressAdaptor.ViewHolder> {
     lateinit var context: Context
     lateinit var itemClickListner: ItemClickListner
 
+
     constructor(
         addressList: ArrayList<AddressModel>,
         context: Context,
@@ -26,10 +27,13 @@ class AddressAdaptor : RecyclerView.Adapter<AddressAdaptor.ViewHolder> {
         this.context = context
         this.itemClickListner = itemClickListner
 
+
+
     }
 
     interface ItemClickListner {
         fun onItemClicklistner(position: Int)
+        fun onItemSelected(position: Int)
     }
 
 
@@ -56,7 +60,7 @@ class AddressAdaptor : RecyclerView.Adapter<AddressAdaptor.ViewHolder> {
             itemClickListner.onItemClicklistner(position)
         })
         holder.cardAddress.setOnClickListener(View.OnClickListener {
-            itemClickListner.onItemClicklistner(position)
+            itemClickListner.onItemSelected(position)
         })
     }
 

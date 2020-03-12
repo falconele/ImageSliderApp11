@@ -78,7 +78,7 @@ class ErrorCheckingUtils {
 
         fun emailVerification(str: String): Boolean {
             if (checkEmpty(str, context.resources.getString(R.string.empty_email))) {
-                if (Patterns.EMAIL_ADDRESS.matcher(str).matches()) {
+                if (Patterns.EMAIL_ADDRESS.matcher(str.replace(" ","")).matches()) {
                     return true
                 } else {
                     showToast(
@@ -92,8 +92,8 @@ class ErrorCheckingUtils {
             return false
         }
 
-        fun profileVerification(file: File?): Boolean {
-            if (file != null) {
+        fun profileVerification(isprofileset:Boolean): Boolean {
+            if (isprofileset) {
                 return true
             }
             showToast(
@@ -102,6 +102,17 @@ class ErrorCheckingUtils {
             )
             return false
         }
+
+//        fun profileVerification(file: File?): Boolean {
+//            if (file != null) {
+//                return true
+//            }
+//            showToast(
+//                context!!,
+//                resources.getString(R.string.empty_profile), false
+//            )
+//            return false
+//        }
 
     }
 }

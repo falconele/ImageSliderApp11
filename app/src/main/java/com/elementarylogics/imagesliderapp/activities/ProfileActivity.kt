@@ -71,6 +71,8 @@ class ProfileActivity : AppCompatActivity() {
     var profileFile: File? = null
 
 
+    var from_main = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_profile_slider)
@@ -122,8 +124,13 @@ class ProfileActivity : AppCompatActivity() {
 
         user = SharedPreference.getUserData(applicationContext)
         if (user != null) {
-            etCellNo.setText(user.phone_number)
+            setUserDetails()
+//            etCellNo.setText(user.phone_number)
         }
+        val intent = (intent).also({
+            from_main = it.getBooleanExtra("from_main", false)
+        })
+
     }
 
 
@@ -197,6 +204,7 @@ class ProfileActivity : AppCompatActivity() {
                 }
 //                    imgProfile.setImageURI(Uri.parse(imageFilePath))
                 profileFile = PermissionsUtil.mPhotoFile
+                isProfileSet=true
                 Glide.with(ProfileActivity@ this)
                     .load(profileFile)
                     .apply(
@@ -219,6 +227,7 @@ class ProfileActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
                 profileFile = PermissionsUtil.mPhotoFile
+                isProfileSet=true
                 Glide.with(ProfileActivity@ this)
                     .load(profileFile)
                     .apply(
@@ -287,7 +296,9 @@ class ProfileActivity : AppCompatActivity() {
 
         ErrorCheckingUtils.setContextVal(this)
 
-        if (!ErrorCheckingUtils.profileVerification(profileFile)) return
+//        if (!ErrorCheckingUtils.profileVerification(profileFile)) return
+        if (!ErrorCheckingUtils.profileVerification(isProfileSet)) return
+
         if (!ErrorCheckingUtils.checkEmpty(
                 etName.text.toString(),
                 resources.getString(R.string.empty_name)
@@ -389,7 +400,7 @@ class ProfileActivity : AppCompatActivity() {
 //
 //
 //    }
-
+var isProfileSet = false
 
     fun setUserDetails() {
         if (user != null) {
@@ -397,6 +408,13 @@ class ProfileActivity : AppCompatActivity() {
             var requestOptions = RequestOptions()
             requestOptions.error(R.drawable.ic_user)
             requestOptions.placeholder(R.drawable.ic_user)
+
+            if (user.fullImagePath != null) {
+                isProfileSet = true
+            } else {
+                isProfileSet = false
+            }
+
             Glide.with(ProfileActivity@ this).setDefaultRequestOptions(requestOptions)
                 .load(user.fullImagePath)
                 .into(imgProfile)
@@ -404,6 +422,7 @@ class ProfileActivity : AppCompatActivity() {
             etName.setText(user.first_name)
             etLastName.setText(user.last_name)
             etEmail.setText(user.email)
+            etCellNo.setText(user.phone_number)
             etAddress.setText(user.address)
             lattitude = user.latitude
             longitude = user.longitude
@@ -495,7 +514,7 @@ class ProfileActivity : AppCompatActivity() {
                 longitude,
                 address,
                 phone_number,
-                imageBodyPart!!,
+                imageBodyPart,
                 city,
                 flatHouse,
                 areaColony
@@ -519,17 +538,20 @@ class ProfileActivity : AppCompatActivity() {
                                     true
                                 )
 
-                                SharedPreference.saveUserProfile(
-                                    this@ProfileActivity,
-                                    user
-                                )
-                                startActivity(
-                                    Intent(
-                                        this@ProfileActivity,
-                                        AddressDateTimeActivity::class.java
+//                                SharedPreference.saveUserProfile(
+//                                    this@ProfileActivity,
+//                                    user
+//                                )
+
+                                if (!from_main) {
+                                    startActivity(
+                                        Intent(
+                                            this@ProfileActivity,
+                                            AddressDateTimeActivity::class.java
+                                        )
                                     )
-                                )
-                                finish()
+                                    finish()
+                                }
 
                             }
                         } else {

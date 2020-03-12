@@ -13,7 +13,7 @@ import androidx.constraintlayout.widget.Constraints
 import com.elementarylogics.imagesliderapp.R
 import com.elementarylogics.imagesliderapp.dataclases.AddressModel
 import com.elementarylogics.imagesliderapp.network.Apis
-import com.elementarylogics.imagesliderapp.network.ResponseListResult
+import com.elementarylogics.imagesliderapp.network.ResponseResult
 import com.elementarylogics.imagesliderapp.network.RetrofitClient
 import com.elementarylogics.imagesliderapp.utils.ApplicationUtils
 import com.elementarylogics.imagesliderapp.utils.SharedPreference
@@ -28,16 +28,20 @@ import retrofit2.Response
 
 class AddressDateTimeActivity : AppCompatActivity() {
 
+    val REQ_EDIT_DEL = 111
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_address_date_time)
 
-
-
-
         imgEdit.setOnClickListener(View.OnClickListener {
-            startActivity(Intent(this, AddressesActivity::class.java))
+            startActivityForResult(
+                Intent(this, AddressesActivity::class.java).putExtra(
+                    "did",
+                    deliveryAddress?.id.toString() ?: "-1"
+                ), REQ_EDIT_DEL
+            )
         })
 
         relDateandTime.setOnClickListener(View.OnClickListener {
@@ -55,6 +59,9 @@ class AddressDateTimeActivity : AppCompatActivity() {
         imgTryAgain.setOnClickListener(View.OnClickListener {
             imgTryAgain.visibility = View.GONE
             getAllAddresses()
+        })
+        btnProceedToPayment.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(AddressesActivity@this,PaymentActivity::class.java))
         })
         getAllAddresses()
     }
@@ -98,32 +105,37 @@ class AddressDateTimeActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        getAllAddresses()
+    }
+
 
     var deliveryAddress: AddressModel? = null
     fun getAllAddresses() {
 
-        linAddress.visibility = View.GONE
+        linAddress.visibility = View.INVISIBLE
 
         Utility.showProgressBar(this, progressBar, true)
         val api: Apis = RetrofitClient.getClient()!!.create(Apis::class.java)
-        var id="-1"
-        val user=SharedPreference.getUserData(applicationContext)
-        if (user !=null){
-            id=user.id.toString()
+        var id = "-1"
+        var token: String = ""
+        val user = SharedPreference.getUserData(applicationContext)
+        if (user != null) {
+            id = user.id.toString()
+            token = "Bearer " + user.code
         }
-        Toast.makeText(applicationContext,user.id.toString(),Toast.LENGTH_SHORT).show()
-        val token: String =
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
-        val call: Call<ResponseListResult<AddressModel>> =
-            api.getAddress(
+        Toast.makeText(applicationContext, user.id.toString(), Toast.LENGTH_SHORT).show()
+        val call: Call<ResponseResult<AddressModel>> =
+            api.getDeliveryAddress(
                 token,
                 id
             )
 
-        call.enqueue(object : Callback<ResponseListResult<AddressModel>> {
+        call.enqueue(object : Callback<ResponseResult<AddressModel>> {
             override fun onResponse(
-                call: Call<ResponseListResult<AddressModel>>,
-                response: Response<ResponseListResult<AddressModel>>
+                call: Call<ResponseResult<AddressModel>>,
+                response: Response<ResponseResult<AddressModel>>
             ) {
                 Utility.showProgressBar(this@AddressDateTimeActivity, progressBar, false)
                 try {
@@ -131,13 +143,13 @@ class AddressDateTimeActivity : AppCompatActivity() {
                         if (response.body().getStatus()!!) {
                             if (response.body().getData() != null) {
 
-                                ApplicationUtils.showToast(
-                                    this@AddressDateTimeActivity,
-                                    response.body().getMessage(),
-                                    true
-                                )
+//                                ApplicationUtils.showToast(
+//                                    this@AddressDateTimeActivity,
+//                                    response.body().getMessage(),
+//                                    true
+//                                )
                                 val deliverAddressList = response.body().getData()!!
-                                deliveryAddress = deliverAddressList.get(0)
+                                deliveryAddress = deliverAddressList
                                 setAddressDetail()
 
                             } else {
@@ -173,7 +185,7 @@ class AddressDateTimeActivity : AppCompatActivity() {
             }
 
             override fun onFailure(
-                call: Call<ResponseListResult<AddressModel>>,
+                call: Call<ResponseResult<AddressModel>>,
                 t: Throwable
             ) {
 //                showProgressBar(false)
@@ -193,7 +205,7 @@ class AddressDateTimeActivity : AppCompatActivity() {
         if (deliveryAddress != null) {
 
             linAddress.visibility = View.VISIBLE
-            btnNext.visibility = View.VISIBLE
+            btnProceedToPayment.visibility = View.VISIBLE
 
 
             tvAddressType.setText(deliveryAddress!!.address_type)
@@ -208,7 +220,7 @@ class AddressDateTimeActivity : AppCompatActivity() {
     fun disableAddress() {
         linAddress.visibility = View.INVISIBLE
         imgTryAgain.visibility = View.VISIBLE
-        btnNext.visibility = View.INVISIBLE
+        btnProceedToPayment.visibility = View.INVISIBLE
     }
 
 }

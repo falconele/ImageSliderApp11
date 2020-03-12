@@ -1,4 +1,4 @@
-package com.elementarylogics.imagesliderapp.profile
+package com.elementarylogics.imagesliderapp.fragments.profile
 
 
 import android.Manifest
@@ -149,7 +149,7 @@ class ProfileSliderFragment : Fragment() {
         btnSaveOrUpdate.setOnClickListener(View.OnClickListener {
             validateData()
         })
-
+        getData()
         return views
     }
 
@@ -246,6 +246,7 @@ class ProfileSliderFragment : Fragment() {
             Toast.makeText(context, "Image Picked", Toast.LENGTH_SHORT).show()
             if (clicked == 1) {
                 try {
+                    isProfileSet=true
                     mPhotoFile = File(imageFilePath)
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -273,6 +274,7 @@ class ProfileSliderFragment : Fragment() {
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
+                isProfileSet=true
                 profileFile = mPhotoFile
                 Glide.with(activity!!)
                     .load(profileFile)
@@ -342,7 +344,10 @@ class ProfileSliderFragment : Fragment() {
 
         ErrorCheckingUtils.setContextVal(activity as AppCompatActivity)
 
-        if (!ErrorCheckingUtils.profileVerification(profileFile)) return
+//        if (!ErrorCheckingUtils.profileVerification(profileFile)) return
+
+        if (!ErrorCheckingUtils.profileVerification(isProfileSet)) return
+
         if (!ErrorCheckingUtils.checkEmpty(
                 etName.text.toString(),
                 resources.getString(R.string.empty_name)
@@ -384,16 +389,21 @@ class ProfileSliderFragment : Fragment() {
     }
 
     lateinit var user: User
+    var id = ""
+    var token = ""
     fun getData() {
 
+        user = SharedPreference.getUserData(activity)
+        if (user != null) {
+            id = user.id.toString()
+            token = "Bearer " + user.code
+        }
 
         Utility.showProgressBar(activity as AppCompatActivity, progressBar, true)
         val api: Apis = RetrofitClient.getClient()!!.create(Apis::class.java)
-        val token: String =
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
 
         val call: Call<ResponseResult<User>> =
-            api.getUser(token, "1")
+            api.getUser(token, id)
 
         call.enqueue(object : Callback<ResponseResult<User>> {
             override fun onResponse(
@@ -445,6 +455,7 @@ class ProfileSliderFragment : Fragment() {
 
     }
 
+    var isProfileSet = false
 
     fun setUserDetails() {
         if (user != null) {
@@ -452,9 +463,14 @@ class ProfileSliderFragment : Fragment() {
             var requestOptions = RequestOptions()
             requestOptions.error(R.drawable.ic_user)
             requestOptions.placeholder(R.drawable.ic_user)
-            Glide.with(activity!!).setDefaultRequestOptions(requestOptions).load(user.fullImagePath)
+            if (user.fullImagePath != null) {
+                isProfileSet = true
+            } else {
+                isProfileSet = false
+            }
+            Glide.with(activity!!).setDefaultRequestOptions(requestOptions)
+                .load(user.fullImagePath)
                 .into(imgProfile)
-
             etName.setText(user.first_name)
             etLastName.setText(user.last_name)
             cellno.setText(user.phone_number)
@@ -536,8 +552,8 @@ class ProfileSliderFragment : Fragment() {
 
         Utility.showProgressBar(activity as AppCompatActivity, progressBar, true)
         val api: Apis = RetrofitClient.getClient()!!.create(Apis::class.java)
-        val token: String =
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
+//        val token: String =
+//            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
 
         val call: Call<ResponseResult<User>> =
             api.saveOrUpdate(
@@ -550,7 +566,7 @@ class ProfileSliderFragment : Fragment() {
                 longitude,
                 address,
                 phone_number,
-                imageBodyPart!!,
+                imageBodyPart,
                 city,
                 flatHouse,
                 areaColony

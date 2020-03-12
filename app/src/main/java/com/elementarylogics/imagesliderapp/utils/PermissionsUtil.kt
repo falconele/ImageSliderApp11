@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.elementarylogics.imagesliderapp.profile.ProfileSliderFragment
+import com.elementarylogics.imagesliderapp.fragments.profile.ProfileSliderFragment
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken

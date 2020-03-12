@@ -21,22 +21,22 @@
     </fragment>
     <fragment
         android:id="@+id/offersFrag"
-        android:name="com.elementarylogics.imagesliderapp.OffersSliderFragment"
+        android:name="com.elementarylogics.imagesliderapp.fragments.OffersSliderFragment"
         tools:layout="@layout/fragment_offers_slider">
 
     </fragment>
     <fragment
         android:id="@+id/myOrdersFrag"
-        android:name="com.elementarylogics.imagesliderapp.MyOrdersSlidersFragments"
+        android:name="com.elementarylogics.imagesliderapp.fragments.MyOrdersSlidersFragments"
         tools:layout="@layout/fragment_my_orders_sliders_fragments"></fragment>
     <fragment
         android:id="@+id/profileFrag"
-        android:name="com.elementarylogics.imagesliderapp.profile.ProfileSliderFragment"
+        android:name="com.elementarylogics.imagesliderapp.fragments.profile.ProfileSliderFragment"
         tools:layout="@layout/fragment_profile_slider"></fragment>
 
     <fragment
         android:id="@+id/salesFragment"
-        android:name="com.elementarylogics.imagesliderapp.SalesFragment"
+        android:name="com.elementarylogics.imagesliderapp.fragments.SalesFragment"
         tools:layout="@layout/fragment_sales">
         <argument
             android:name="id"

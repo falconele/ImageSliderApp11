@@ -15,5 +15,7 @@ data class User(
     var status: Int,
     var house_flate_number: String,
     var area_colony: String,
-    var token: String
+    var code: String,
+    var is_complete_profile: Int,
+    var is_register_number: Int
 )

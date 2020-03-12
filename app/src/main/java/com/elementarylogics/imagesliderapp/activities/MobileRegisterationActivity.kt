@@ -75,6 +75,7 @@ class MobileRegisterationActivity : AppCompatActivity() {
 
     }
     var repeated: Int = 30
+    var from_main = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mobile_registeration)
@@ -106,7 +107,8 @@ class MobileRegisterationActivity : AppCompatActivity() {
             tvResend.isEnabled = false
             validateData()
         })
-
+        val intent = intent
+        from_main = intent.getBooleanExtra("from_main", false)
     }
 
     val textWatcher: TextWatcher = object : TextWatcher {
@@ -199,7 +201,7 @@ class MobileRegisterationActivity : AppCompatActivity() {
         Utility.showProgressBar(this, progressBar, true)
         val api: Apis = RetrofitClient.getClient()!!.create(Apis::class.java)
         val token: String =
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
+            ""
         val call: Call<ResponseResult<Register>> =
             api.registerUser(
                 token,
@@ -266,8 +268,8 @@ class MobileRegisterationActivity : AppCompatActivity() {
     fun verifyCode() {
         Utility.showProgressBar(this, progressBar, true)
         val api: Apis = RetrofitClient.getClient()!!.create(Apis::class.java)
-        val token: String =
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
+        val token: String = ""
+//            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
         val call: Call<ResponseResult<User>> =
             api.verifyCode(
                 token,
@@ -286,22 +288,21 @@ class MobileRegisterationActivity : AppCompatActivity() {
                         if (response.body().getStatus()!!) {
                             if (response.body().getData() != null) {
                                 user = response.body().getData()
-                                ApplicationUtils.showToast(
-                                    this@MobileRegisterationActivity,
-                                    response.body().getMessage(),
-                                    true
-                                )
 
                                 SharedPreference.saveUserProfile(
                                     this@MobileRegisterationActivity,
                                     user
                                 )
-
+                                ApplicationUtils.showToast(
+                                    this@MobileRegisterationActivity,
+                                    response.body().getMessage(),
+                                    true
+                                )
                                 startActivity(
                                     Intent(
                                         this@MobileRegisterationActivity,
                                         ProfileActivity::class.java
-                                    )
+                                    ).putExtra("from_main", from_main)
                                 )
                                 finish()
 

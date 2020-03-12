@@ -1,4 +1,4 @@
-package com.elementarylogics.imagesliderapp
+package com.elementarylogics.imagesliderapp.fragments
 
 import android.net.Uri
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.elementarylogics.imagesliderapp.R
 import com.google.android.material.tabs.TabLayout
 
 // TODO: Rename parameter arguments, choose names that match
@@ -58,8 +59,14 @@ class MyOrdersSlidersFragments : Fragment() {
 
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(activity!!.supportFragmentManager)
-        adapter.addFragment(MyordersListFragment(), resources.getString(R.string.processed))
-        adapter.addFragment(MyordersListFragment(), resources.getString(R.string.pending))
+        adapter.addFragment(
+            MyordersListFragment(), resources.getString(
+                R.string.processed
+            ))
+        adapter.addFragment(
+            MyPendingOrdersFragment(), resources.getString(
+                R.string.pending
+            ))
 
 //
 //        adapter.addFragment(MyOrdersSlidersFragments(), "Tutorial")
@@ -69,7 +76,7 @@ class MyOrdersSlidersFragments : Fragment() {
     }
 
     internal inner class ViewPagerAdapter(manager: FragmentManager) :
-        FragmentPagerAdapter(manager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        FragmentPagerAdapter(manager) {
         private val mFragmentList = ArrayList<Fragment>()
         private val mFragmentTitleList = ArrayList<String>()
 

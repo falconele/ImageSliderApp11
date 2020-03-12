@@ -125,4 +125,6 @@
     <!--    place order-->
     <string name="place_order_title">Place order</string>
     <string name="amount_payable">Amount payable</string>
+    <string name="include_taxes">(inc all taxes)</string>
+    <string name="add_promo_code">Add promo code and offers</string>
 </resources>
