@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="@string/my_information">
+        <menu>
+            <item
+                android:id="@+id/nav_login"
+                android:icon="@drawable/ic_user"
+                android:title="@string/login">
+
+            </item>
+            <item
+                android:id="@+id/nav_update_profile"
+                android:icon="@drawable/ic_user"
+                android:title="@string/update_profile">
+
+            </item>
+            <item
+                android:id="@+id/nav_my_addresses"
+                android:icon="@drawable/ic_user"
+                android:title="@string/my_addresses">
+
+            </item>
+            <item
+                android:id="@+id/nav_my_cart"
+                android:icon="@drawable/ic_user"
+                android:title="@string/my_cart"
+                app:actionLayout="@layout/cart_noti_layout">
+
+            </item>
+            <item
+                android:id="@+id/nav_my_orders"
+                android:icon="@drawable/ic_user"
+                android:title="@string/my_orders">
+
+            </item>
+
+            <item
+                android:id="@+id/nav_change_language"
+                android:icon="@drawable/ic_arrow"
+                android:title="@string/my_language"
+                app:actionLayout="@layout/cart_noti_layout">
+
+            </item>
+
+        </menu>
+    </item>
+
+
+    <item android:title="@string/others_nav">
+        <menu>
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_user"
+                android:title="@string/help" />
+
+            <item
+                android:id="@+id/nav_rate_us"
+                android:icon="@drawable/ic_user"
+                android:title="@string/rate_us" />
+
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_user"
+                android:title="@string/share" />
+
+            <item
+                android:id="@+id/nav_terms_conditions"
+                android:icon="@drawable/ic_user"
+                android:title="@string/terms_conditions" />
+
+            <item
+                android:id="@+id/nav_privacy_policy"
+                android:icon="@drawable/ic_user"
+                android:title="@string/privacy_policy" />
+
+            <item
+                android:id="@+id/nav_contact_us"
+                android:icon="@drawable/ic_user"
+                android:title="@string/contact_us" />
+            <item
+                android:id="@+id/nav_about_us"
+                android:icon="@drawable/ic_user"
+                android:title="@string/about_us" />
+            <item
+
+                android:id="@+id/nav_app_release"
+                android:icon="@drawable/ic_user"
+                android:title="@string/release" />
+        </menu>
+    </item>
+    <group>
+        <item
+            android:id="@+id/nav_signout"
+            android:title="@string/sign_out"
+            android:icon="@drawable/ic_user" />
+
+    </group>
+
+
+</menu>

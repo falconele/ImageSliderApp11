@@ -97,6 +97,7 @@ class MobileRegisterationActivity : AppCompatActivity() {
         })
 
         imgBack.setOnClickListener(View.OnClickListener {
+            ApplicationUtils.hideKeyboard(MainActivity@this)
             finish()
         })
         btnVerify.setOnClickListener(View.OnClickListener {
@@ -181,7 +182,7 @@ class MobileRegisterationActivity : AppCompatActivity() {
             handler.removeCallbacks(updateTime)
 
         }
-
+//        ApplicationUtils.hideKeyboard(MainActivity@this)
         super.onBackPressed()
     }
 

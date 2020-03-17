@@ -15,7 +15,8 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/padding_10sdp"
         android:paddingRight="@dimen/padding_10sdp"
-        android:paddingBottom="@dimen/_5sdp">
+        android:paddingBottom="@dimen/_5sdp"
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -116,40 +117,38 @@
                 android:orientation="vertical">
 
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_170sdp"
+                    android:layout_marginTop="@dimen/margin_5sdp"
+                    android:layout_marginBottom="@dimen/_7sdp"
+                    android:background="@color/orange">
 
-                    <RelativeLayout
-                        android:background="@color/orange"
-                        android:layout_marginBottom="@dimen/_7sdp"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_170sdp"
-                        android:layout_marginTop="@dimen/margin_5sdp">
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/pager"
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/_170sdp" />
 
-                        <androidx.viewpager.widget.ViewPager
-                            android:id="@+id/pager"
-                            android:layout_width="fill_parent"
-                            android:layout_height="@dimen/_170sdp" />
-
-                        <com.viewpagerindicator.CirclePageIndicator
-                            android:id="@+id/indicator"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:gravity="bottom"
-                            android:padding="10dip"
-                            app:centered="true"
-                            app:fillColor="#df0623"
-                            app:pageColor="#fff"
-                            app:snap="false" />
-                    </RelativeLayout>
-
+                    <com.viewpagerindicator.CirclePageIndicator
+                        android:id="@+id/indicator"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="bottom"
+                        android:padding="10dip"
+                        app:centered="true"
+                        app:fillColor="#df0623"
+                        app:pageColor="#fff"
+                        app:snap="false" />
+                </RelativeLayout>
 
 
                 <androidx.cardview.widget.CardView
 
-                    app:cardElevation="@dimen/_10sdp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:cardElevation="@dimen/_10sdp">
 
                     <LinearLayout
                         android:layout_width="match_parent"

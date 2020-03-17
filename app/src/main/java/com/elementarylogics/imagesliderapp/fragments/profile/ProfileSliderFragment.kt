@@ -39,6 +39,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_profile_slider.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -79,7 +80,7 @@ class ProfileSliderFragment : Fragment() {
     lateinit var tietAddress: TextInputLayout
     lateinit var etAddress: TextInputEditText
     lateinit var cardProfilePic: CardView
-    lateinit var imgProfile: ImageView
+    lateinit var imgProfile: CircleImageView
 
     lateinit var name: TextInputEditText
     lateinit var lastName: TextInputEditText
@@ -405,13 +406,16 @@ class ProfileSliderFragment : Fragment() {
         val call: Call<ResponseResult<User>> =
             api.getUser(token, id)
 
+
+
         call.enqueue(object : Callback<ResponseResult<User>> {
             override fun onResponse(
                 call: Call<ResponseResult<User>>,
                 response: Response<ResponseResult<User>>
             ) {
-                Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
+
                 try {
+                    Utility.showProgressBar(activity as AppCompatActivity, progressBar, false)
                     if (response.isSuccessful()) {
                         if (response.body().getStatus()!!) {
                             if (response.body().getData() != null) {
@@ -463,6 +467,8 @@ class ProfileSliderFragment : Fragment() {
             var requestOptions = RequestOptions()
             requestOptions.error(R.drawable.ic_user)
             requestOptions.placeholder(R.drawable.ic_user)
+            requestOptions.circleCrop()
+
             if (user.fullImagePath != null) {
                 isProfileSet = true
             } else {

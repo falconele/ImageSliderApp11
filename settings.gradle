@@ -1,2 +1,2 @@
-include ':app', ':meowbottomnavigation'
+include ':app', ':meowbottomnavigation', ':circleimageview'
 rootProject.name='ImageSliderApp'

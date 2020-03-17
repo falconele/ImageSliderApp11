@@ -127,4 +127,27 @@
     <string name="amount_payable">Amount payable</string>
     <string name="include_taxes">(inc all taxes)</string>
     <string name="add_promo_code">Add promo code and offers</string>
+
+    <!--    // drawer-->
+    <string name="my_information">Account details</string>
+    <string name="login">Login</string>
+    <string name="update_profile">Update profile</string>
+    <string name="my_addresses">Addresses</string>
+    <string name="my_cart">Cart</string>
+    <string name="my_orders">My Orders</string>
+    <string name="my_language">Language</string>
+
+    <string name="others_nav">Others</string>
+    <string name="help">Help</string>
+    <string name="rate_us">Rate us</string>
+    <string name="share">Share</string>
+    <string name="terms_conditions">Terms and Conditions</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="about_us">About Us</string>
+    <string name="release">App Release</string>
+    <string name="sign_out">Sign Out</string>
+
+
+    <!--    <string name="language">My cart</string>-->
 </resources>
