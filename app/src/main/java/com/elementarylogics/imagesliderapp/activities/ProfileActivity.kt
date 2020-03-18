@@ -538,10 +538,10 @@ var isProfileSet = false
                                     true
                                 )
 
-//                                SharedPreference.saveUserProfile(
-//                                    this@ProfileActivity,
-//                                    user
-//                                )
+                                SharedPreference.saveUserProfile(
+                                    this@ProfileActivity,
+                                    user
+                                )
 
                                 if (!from_main) {
                                     startActivity(

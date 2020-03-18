@@ -24,6 +24,7 @@ public class Constants {
 
     public static String language = "language";
     public static String english = "en";
+    public static String arabic = "ar";
     public static String swedish = "sv";
     public static String germany = "de";
 

@@ -3,6 +3,7 @@ package com.elementarylogics.imagesliderapp.fragments.profile
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -34,12 +35,10 @@ import com.elementarylogics.imagesliderapp.utils.ApplicationUtils.showToast
 import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.getRealPathFromUri
 import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.mPhotoFile
 import com.elementarylogics.imagesliderapp.utils.PermissionsUtil.Companion.requestStoragePermission
-
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_profile_slider.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -64,7 +63,26 @@ class ProfileSliderFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var listener: OnFragmentInteractionListener? = null
 
+    // TODO: Rename method, update argument and hook method into UI event
+    fun onButtonPressed(updated:Boolean) {
+        listener?.onFragmentInteraction(updated)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +98,7 @@ class ProfileSliderFragment : Fragment() {
     lateinit var tietAddress: TextInputLayout
     lateinit var etAddress: TextInputEditText
     lateinit var cardProfilePic: CardView
-    lateinit var imgProfile: CircleImageView
+    lateinit var imgProfile: ImageView
 
     lateinit var name: TextInputEditText
     lateinit var lastName: TextInputEditText
@@ -157,7 +175,7 @@ class ProfileSliderFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+        fun onFragmentInteraction(updated:Boolean)
     }
 
 
@@ -247,7 +265,7 @@ class ProfileSliderFragment : Fragment() {
             Toast.makeText(context, "Image Picked", Toast.LENGTH_SHORT).show()
             if (clicked == 1) {
                 try {
-                    isProfileSet=true
+                    isProfileSet = true
                     mPhotoFile = File(imageFilePath)
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -275,7 +293,7 @@ class ProfileSliderFragment : Fragment() {
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
-                isProfileSet=true
+                isProfileSet = true
                 profileFile = mPhotoFile
                 Glide.with(activity!!)
                     .load(profileFile)
@@ -588,7 +606,14 @@ class ProfileSliderFragment : Fragment() {
                     if (response.isSuccessful()) {
                         if (response.body().getStatus()!!) {
                             if (response.body().getData() != null) {
-//                                user = response.body().getData() as User
+
+                                val user = response.body().getData() as User
+                                SharedPreference.saveUserProfile(
+                                    activity,
+                                    user
+                                )
+
+                                onButtonPressed(true)
 //                                setUserDetails()
                                 showToast(activity, response.body().getMessage(), true)
                             }

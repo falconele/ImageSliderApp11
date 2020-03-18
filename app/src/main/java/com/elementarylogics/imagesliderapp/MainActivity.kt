@@ -1,7 +1,9 @@
 package com.elementarylogics.imagesliderapp
 
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,29 +11,40 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.elementarylogics.imagesliderapp.activities.AddressesActivity
 import com.elementarylogics.imagesliderapp.activities.MobileRegisterationActivity
+import com.elementarylogics.imagesliderapp.activities.MyCartActivity
 import com.elementarylogics.imagesliderapp.activities.ProfileActivity
+import com.elementarylogics.imagesliderapp.activities.searchproduct.SearchProductActivity
 import com.elementarylogics.imagesliderapp.fragments.MyOrdersSlidersFragments
 import com.elementarylogics.imagesliderapp.fragments.OffersFragment
 import com.elementarylogics.imagesliderapp.fragments.OffersSliderFragment
 import com.elementarylogics.imagesliderapp.fragments.profile.ProfileSliderFragment
-import com.elementarylogics.imagesliderapp.utils.ApplicationUtils
+import com.elementarylogics.imagesliderapp.utils.Constants
 import com.elementarylogics.imagesliderapp.utils.SharedPreference
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.internal.NavigationMenuView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+import kotlin.concurrent.schedule
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    ProfileSliderFragment.OnFragmentInteractionListener {
     //    var bottomNavigation: BottomNavigationView? = null
 
 
@@ -123,8 +136,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var nav_app_release: MenuItem
     lateinit var nav_signout: MenuItem
 
+    lateinit var imgProfile: ImageView
+    lateinit var tvName: TextView
+
+    val SEARCH_PROD_REQ_CODE = 110
+
 
     fun initializeMenuItems() {
+
         val menuFromNAv = navView.menu
         login_nav = menuFromNAv.findItem(R.id.nav_login)
         update_profile_nav = menuFromNAv.findItem(R.id.nav_update_profile)
@@ -142,9 +161,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_app_release = menuFromNAv.findItem(R.id.nav_app_release)
         nav_signout = menuFromNAv.findItem(R.id.nav_signout)
 
+        val headerView = navView.getHeaderView(0)
+
+        imgProfile = headerView.findViewById(R.id.imgProfile)
+        tvName = headerView.findViewById(R.id.tvName)
+
         initDrawerItems()
 
+        relCart.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this@MainActivity, MyCartActivity::class.java))
 
+
+        })
+
+        etSearchProduct.setOnClickListener(View.OnClickListener {
+
+            val intent = Intent(this@MainActivity, SearchProductActivity::class.java)
+            startActivityForResult(intent, SEARCH_PROD_REQ_CODE)
+
+        })
     }
 
     fun initDrawerItems() {
@@ -154,6 +189,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             nav_my_addresses.setEnabled(true)
             nav_my_orders.setEnabled(true)
             nav_signout.setEnabled(true)
+            val user = SharedPreference.getUserData(this)
+
+            var requestOptions = RequestOptions()
+            requestOptions.error(R.drawable.ic_user)
+            requestOptions.placeholder(R.drawable.ic_user)
+            requestOptions.circleCrop()
+
+            Glide.with(MainActivity@ this).setDefaultRequestOptions(requestOptions)
+                .load(user.fullImagePath)
+                .into(imgProfile)
+            tvName.setText(user.first_name)
+
 
         } else {
             login_nav.setVisible(true)
@@ -177,55 +224,68 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     // navigation drawer//
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_login -> {
-                checkProfile()
-            }
-            R.id.nav_update_profile -> {
-                Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_my_addresses -> {
-                Toast.makeText(this, "Friends clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_my_cart -> {
-                Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_change_language -> {
-                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
-            }
+        drawerLayout.closeDrawer(GravityCompat.START)
+//        Thread.sleep(500)
+        Timer("", false).schedule(300) {
+            runOnUiThread(Runnable {
+                when (item.itemId) {
+                    R.id.nav_login -> {
+                        checkProfile()
+                    }
+                    R.id.nav_update_profile -> {
+                        bottomNavigationView.selectedItemId = R.id.profileFrag
+                    }
+                    R.id.nav_my_addresses -> {
+                        startActivity(Intent(this@MainActivity, AddressesActivity::class.java).putExtra(
+                            "from_main",
+                            true
+                        ))
+                    }
+                    R.id.nav_my_cart -> {
+                        startActivity(Intent(this@MainActivity, MyCartActivity::class.java))
+                    }
+
+                    R.id.nav_my_orders -> {
+                        bottomNavigationView.selectedItemId = R.id.myOrdersFrag
+                    }
+
+                    R.id.nav_change_language -> {
+                        changeLanDialog()
+                    }
 
 
-            R.id.nav_help -> {
-                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_rate_us -> {
-                Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_share -> {
-                Toast.makeText(this, "Friends clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_terms_conditions -> {
-                Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_privacy_policy -> {
-                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
-            }
+                    R.id.nav_help -> {
+//                    Toast./makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.nav_rate_us -> {
+//                    Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.nav_share -> {
+//                    Toast.makeText(this, "Friends clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.nav_terms_conditions -> {
+//                    Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.nav_privacy_policy -> {
+//                    Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
+                    }
 
-            R.id.nav_contact_us -> {
-                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_about_us -> {
-                Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
-            }
+                    R.id.nav_contact_us -> {
+//                    Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.nav_about_us -> {
+//                    Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
+                    }
 
-            R.id.nav_signout -> {
-                Toast.makeText(this, "Log out", Toast.LENGTH_SHORT).show()
-                SharedPreference.saveUserProfile(this@MainActivity,null)
-                initializeMenuItems()
-            }
+                    R.id.nav_signout -> {
+                        logoutDialog()
+
+                    }
+
+                }
+            })
 
         }
-        drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
     //
@@ -244,6 +304,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             when (item.itemId) {
                 R.id.dashboardFrag -> {
+                    selectedFragment = dashboradSliderFragment
                     relCart.visibility = View.VISIBLE
                     relSearchProduct.visibility = View.VISIBLE
                     containerFrame.visibility = View.VISIBLE
@@ -279,6 +340,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     fun setTitle() {
+        tvTitle.setText("Amir")
         relCart.visibility = View.INVISIBLE
         relSearchProduct.visibility = View.GONE
     }
@@ -293,13 +355,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     override fun onBackPressed() {
-        if (activeFragment != dashboradSliderFragment) {
+        if (selectedFragment != dashboradSliderFragment) {
             bottomNavigationView.selectedItemId = R.id.dashboardFrag
-            supportFragmentManager.beginTransaction().hide(activeFragment)
-                .show(dashboradSliderFragment).commit();
-            activeFragment = dashboradSliderFragment
+//            supportFragmentManager.beginTransaction().hide(activeFragment)
+//                .show(dashboradSliderFragment).commit();
+//            activeFragment = dashboradSliderFragment
         } else {
-            super.onBackPressed()
+            exitDialog()
+
         }
     }
 
@@ -401,5 +464,144 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             return false
         }
     }
+
+
+    private fun logoutDialog() {
+        // Late initialize an alert dialog object
+        lateinit var dialog: AlertDialog
+
+
+        // Initialize a new instance of alert dialog builder object
+        val builder = AlertDialog.Builder(this)
+
+        // Set a title for alert dialog
+        builder.setTitle(resources.getString(R.string.are_you_sure))
+
+        // Set a message for alert dialog
+//        builder.setMessage("Are you sure to Log out?")
+
+
+        // On click listener for dialog buttons
+        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    Toast.makeText(this, "Log out", Toast.LENGTH_SHORT).show()
+                    SharedPreference.saveUserProfile(this@MainActivity, null)
+                    initializeMenuItems()
+                }
+                DialogInterface.BUTTON_NEGATIVE -> {
+                }
+
+            }
+        }
+
+
+        // Set the alert dialog positive/yes button
+        builder.setPositiveButton(resources.getString(R.string.yes), dialogClickListener)
+
+        // Set the alert dialog negative/no button
+        builder.setNegativeButton(resources.getString(R.string.no), dialogClickListener)
+
+        // Initialize the AlertDialog using builder object
+        dialog = builder.create()
+
+        // Finally, display the alert dialog
+        dialog.show()
+    }
+
+    private fun exitDialog() {
+        // Late initialize an alert dialog object
+        lateinit var dialog: AlertDialog
+
+
+        // Initialize a new instance of alert dialog builder object
+        val builder = AlertDialog.Builder(this)
+
+
+        builder.setTitle(resources.getString(R.string.exit_app))
+
+
+        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    super.onBackPressed()
+                }
+                DialogInterface.BUTTON_NEGATIVE -> {
+                }
+
+            }
+        }
+
+
+        // Set the alert dialog positive/yes button
+        builder.setPositiveButton(resources.getString(R.string.yes), dialogClickListener)
+
+        // Set the alert dialog negative/no button
+        builder.setNegativeButton(resources.getString(R.string.no), dialogClickListener)
+
+        // Initialize the AlertDialog using builder object
+        dialog = builder.create()
+        // Finally, display the alert dialog
+        dialog.show()
+    }
+
+    private fun changeLanDialog() {
+        // Late initialize an alert dialog object
+        lateinit var dialog: AlertDialog
+
+
+        // Initialize a new instance of alert dialog builder object
+        val builder = AlertDialog.Builder(this)
+
+
+        builder.setTitle(resources.getString(R.string.exit_app))
+
+
+        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    changeLanguage(Constants.english)
+                }
+                DialogInterface.BUTTON_NEGATIVE -> {
+                    changeLanguage(Constants.swedish)
+                }
+
+            }
+        }
+
+
+        // Set the alert dialog positive/yes button
+        builder.setPositiveButton(resources.getString(R.string.english), dialogClickListener)
+
+        // Set the alert dialog negative/no button
+        builder.setNegativeButton(resources.getString(R.string.swedish), dialogClickListener)
+        builder.setNeutralButton(resources.getString(R.string.cancel_dialog), dialogClickListener)
+
+        // Initialize the AlertDialog using builder object
+        dialog = builder.create()
+        // Finally, display the alert dialog
+        dialog.show()
+    }
+
+    private fun changeLanguage(language: String) {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale( locale)
+        resources.updateConfiguration(config, null)
+        SharedPreference.setAppLanguage(this@MainActivity, language)
+        val lang = SharedPreference.getAppLanguage(this@MainActivity)
+        startActivity(Intent(this@MainActivity, MainActivity::class.java))
+        finish()
+        //        finishAffinity();
+    }
+
+    override fun onFragmentInteraction(updated: Boolean) {
+        if (updated) {
+//            Toast.makeText(applicationContext, "Profile updated", Toast.LENGTH_SHORT).show()
+            initDrawerItems()
+        }
+    }
+
 
 }

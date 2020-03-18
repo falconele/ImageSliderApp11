@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_title">لوحة القيادة</string>
+    <string name="offers_title">عروض</string>
+    <string name="myorders_title">طلب</string>
+    <string name="profile_title">الملف الشخصي</string>
+
+
+
+
+    <string name="others_nav">الآخرين</string>
+    <string name="help">مساعدة</string>
+    <string name="rate_us">قيمنا</string>
+    <string name="share">شارك</string>
+    <string name="terms_conditions">الأحكام والشروط</string>
+    <string name="privacy_policy">سياسة خاصة</string>
+    <string name="contact_us">اتصل بنا</string>
+    <string name="about_us">معلومات عنا</string>
+    <string name="release">إصدار التطبيق</string>
+    <string name="sign_out">خروج</string>
+
+
+
+    <string name="english">الإنجليزية</string>
+    <string name="arabic">عربى</string>
+</resources>

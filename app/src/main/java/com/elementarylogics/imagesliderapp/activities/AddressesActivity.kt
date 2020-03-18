@@ -22,9 +22,7 @@ import com.elementarylogics.imagesliderapp.utils.SharedPreference
 import com.elementarylogics.imagesliderapp.utils.Utility
 import com.elementarylogics.imagesliderapp.utils.Utility.Companion.addressExtra
 import com.elementarylogics.imagesliderapp.utils.Utility.Companion.isEditExtra
-import kotlinx.android.synthetic.main.activity_add_new_address.*
 import kotlinx.android.synthetic.main.activity_addresses.*
-import kotlinx.android.synthetic.main.activity_addresses.progressBar
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -49,17 +47,22 @@ class AddressesActivity : AppCompatActivity(), AddressAdaptor.ItemClickListner {
     lateinit var selectedDeliverAddress: AddressModel
     override fun onItemSelected(position: Int) {
         selectedDeliverAddress = addressesList.get(position)
-        updateDeliveryAddress()
+        if (!from_main)
+            updateDeliveryAddress()
     }
 
 
-    var did:String=""
+    var did: String = ""
+    var from_main = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addresses)
+        from_main = intent.getBooleanExtra("from_main", false)
+        if (!from_main)
+            did = intent.getStringExtra("did")
 
-        did=intent.getStringExtra("did")
+
         recAddress!!.setLayoutManager(LinearLayoutManager(applicationContext))
         recAddress.addItemDecoration(
             DividerItemDecoration(

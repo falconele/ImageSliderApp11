@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_title">instrumentbräda</string>
+    <string name="offers_title">Erbjudanden</string>
+    <string name="myorders_title">Order</string>
+    <string name="profile_title">Profil</string>
+
+
+
+
+    <string name="others_nav">Övriga</string>
+    <string name="help">Hjälp</string>
+    <string name="rate_us">Gradera oss</string>
+    <string name="share">Dela med sig</string>
+    <string name="terms_conditions">Villkor</string>
+    <string name="privacy_policy">Integritetspolicy</string>
+    <string name="contact_us">Kontakta oss</string>
+    <string name="about_us">Om oss</string>
+    <string name="release">App release</string>
+    <string name="sign_out">Logga ut</string>
+
+
+
+    <string name="english">engelsk</string>
+    <string name="swedish">svenska</string>
+</resources>

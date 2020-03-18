@@ -102,6 +102,14 @@
     <string name="success">Success</string>
     <string name="error">Error</string>
 
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="are_you_sure">Are you sure to logout?</string>
+    <string name="exit_app">Exit Application?</string>
+    <string name="english">English</string>
+    <string name="swedish">Swedish</string>
+    <string name="cancel_dialog">Cancel</string>
+
     <string name="cell_number_error">Phone number length must not be less than 10</string>
     <string name="cell_number_start_error">Phone number must start with 3</string>
     <string name="empty_cellno">Phone number is required</string>

@@ -11,6 +11,7 @@
 
             </item>
             <item
+                android:visible="false"
                 android:id="@+id/nav_update_profile"
                 android:icon="@drawable/ic_user"
                 android:title="@string/update_profile">
@@ -30,6 +31,7 @@
 
             </item>
             <item
+                android:visible="false"
                 android:id="@+id/nav_my_orders"
                 android:icon="@drawable/ic_user"
                 android:title="@string/my_orders">
@@ -38,7 +40,7 @@
 
             <item
                 android:id="@+id/nav_change_language"
-                android:icon="@drawable/ic_arrow"
+                android:icon="@drawable/ic_user"
                 android:title="@string/my_language"
                 app:actionLayout="@layout/cart_noti_layout">
 
