@@ -485,7 +485,7 @@ class ProfileSliderFragment : Fragment() {
             var requestOptions = RequestOptions()
             requestOptions.error(R.drawable.ic_user)
             requestOptions.placeholder(R.drawable.ic_user)
-            requestOptions.circleCrop()
+            requestOptions.centerCrop()
 
             if (user.fullImagePath != null) {
                 isProfileSet = true

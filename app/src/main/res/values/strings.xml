@@ -155,6 +155,8 @@
     <string name="about_us">About Us</string>
     <string name="release">App Release</string>
     <string name="sign_out">Sign Out</string>
+    <string name="eng">Eng</string>
+    <string name="swed">Sv</string>
 
 
     <!--    <string name="language">My cart</string>-->

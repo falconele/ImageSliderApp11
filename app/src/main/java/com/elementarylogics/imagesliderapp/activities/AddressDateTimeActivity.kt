@@ -24,6 +24,8 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class AddressDateTimeActivity : AppCompatActivity() {
@@ -63,8 +65,13 @@ class AddressDateTimeActivity : AppCompatActivity() {
         btnProceedToPayment.setOnClickListener(View.OnClickListener {
             startActivity(Intent(AddressesActivity@this,PaymentActivity::class.java))
         })
+
+
+
+        setDates()
         getAllAddresses()
     }
+
 
 
     lateinit var imgCross: ImageView
@@ -76,11 +83,28 @@ class AddressDateTimeActivity : AppCompatActivity() {
         "feb 22, 2020  10:00 AM - 10:00 PM"
     )
 
+
+    fun setDates(){
+        val calendar=Calendar.getInstance()
+        calendar.add(Calendar.DATE,2)
+        val df=SimpleDateFormat("MMM dd, yyyy",Locale.ENGLISH)
+        val dateTime=df.format(calendar.time).toUpperCase()
+        dates[1]=dateTime+" 10:00 AM - 10:00 PM"
+        calendar.add(Calendar.DATE,1)
+
+        val dateTime1=df.format(calendar.time).toUpperCase()
+        dates[2]=dateTime1+" 10:00 AM - 10:00 PM"
+        Toast.makeText(applicationContext,dateTime,Toast.LENGTH_SHORT).show()
+    }
+
+
     fun showBottomSheetDialog() {
+
         val view = layoutInflater.inflate(R.layout.bottomsheet_date_and_time, null)
         imgCross = view.findViewById(R.id.imgCross)
         btnDone = view.findViewById(R.id.btnDone)
         dateNumberPicker = view.findViewById(R.id.dateNumberPicker)
+
         dateNumberPicker.displayedValues = dates
         dateNumberPicker.maxValue = 2
         dateNumberPicker.minValue = 0

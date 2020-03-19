@@ -1,9 +1,6 @@
 package com.elementarylogics.imagesliderapp.network
 
-import com.elementarylogics.imagesliderapp.dataclases.AddressModel
-import com.elementarylogics.imagesliderapp.dataclases.Product
-import com.elementarylogics.imagesliderapp.dataclases.Register
-import com.elementarylogics.imagesliderapp.dataclases.User
+import com.elementarylogics.imagesliderapp.dataclases.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -137,6 +134,14 @@ interface Apis {
     fun getDeliveryAddress(
         @Header("Authorization") authHeader: String?, @Path("id") id: String?
     ): Call<ResponseResult<AddressModel>>
+
+
+    //address date and time
+    @Headers("Accept:application/json")
+    @GET("api/v1/page/{id}")
+    fun getContent(
+        @Header("Authorization") authHeader: String?, @Path("id") key: String?
+    ): Call<ResponseResult<ContentPage>>
 
 
 }

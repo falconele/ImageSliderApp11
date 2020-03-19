@@ -79,7 +79,9 @@ class AddressesActivity : AppCompatActivity(), AddressAdaptor.ItemClickListner {
 
 
 //        addAddresses()
-
+        imgBack.setOnClickListener(View.OnClickListener {
+            finish()
+        })
         getAllAddresses()
 
     }

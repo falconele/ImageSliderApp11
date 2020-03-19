@@ -24,10 +24,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.elementarylogics.imagesliderapp.activities.AddressesActivity
-import com.elementarylogics.imagesliderapp.activities.MobileRegisterationActivity
-import com.elementarylogics.imagesliderapp.activities.MyCartActivity
-import com.elementarylogics.imagesliderapp.activities.ProfileActivity
+import com.elementarylogics.imagesliderapp.activities.*
 import com.elementarylogics.imagesliderapp.activities.searchproduct.SearchProductActivity
 import com.elementarylogics.imagesliderapp.fragments.MyOrdersSlidersFragments
 import com.elementarylogics.imagesliderapp.fragments.OffersFragment
@@ -135,6 +132,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var nav_about_us: MenuItem
     lateinit var nav_app_release: MenuItem
     lateinit var nav_signout: MenuItem
+    lateinit var tvLanguage:TextView
 
     lateinit var imgProfile: ImageView
     lateinit var tvName: TextView
@@ -162,6 +160,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_signout = menuFromNAv.findItem(R.id.nav_signout)
 
         val headerView = navView.getHeaderView(0)
+        val languageActionLayout=nav_language.actionView
+        tvLanguage=languageActionLayout.findViewById(R.id.tvLanguage)
+
+        tvLanguage.setText(SharedPreference.getAppLanguage(this))
+
+
 
         imgProfile = headerView.findViewById(R.id.imgProfile)
         tvName = headerView.findViewById(R.id.tvName)
@@ -236,10 +240,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         bottomNavigationView.selectedItemId = R.id.profileFrag
                     }
                     R.id.nav_my_addresses -> {
-                        startActivity(Intent(this@MainActivity, AddressesActivity::class.java).putExtra(
-                            "from_main",
-                            true
-                        ))
+                        startActivity(
+                            Intent(this@MainActivity, AddressesActivity::class.java).putExtra(
+                                "from_main",
+                                true
+                            )
+                        )
                     }
                     R.id.nav_my_cart -> {
                         startActivity(Intent(this@MainActivity, MyCartActivity::class.java))
@@ -274,7 +280,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //                    Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
                     }
                     R.id.nav_about_us -> {
-//                    Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
+                        startContentActivity("about_us", resources.getString(R.string.about_us))
                     }
 
                     R.id.nav_signout -> {
@@ -290,6 +296,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
     //
 
+    fun startContentActivity(key: String, title: String) {
+        startActivity(
+            Intent(this@MainActivity, ContentPagesActivity::class.java).putExtra(
+                "key",
+                key
+            ).putExtra("title", title)
+        )
+
+    }
 
     override fun onResume() {
         super.onResume()
@@ -560,10 +575,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val dialogClickListener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
+                    SharedPreference.setAppLanguage(this,Constants.english)
+                    tvLanguage.setText(resources.getString(R.string.eng))
                     changeLanguage(Constants.english)
+
                 }
                 DialogInterface.BUTTON_NEGATIVE -> {
+                    SharedPreference.setAppLanguage(this,Constants.swedish)
+                    tvLanguage.setText(resources.getString(R.string.swedish))
                     changeLanguage(Constants.swedish)
+
                 }
 
             }
@@ -587,7 +608,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val locale = Locale(language)
         Locale.setDefault(locale)
         val config = Configuration()
-        config.setLocale( locale)
+        config.setLocale(locale)
         resources.updateConfiguration(config, null)
         SharedPreference.setAppLanguage(this@MainActivity, language)
         val lang = SharedPreference.getAppLanguage(this@MainActivity)
