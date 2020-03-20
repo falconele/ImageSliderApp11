@@ -20,8 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ContentPagesActivity"></activity>
-        <activity android:name=".ParentActivity"></activity>
+        <activity android:name=".activities.OrderCancelActivity"></activity>
+        <activity android:name=".activities.OrderSuccessActivity"></activity>
+        <activity android:name=".activities.ContentPagesActivity" />
+        <activity android:name=".ParentActivity" />
         <activity android:name=".activities.ProfileActivity" />
         <activity android:name=".activities.PaymentActivity" />
         <activity android:name=".activities.AddNewAddressActivity" />

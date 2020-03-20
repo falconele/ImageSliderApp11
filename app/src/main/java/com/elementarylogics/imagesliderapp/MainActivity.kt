@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var nav_about_us: MenuItem
     lateinit var nav_app_release: MenuItem
     lateinit var nav_signout: MenuItem
-    lateinit var tvLanguage:TextView
+    lateinit var tvLanguage: TextView
 
     lateinit var imgProfile: ImageView
     lateinit var tvName: TextView
@@ -158,15 +158,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_about_us = menuFromNAv.findItem(R.id.nav_about_us)
         nav_app_release = menuFromNAv.findItem(R.id.nav_app_release)
         nav_signout = menuFromNAv.findItem(R.id.nav_signout)
-
         val headerView = navView.getHeaderView(0)
-        val languageActionLayout=nav_language.actionView
-        tvLanguage=languageActionLayout.findViewById(R.id.tvLanguage)
-
+        val languageActionLayout = nav_language.actionView
+        tvLanguage = languageActionLayout.findViewById(R.id.tvLanguage)
         tvLanguage.setText(SharedPreference.getAppLanguage(this))
-
-
-
         imgProfile = headerView.findViewById(R.id.imgProfile)
         tvName = headerView.findViewById(R.id.tvName)
 
@@ -267,7 +262,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //                    Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
                     }
                     R.id.nav_share -> {
-//                    Toast.makeText(this, "Friends clicked", Toast.LENGTH_SHORT).show()
+                        shareApp()
                     }
                     R.id.nav_terms_conditions -> {
 //                    Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
@@ -324,21 +319,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     relSearchProduct.visibility = View.VISIBLE
                     containerFrame.visibility = View.VISIBLE
                     mainNavigationFragment.visibility = View.INVISIBLE
-
+                    setTitles(0)
                 }
                 R.id.myOrdersFrag -> {
-                    setTitle()
+                    setTitles(2)
                     selectedFragment = MyOrdersSlidersFragments.newInstance("", "")
                     setFragments()
                 }
                 R.id.offersFrag -> {
-                    setTitle()
+                    setTitles(1)
                     selectedFragment = OffersSliderFragment.newInstance("", "")
                     setFragments()
                 }
                 R.id.profileFrag -> {
                     if (checkProfile()) {
-                        setTitle()
+                        setTitles(3)
                         selectedFragment = ProfileSliderFragment.newInstance("", "")
                         setFragments()
                     } else {
@@ -353,9 +348,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-
-    fun setTitle() {
-        tvTitle.setText("Amir")
+    val titlesOfFragments = listOf("Dashboard", "Offers", "My orders", "Profile")
+    fun setTitles(id: Int) {
+        tvTitle.setText(titlesOfFragments[id])
         relCart.visibility = View.INVISIBLE
         relSearchProduct.visibility = View.GONE
     }
@@ -575,13 +570,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val dialogClickListener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
-                    SharedPreference.setAppLanguage(this,Constants.english)
+                    SharedPreference.setAppLanguage(this, Constants.english)
                     tvLanguage.setText(resources.getString(R.string.eng))
                     changeLanguage(Constants.english)
 
                 }
                 DialogInterface.BUTTON_NEGATIVE -> {
-                    SharedPreference.setAppLanguage(this,Constants.swedish)
+                    SharedPreference.setAppLanguage(this, Constants.swedish)
                     tvLanguage.setText(resources.getString(R.string.swedish))
                     changeLanguage(Constants.swedish)
 
@@ -621,6 +616,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (updated) {
 //            Toast.makeText(applicationContext, "Profile updated", Toast.LENGTH_SHORT).show()
             initDrawerItems()
+        }
+    }
+
+    fun shareApp() {
+        try {
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.setType("text/plain")
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.app_name))
+            var shareMessage: String = "\nLet me recommend you this application\n\n"
+            shareMessage =
+                shareMessage + "https://play.google.com/store/apps/details?id=" + "com.muslim.prayertimes.qibla.app" + "\n\n";
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            startActivity(Intent.createChooser(shareIntent, "choose one"));
+
+
+        } catch (exc: Exception) {
         }
     }
 

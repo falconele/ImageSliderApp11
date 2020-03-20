@@ -109,6 +109,7 @@
     <string name="english">English</string>
     <string name="swedish">Swedish</string>
     <string name="cancel_dialog">Cancel</string>
+    <string name="comment">Comment</string>
 
     <string name="cell_number_error">Phone number length must not be less than 10</string>
     <string name="cell_number_start_error">Phone number must start with 3</string>
@@ -158,6 +159,18 @@
     <string name="eng">Eng</string>
     <string name="swed">Sv</string>
 
+    <!--    //orderSuccessActivity-->
 
-    <!--    <string name="language">My cart</string>-->
+    <string name="order_placed_successfully">Yay! Order Successfully Placed </string>
+    <string name="schedule_del_date_time">Schedule delivery date and time</string>
+    <string name="store_price_guarrantee">Store price guarantee</string>
+    <string name="replacement_guarantee">100 % Replacement Guarantee(Terms  &amp; Conditions) </string>
+
+<!--   cancel order-->
+    <string name="order_has_been_failed">Sorry! Your Order has been Failed</string>
+    <string name="continu_shoping">Continue Shopping</string>
+
+<!--    rating dialog-->
+    <string name="did_you_like_app">Did you like the app</string>
+    <string name="let_us_know">Let us know what you think?</string>
 </resources>
